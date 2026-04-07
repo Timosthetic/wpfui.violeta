@@ -184,9 +184,7 @@
                                     Visibility="Collapsed" />
                             </Border>
                         </Border>
-                        <ContentPresenter
-                            Grid.Column="1"
-                            VerticalAlignment="Center" />
+                        <ContentPresenter Grid.Column="1" VerticalAlignment="Center" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
@@ -355,15 +353,6 @@
                                             <Border.RenderTransform>
                                                 <TranslateTransform />
                                             </Border.RenderTransform>
-                                            <Border.Effect>
-                                                <DropShadowEffect
-                                                    BlurRadius="20"
-                                                    Direction="270"
-                                                    Opacity="0.135"
-                                                    ShadowDepth="10"
-                                                    Color="#202020" />
-                                            </Border.Effect>
-
                                             <Grid>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
