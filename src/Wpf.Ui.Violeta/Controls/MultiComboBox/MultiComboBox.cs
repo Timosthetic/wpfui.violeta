@@ -53,7 +53,7 @@ public class MultiComboBox : ComboBox
             nameof(SelectAllText),
             typeof(string),
             typeof(MultiComboBox),
-            new PropertyMetadata("Select All"));
+            new PropertyMetadata(SH.MultiComboBoxSelectAll));
 
     public static readonly DependencyProperty IsSelectAllEnabledProperty =
         DependencyProperty.Register(
@@ -120,19 +120,13 @@ public class MultiComboBox : ComboBox
     {
         base.OnApplyTemplate();
 
-        if (PART_SelectAllCheckBox != null)
-        {
-            PART_SelectAllCheckBox.Click -= OnSelectAllCheckBoxClick;
-        }
+        PART_SelectAllCheckBox?.Click -= OnSelectAllCheckBoxClick;
 
         PART_SelectAllCheckBox = GetTemplateChild(nameof(PART_SelectAllCheckBox)) as CheckBox;
         PART_ItemsPresenter = GetTemplateChild(nameof(PART_ItemsPresenter)) as ItemsPresenter;
         PART_SelectedText = GetTemplateChild(nameof(PART_SelectedText)) as TextBlock;
 
-        if (PART_SelectAllCheckBox != null)
-        {
-            PART_SelectAllCheckBox.Click += OnSelectAllCheckBoxClick;
-        }
+        PART_SelectAllCheckBox?.Click += OnSelectAllCheckBoxClick;
 
         UpdateSelectedText();
         UpdateSelectAllState();
@@ -238,8 +232,7 @@ public class MultiComboBox : ComboBox
         }
 
         SelectAllCheckState = shouldSelectAll;
-        if (PART_SelectAllCheckBox != null)
-            PART_SelectAllCheckBox.IsChecked = shouldSelectAll;
+        PART_SelectAllCheckBox?.IsChecked = shouldSelectAll;
         UpdateSelectedText();
         UpdateSelectAllState();
     }
@@ -281,8 +274,7 @@ public class MultiComboBox : ComboBox
         try
         {
             SelectAllCheckState = newState;
-            if (PART_SelectAllCheckBox != null)
-                PART_SelectAllCheckBox.IsChecked = newState;
+            PART_SelectAllCheckBox?.IsChecked = newState;
         }
         finally
         {
