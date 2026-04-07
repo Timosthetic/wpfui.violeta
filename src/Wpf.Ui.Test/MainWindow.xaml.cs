@@ -55,10 +55,10 @@ public partial class MainWindow : ShellWindow
     }
 
     [ObservableProperty]
-    private int themeIndex = (int)ApplicationTheme.Dark; // Default Dark forever
+    public partial int ThemeIndex { get; set; } = (int)ApplicationTheme.Dark;
 
     [ObservableProperty]
-    private string multiComboBoxSelectedText = "Selected: (none)";
+    public partial string MultiComboBoxSelectedText { get; set; } = "Selected: (none)";
 
     partial void OnThemeIndexChanged(int value)
     {
@@ -300,13 +300,13 @@ public partial class MainWindow : ShellWindow
     }
 
     [ObservableProperty]
-    private RegistryModel treeRegistryModel = new();
+    public partial RegistryModel TreeRegistryModel { get; set; } = new();
 
     [ObservableProperty]
-    private FileModel treeFileModel = new();
+    public partial FileModel TreeFileModel { get; set; } = new();
 
     [ObservableProperty]
-    private TreeModelCollection<TreeTestModel> treeTestModel = CreateTestModel();
+    public partial TreeModelCollection<TreeTestModel> TreeTestModel { get; set; } = CreateTestModel();
 
     [RelayCommand]
     private void AddTreeTestModel()
@@ -438,14 +438,14 @@ public partial class MainWindow : ShellWindow
     }
 
     [ObservableProperty]
-    private ObservableCollection<Staff> staffList = [];
+    public partial ObservableCollection<Staff> StaffList { get; set; } = [];
 
     [ObservableProperty]
-    private Staff selectedStaffItem = null!;
+    public partial Staff SelectedStaffItem { get; set; } = null!;
 
     private void InitNode1Value()
     {
-        Staff staff = new Staff()
+        Staff staff = new()
         {
             Name = "Alice",
             Age = 30,
@@ -454,7 +454,7 @@ public partial class MainWindow : ShellWindow
             IsExpanded = true,
             Path = @"C:\Program Files\nodejs\",
         };
-        Staff staff2 = new Staff()
+        Staff staff2 = new()
         {
             Name = "Alice1",
             Age = 21,
@@ -463,7 +463,7 @@ public partial class MainWindow : ShellWindow
             IsExpanded = true,
             Path = @"C:\Program Files\nodejs\node.exe",
         };
-        Staff staff3 = new Staff()
+        Staff staff3 = new()
         {
             Name = "Alice11",
             Age = 21,
@@ -471,6 +471,7 @@ public partial class MainWindow : ShellWindow
             Duty = "Normal",
             Path = @"D:\UI_MonsterSmallIcon_Eremite_Male_Standard_Crossbow.png",
         };
+
         staff2.StaffList.Add(staff3);
         staff3 = new Staff()
         {
@@ -665,16 +666,16 @@ public partial class MainWindow : ShellWindow
     }
 
     [ObservableProperty]
-    private bool isOpenOfLeftDrawer = false;
+    public partial bool IsOpenOfLeftDrawer { get; set; } = false;
 
     [ObservableProperty]
-    private bool isOpenOfTopDrawer = false;
+    public partial bool IsOpenOfTopDrawer { get; set; } = false;
 
     [ObservableProperty]
-    private bool isOpenOfRightDrawer = false;
+    public partial bool IsOpenOfRightDrawer { get; set; } = false;
 
     [ObservableProperty]
-    private bool isOpenOfBottomDrawer = false;
+    public partial bool IsOpenOfBottomDrawer { get; set; } = false;
 
     [RelayCommand]
     private void ShowDrawer(string placementString)
@@ -812,46 +813,46 @@ public struct RegValue
 public partial class TreeTestModel : TreeModelObject<TreeTestModel>
 {
     [ObservableProperty]
-    private string? column1;
+    public partial string? Column1 { get; set; }
 
     [ObservableProperty]
-    private string? column2;
+    public partial string? Column2 { get; set; }
 
     [ObservableProperty]
-    private string? column3;
+    public partial string? Column3 { get; set; }
 
     [ObservableProperty]
-    private bool isChecked = false;
+    public partial bool IsChecked { get; set; } = false;
 }
 
 public partial class Staff : ObservableObject
 {
     [ObservableProperty]
-    private string name = null!;
+    public partial string Name { get; set; } = null!;
 
     [ObservableProperty]
-    private int age;
+    public partial int Age { get; set; }
 
     [ObservableProperty]
-    private string sex = null!;
+    public partial string Sex { get; set; } = null!;
 
     [ObservableProperty]
-    private string duty = null!;
+    public partial string Duty { get; set; } = null!;
 
     [ObservableProperty]
-    private bool isChecked = true;
+    public partial bool IsChecked { get; set; } = true;
 
     [ObservableProperty]
-    private bool isSelected = false;
+    public partial bool IsSelected { get; set; } = false;
 
     [ObservableProperty]
-    private bool isExpanded = false;
+    public partial bool IsExpanded { get; set; } = false;
 
     [ObservableProperty]
-    private string path = null!;
+    public partial string Path { get; set; } = null!;
 
     [ObservableProperty]
-    private ObservableCollection<Staff> staffList = [];
+    public partial ObservableCollection<Staff> StaffList { get; set; } = [];
 
     [RelayCommand]
     private void OnClick()
