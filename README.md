@@ -183,6 +183,48 @@ Similar to WPF UI.
       </Grid>
   </StackPanel>
   ```
+
+- **MultiComboBox**
+
+  > `MultiComboBox` supports multi-select with built-in select-all and exposes selected values through `MultiSelectedItems`.
+
+  ```xaml
+  <StackPanel Orientation="Horizontal">
+      <vio:MultiComboBox
+          Width="240"
+          MaxDropDownHeight="300"
+          PlaceholderText="Please select...">
+          <vio:MultiComboBoxItem Content="Option A" />
+          <vio:MultiComboBoxItem Content="Option B" />
+          <vio:MultiComboBoxItem Content="Option C" />
+      </vio:MultiComboBox>
+
+      <vio:MultiComboBox
+          x:Name="MultiComboBoxDemo"
+          Width="240"
+          Margin="16,0,0,0"
+          MaxDropDownHeight="300"
+          PlaceholderText="Binding demo (ItemsSource)" />
+  </StackPanel>
+  ```
+
+  ```c#
+  MultiComboBoxDemo.ItemsSource = new[] { "Apple", "Banana", "Cherry", "Durian", "Elderberry" };
+
+  MultiComboBoxDemo.MultiSelectedItems.CollectionChanged += (_, _) =>
+  {
+      string selectedText = MultiComboBoxDemo.MultiSelectedItems.Count == 0
+          ? "Selected: (none)"
+          : "Selected: " + string.Join(", ", MultiComboBoxDemo.MultiSelectedItems);
+  };
+  ```
+
+  `MultiComboBox` common properties:
+  `PlaceholderText` placeholder text when no item is selected.
+  `Separator` text separator used in selected display.
+  `SelectAllText` label of the select-all row.
+  `IsSelectAllEnabled` whether to show the select-all row.
+  `MultiSelectedItems` current selected items collection.
   
 - **Splash**
 

@@ -48,7 +48,7 @@ public class MultiComboBoxItem : ComboBoxItem
 
     protected override void OnPreviewMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs e)
     {
-        // 切换勾选状态，不关闭下拉框
+        // Toggle the checked state without closing the drop-down box
         IsItemChecked = !IsItemChecked;
         e.Handled = true;
     }
