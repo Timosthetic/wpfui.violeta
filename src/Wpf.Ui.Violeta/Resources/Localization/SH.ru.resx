@@ -156,4 +156,7 @@
   <data name="MultiComboBoxSelectAll" xml:space="preserve">
     <value>Выбрать все</value>
   </data>
+  <data name="MultiComboBoxAllSelected" xml:space="preserve">
+    <value>Все</value>
+  </data>
 </root>

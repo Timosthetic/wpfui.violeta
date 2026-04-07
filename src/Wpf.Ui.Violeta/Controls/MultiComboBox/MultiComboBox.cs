@@ -62,6 +62,20 @@ public class MultiComboBox : ComboBox
             typeof(MultiComboBox),
             new PropertyMetadata(true));
 
+    public static readonly DependencyProperty ShowAllSelectedTextProperty =
+        DependencyProperty.Register(
+            nameof(ShowAllSelectedText),
+            typeof(bool),
+            typeof(MultiComboBox),
+            new PropertyMetadata(true));
+
+    public static readonly DependencyProperty AllSelectedTextProperty =
+        DependencyProperty.Register(
+            nameof(AllSelectedText),
+            typeof(string),
+            typeof(MultiComboBox),
+            new PropertyMetadata(null));
+
     public ObservableCollection<object> MultiSelectedItems
     {
         get => (ObservableCollection<object>)GetValue(MultiSelectedItemsProperty);
@@ -98,6 +112,19 @@ public class MultiComboBox : ComboBox
         set => SetValue(IsSelectAllEnabledProperty, value);
     }
 
+    public bool ShowAllSelectedText
+
+    {
+        get => (bool)GetValue(ShowAllSelectedTextProperty);
+        set => SetValue(ShowAllSelectedTextProperty, value);
+    }
+
+    public string? AllSelectedText
+    {
+        get => (string?)GetValue(AllSelectedTextProperty);
+        set => SetValue(AllSelectedTextProperty, value);
+    }
+
     static MultiComboBox()
     {
         DefaultStyleKeyProperty.OverrideMetadata(
@@ -113,6 +140,10 @@ public class MultiComboBox : ComboBox
         if (ReadLocalValue(SelectAllTextProperty) == DependencyProperty.UnsetValue)
         {
             SetCurrentValue(SelectAllTextProperty, SH.MultiComboBoxSelectAll);
+        }
+        if (ReadLocalValue(AllSelectedTextProperty) == DependencyProperty.UnsetValue)
+        {
+            SetCurrentValue(AllSelectedTextProperty, SH.MultiComboBoxAllSelected);
         }
     }
 
@@ -290,6 +321,12 @@ public class MultiComboBox : ComboBox
         if (MultiSelectedItems.Count == 0)
         {
             PART_SelectedText.Text = PlaceholderText;
+            return;
+        }
+
+        if (ShowAllSelectedText && Items.Count > 0 && MultiSelectedItems.Count == Items.Count)
+        {
+            PART_SelectedText.Text = AllSelectedText ?? SH.MultiComboBoxAllSelected;
             return;
         }
 

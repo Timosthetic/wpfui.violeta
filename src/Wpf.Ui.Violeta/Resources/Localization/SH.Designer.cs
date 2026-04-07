@@ -170,6 +170,15 @@ namespace Wpf.Ui.Violeta.Resources.Localization {
                 return ResourceManager.GetString("MultiComboBoxSelectAll", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        internal static string MultiComboBoxAllSelected {
+            get {
+                return ResourceManager.GetString("MultiComboBoxAllSelected", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Loading.
