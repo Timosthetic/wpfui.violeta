@@ -11,6 +11,7 @@
     <Thickness x:Key="MultiComboBoxAccentBorderThemeThickness">0,0,0,2</Thickness>
     <Thickness x:Key="MultiComboBoxChevronMargin">8,0,10,0</Thickness>
     <Thickness x:Key="MultiComboBoxItemMargin">6,4,6,0</Thickness>
+    <Thickness x:Key="MultiComboBoxSelectAllItemMargin">6,4,6,4</Thickness>
     <Thickness x:Key="MultiComboBoxItemContentMargin">10,8,8,8</Thickness>
     <system:Double x:Key="MultiComboBoxChevronSize">11.0</system:Double>
     <system:Double x:Key="MultiComboBoxPopupMinHeight">32.0</system:Double>
@@ -364,7 +365,7 @@
                                                 <Border
                                                     x:Name="SelectAllBorder"
                                                     Grid.Row="0"
-                                                    Margin="{StaticResource MultiComboBoxItemMargin}"
+                                                    Margin="{StaticResource MultiComboBoxSelectAllItemMargin}"
                                                     CornerRadius="{DynamicResource ControlCornerRadius}"
                                                     SnapsToDevicePixels="True">
                                                     <Border.Style>
