@@ -35,7 +35,10 @@ public partial class MainWindow : ShellWindow
 
         InitNode1Value();
         InitMultiComboBoxDemo();
-        InitCascadingComboBoxDemo();
+        InitCascadingComboBoxDemoLevel1();
+        InitCascadingComboBoxDemoLevel3();
+        InitCascadingComboBoxDemoLevel2();
+        InitCascadingComboBoxDemoLevel4();
 
         Dispatcher.BeginInvoke(async () =>
         {
@@ -62,24 +65,84 @@ public partial class MainWindow : ShellWindow
     public partial string MultiComboBoxSelectedText { get; set; } = "Selected: (none)";
 
     [ObservableProperty]
-    public partial ObservableCollection<ICascadingItem> CascadingComboBoxDemoItems { get; set; } = [];
+    public partial ObservableCollection<ICascadingItem> CascadingComboBoxDemoItems_Level1 { get; set; } = [];
 
     [ObservableProperty]
-    public partial ICascadingItem? CascadingComboBoxSelectedValue { get; set; }
+    public partial ICascadingItem? CascadingComboBoxSelectedValue_Level1 { get; set; }
 
     [ObservableProperty]
-    public partial string CascadingComboBoxSelectedText { get; set; } = "Selected: (none)";
+    public partial string CascadingComboBoxSelectedText_Level1 { get; set; } = "Selected: (none)";
 
-    partial void OnCascadingComboBoxSelectedValueChanged(ICascadingItem? value)
+    [ObservableProperty]
+    public partial ObservableCollection<ICascadingItem> CascadingComboBoxDemoItems_Level3 { get; set; } = [];
+
+    [ObservableProperty]
+    public partial ICascadingItem? CascadingComboBoxSelectedValue_Level3 { get; set; }
+
+    [ObservableProperty]
+    public partial string CascadingComboBoxSelectedText_Level3 { get; set; } = "Selected: (none)";
+
+    [ObservableProperty]
+    public partial ObservableCollection<ICascadingItem> CascadingComboBoxDemoItems_Level2 { get; set; } = [];
+
+    [ObservableProperty]
+    public partial ICascadingItem? CascadingComboBoxSelectedValue_Level2 { get; set; }
+
+    [ObservableProperty]
+    public partial string CascadingComboBoxSelectedText_Level2 { get; set; } = "Selected: (none)";
+
+    [ObservableProperty]
+    public partial ObservableCollection<ICascadingItem> CascadingComboBoxDemoItems_Level4 { get; set; } = [];
+
+    [ObservableProperty]
+    public partial ICascadingItem? CascadingComboBoxSelectedValue_Level4 { get; set; }
+
+    [ObservableProperty]
+    public partial string CascadingComboBoxSelectedText_Level4 { get; set; } = "Selected: (none)";
+
+    partial void OnCascadingComboBoxSelectedValue_Level3Changed(ICascadingItem? value)
     {
-        CascadingComboBoxSelectedText = value is null
+        CascadingComboBoxSelectedText_Level3 = value is null
             ? "Selected: (none)"
             : $"Selected: {value.Label}";
     }
 
-    private void InitCascadingComboBoxDemo()
+    partial void OnCascadingComboBoxSelectedValue_Level1Changed(ICascadingItem? value)
     {
-        CascadingComboBoxDemoItems =
+        CascadingComboBoxSelectedText_Level1 = value is null
+            ? "Selected: (none)"
+            : $"Selected: {value.Label}";
+    }
+
+    partial void OnCascadingComboBoxSelectedValue_Level2Changed(ICascadingItem? value)
+    {
+        CascadingComboBoxSelectedText_Level2 = value is null
+            ? "Selected: (none)"
+            : $"Selected: {value.Label}";
+    }
+
+    partial void OnCascadingComboBoxSelectedValue_Level4Changed(ICascadingItem? value)
+    {
+        CascadingComboBoxSelectedText_Level4 = value is null
+            ? "Selected: (none)"
+            : $"Selected: {value.Label}";
+    }
+
+    private void InitCascadingComboBoxDemoLevel1()
+    {
+        CascadingComboBoxDemoItems_Level1 =
+        [
+            new CascadingItem("Option A"),
+            new CascadingItem("Option B"),
+            new CascadingItem("Option C"),
+            new CascadingItem("Option D"),
+            new CascadingItem("Option E"),
+        ];
+    }
+
+    private void InitCascadingComboBoxDemoLevel3()
+    {
+        CascadingComboBoxDemoItems_Level3 =
         [
             new CascadingItem("Food",
             [
@@ -107,6 +170,110 @@ public partial class MainWindow : ShellWindow
                 [
                     new CascadingItem("Water"),
                     new CascadingItem("Juice"),
+                ]),
+            ]),
+        ];
+    }
+
+    private void InitCascadingComboBoxDemoLevel2()
+    {
+        CascadingComboBoxDemoItems_Level2 =
+        [
+            new CascadingItem("Electronics",
+            [
+                new CascadingItem("Phone"),
+                new CascadingItem("Laptop"),
+                new CascadingItem("Tablet"),
+            ]),
+            new CascadingItem("Clothing",
+            [
+                new CascadingItem("Shirt"),
+                new CascadingItem("Pants"),
+                new CascadingItem("Jacket"),
+            ]),
+            new CascadingItem("Books",
+            [
+                new CascadingItem("Fiction"),
+                new CascadingItem("Science"),
+                new CascadingItem("History"),
+            ]),
+        ];
+    }
+
+    private void InitCascadingComboBoxDemoLevel4()
+    {
+        CascadingComboBoxDemoItems_Level4 =
+        [
+            new CascadingItem("Vehicles",
+            [
+                new CascadingItem("Cars",
+                [
+                    new CascadingItem("Sedan",
+                    [
+                        new CascadingItem("Honda Accord"),
+                        new CascadingItem("Toyota Camry"),
+                        new CascadingItem("BMW 3 Series"),
+                    ]),
+                    new CascadingItem("SUV",
+                    [
+                        new CascadingItem("Toyota RAV4"),
+                        new CascadingItem("Honda CR-V"),
+                        new CascadingItem("BMW X5"),
+                    ]),
+                    new CascadingItem("Truck",
+                    [
+                        new CascadingItem("Ford F-150"),
+                        new CascadingItem("Chevrolet Silverado"),
+                        new CascadingItem("Ram 1500"),
+                    ]),
+                ]),
+                new CascadingItem("Motorcycles",
+                [
+                    new CascadingItem("Cruiser",
+                    [
+                        new CascadingItem("Harley-Davidson"),
+                        new CascadingItem("Honda Rebel"),
+                        new CascadingItem("Yamaha V-Star"),
+                    ]),
+                    new CascadingItem("Sport",
+                    [
+                        new CascadingItem("Kawasaki Ninja"),
+                        new CascadingItem("Honda CBR"),
+                        new CascadingItem("Yamaha YZF"),
+                    ]),
+                ]),
+            ]),
+            new CascadingItem("Furniture",
+            [
+                new CascadingItem("Living Room",
+                [
+                    new CascadingItem("Sofa",
+                    [
+                        new CascadingItem("2-Seater"),
+                        new CascadingItem("3-Seater"),
+                        new CascadingItem("L-Shape"),
+                    ]),
+                    new CascadingItem("Coffee Table",
+                    [
+                        new CascadingItem("Wood"),
+                        new CascadingItem("Glass"),
+                        new CascadingItem("Metal"),
+                    ]),
+                ]),
+                new CascadingItem("Bedroom",
+                [
+                    new CascadingItem("Bed",
+                    [
+                        new CascadingItem("Single"),
+                        new CascadingItem("Double"),
+                        new CascadingItem("Queen"),
+                    ]),
+                    new CascadingItem("Wardrobe",
+                    [
+                        new CascadingItem("2-Door"),
+                        new CascadingItem("3-Door"),
+                        new CascadingItem("4-Door"),
+                    ]),
                 ]),
             ]),
         ];
