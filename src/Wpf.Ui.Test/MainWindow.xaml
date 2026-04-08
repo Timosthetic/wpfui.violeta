@@ -1622,6 +1622,18 @@
                             Margin="0,8,0,0"
                             FontSize="14"
                             FontWeight="Black"
+                            Text="SecondaryComboBox" />
+                        <StackPanel>
+                            <vio:SecondaryComboBox Width="240" HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel>
+                        <!--  =============================  -->
+                        <TextBlock
+                            MinWidth="120"
+                            Margin="0,8,0,0"
+                            FontSize="14"
+                            FontWeight="Black"
                             Text="Next ..." />
                         <StackPanel>
                             <!--  ...  -->
