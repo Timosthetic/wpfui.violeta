@@ -5,8 +5,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Wpf.Ui.Violeta.Controls;
 
@@ -34,14 +32,11 @@ public class SecondaryComboBox : Control
 
     static SecondaryComboBox()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(
-            typeof(SecondaryComboBox),
-            new FrameworkPropertyMetadata(typeof(SecondaryComboBox)));
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(SecondaryComboBox), new FrameworkPropertyMetadata(typeof(SecondaryComboBox)));
     }
 
     public SecondaryComboBox()
     {
-        Unloaded += (_, _) => RemoveWindowMouseWheelHandler();
     }
 
     public List<string> Countries
@@ -120,9 +115,6 @@ public class SecondaryComboBox : Control
 
         _mainToggle?.Click -= MainToggle_Click;
 
-        _mainPopup?.Opened -= MainPopup_Opened;
-        _mainPopup?.Closed -= MainPopup_Closed;
-
         _mainToggle = GetTemplateChild(PART_MainToggle) as ToggleButton;
         _mainPopup = GetTemplateChild(PART_MainPopup) as Popup;
         _popupBorder = GetTemplateChild(PART_PopupBorder) as Border;
@@ -130,9 +122,6 @@ public class SecondaryComboBox : Control
         _domainsListView = GetTemplateChild(PART_DomainsListView) as ListView;
 
         _mainToggle?.Click += MainToggle_Click;
-
-        _mainPopup?.Opened += MainPopup_Opened;
-        _mainPopup?.Closed += MainPopup_Closed;
 
         _domainsListView?.SelectionChanged -= DomainsListView_SelectionChanged;
         _domainsListView?.SelectionChanged += DomainsListView_SelectionChanged;
@@ -145,91 +134,7 @@ public class SecondaryComboBox : Control
 
     private void DomainsListView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (_mainToggle != null && _mainToggle.IsChecked == true)
-        {
-            _mainToggle.IsChecked = false;
-        }
-    }
-
-    private void MainPopup_Opened(object? sender, EventArgs e)
-    {
-        var window = Window.GetWindow(this);
-        if (window != null)
-        {
-            window.PreviewMouseWheel -= Window_PreviewMouseWheel;
-            window.PreviewMouseWheel += Window_PreviewMouseWheel;
-        }
-    }
-
-    private void MainPopup_Closed(object? sender, EventArgs e)
-    {
-        RemoveWindowMouseWheelHandler();
-    }
-
-    private void RemoveWindowMouseWheelHandler()
-    {
-        var window = Window.GetWindow(this);
-        window?.PreviewMouseWheel -= Window_PreviewMouseWheel;
-    }
-
-    private void Window_PreviewMouseWheel(object? sender, MouseWheelEventArgs e)
-    {
-        if (_mainPopup?.IsOpen != true)
-            return;
-
-        e.Handled = true;
-
-        var sv1 = FindScrollViewer(_countriesListView);
-        var sv2 = FindScrollViewer(_domainsListView);
-
-        if (sv1 != null && sv1.IsMouseOver)
-        {
-            sv1.ScrollToVerticalOffset(sv1.VerticalOffset - e.Delta / 2.0);
-            return;
-        }
-
-        if (sv2 != null && sv2.IsMouseOver)
-        {
-            sv2.ScrollToVerticalOffset(sv2.VerticalOffset - e.Delta / 2.0);
-            return;
-        }
-    }
-
-    private void PopupBorder_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-    {
-        e.Handled = true;
-
-        var sv1 = FindScrollViewer(_countriesListView);
-        var sv2 = FindScrollViewer(_domainsListView);
-
-        if (sv1 != null && sv1.IsMouseOver)
-        {
-            sv1.ScrollToVerticalOffset(sv1.VerticalOffset - e.Delta / 2d);
-            return;
-        }
-
-        if (sv2 != null && sv2.IsMouseOver)
-        {
-            sv2.ScrollToVerticalOffset(sv2.VerticalOffset - e.Delta / 2d);
-            return;
-        }
-    }
-
-    private static ScrollViewer? FindScrollViewer(DependencyObject? parent)
-    {
-        if (parent == null) return null;
-
-        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
-        {
-            var child = VisualTreeHelper.GetChild(parent, i);
-
-            if (child is ScrollViewer sv) return sv;
-
-            var res = FindScrollViewer(child);
-            if (res != null) return res;
-        }
-
-        return null;
+        _mainPopup?.IsOpen = false;
     }
 
     // Placeholder implementations — keep simple mappings for now

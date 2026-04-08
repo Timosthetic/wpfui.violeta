@@ -2,12 +2,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Wpf.Ui.Violeta.Controls"
-    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
 
     <Thickness x:Key="SecondaryComboBoxPadding">10,8,10,8</Thickness>
-    <Thickness x:Key="SecondaryComboBoxChevronMargin">8,0,10,0</Thickness>
-    <sys:Double x:Key="SecondaryComboBoxChevronSize">11.0</sys:Double>
+    <system:Double x:Key="SecondaryComboBoxChevronSize">11.0</system:Double>
 
     <Style x:Key="DefaultSecondaryComboBoxStyle" TargetType="{x:Type local:SecondaryComboBox}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
@@ -35,6 +34,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
+                                <!--  Selected items text display  -->
                                 <Grid Grid.Column="0">
                                     <TextBlock
                                         x:Name="PART_SelectedText"
@@ -45,13 +45,15 @@
                                         TextWrapping="NoWrap" />
                                 </Grid>
 
-                                <Grid Grid.Column="1" Margin="{StaticResource SecondaryComboBoxChevronMargin}">
+                                <!--  Chevron icon  -->
+                                <Grid Grid.Column="1" Margin="0">
                                     <ui:SymbolIcon
                                         x:Name="PART_ChevronIcon"
+                                        Margin="0"
                                         VerticalAlignment="Center"
                                         FontSize="{StaticResource SecondaryComboBoxChevronSize}"
                                         Foreground="{DynamicResource ComboBoxDropDownGlyphForeground}"
-                                        RenderTransformOrigin="0.5,0.5"
+                                        RenderTransformOrigin="0.5, 0.5"
                                         Symbol="ChevronDown24">
                                         <ui:SymbolIcon.RenderTransform>
                                             <RotateTransform Angle="0" />
@@ -77,7 +79,7 @@
                             AllowsTransparency="True"
                             PlacementTarget="{Binding ElementName=ContentBorder}"
                             PopupAnimation="Slide"
-                            StaysOpen="False"
+                            StaysOpen="True"
                             VerticalOffset="1">
                             <Border
                                 x:Name="PART_PopupBorder"
