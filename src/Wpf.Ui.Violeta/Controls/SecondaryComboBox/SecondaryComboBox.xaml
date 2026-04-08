@@ -100,6 +100,7 @@
                                 x:Name="DropDownBorder"
                                 MinWidth="{Binding ActualWidth, ElementName=ContentBorder}"
                                 MinHeight="120"
+                                MaxWidth="800"
                                 Margin="0,4,0,0"
                                 Padding="4"
                                 Background="{DynamicResource ComboBoxDropDownBackground}"
@@ -111,9 +112,9 @@
                                 </Border.RenderTransform>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="90" />
                                         <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
                                     <ListView
@@ -144,6 +145,7 @@
                                         BorderThickness="0"
                                         ItemsSource="{Binding FilteredItems, RelativeSource={RelativeSource TemplatedParent}}"
                                         ScrollViewer.CanContentScroll="False"
+                                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                         ScrollViewer.VerticalScrollBarVisibility="Auto"
                                         SelectedItem="{Binding SelectedSubItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
                                         <ListView.ItemTemplate>
