@@ -7,7 +7,56 @@
 
     <Thickness x:Key="SecondaryComboBoxPadding">10,8,10,8</Thickness>
     <Thickness x:Key="SecondaryComboBoxBorderThemeThickness">1,1,1,1</Thickness>
+    <Thickness x:Key="SecondaryComboBoxItemMargin">6,4,6,0</Thickness>
+    <Thickness x:Key="SecondaryComboBoxItemPadding">10,8,10,8</Thickness>
     <system:Double x:Key="SecondaryComboBoxChevronSize">11.0</system:Double>
+
+    <Style x:Key="DefaultSecondaryComboBoxListViewItemStyle" TargetType="{x:Type ListViewItem}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="{DynamicResource ComboBoxForeground}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Margin" Value="{StaticResource SecondaryComboBoxItemMargin}" />
+        <Setter Property="Padding" Value="{StaticResource SecondaryComboBoxItemPadding}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                    <Border
+                        x:Name="ItemBorder"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{DynamicResource ControlCornerRadius}">
+                        <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Margin="{TemplateBinding Padding}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource ComboBoxItemBackgroundSelected}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource ComboBoxItemBackgroundSelected}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource ComboBoxForegroundDisabled}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DefaultSecondaryComboBoxListViewStyle" TargetType="{x:Type ListView}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource DefaultSecondaryComboBoxListViewItemStyle}" />
+    </Style>
 
     <Style x:Key="DefaultSecondaryComboBoxStyle" TargetType="{x:Type local:SecondaryComboBox}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
@@ -119,15 +168,18 @@
 
                                     <ListView
                                         x:Name="PART_GroupsListView"
-                                        Background="Transparent"
-                                        BorderThickness="0"
                                         ItemsSource="{Binding ItemsSource2, RelativeSource={RelativeSource TemplatedParent}}"
-                                        ScrollViewer.CanContentScroll="False"
-                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                        MinWidth="120"
                                         SelectedItem="{Binding SelectedGroup, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                        <ListView.Style>
+                                            <StaticResource ResourceKey="DefaultSecondaryComboBoxListViewStyle" />
+                                        </ListView.Style>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Margin="8,4" Text="{Binding Group}" />
+                                                <TextBlock
+                                                    Text="{Binding Group}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    TextWrapping="NoWrap" />
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                     </ListView>
@@ -141,16 +193,18 @@
                                     <ListView
                                         x:Name="PART_ItemsListView"
                                         Grid.Column="2"
-                                        Background="Transparent"
-                                        BorderThickness="0"
                                         ItemsSource="{Binding FilteredItems, RelativeSource={RelativeSource TemplatedParent}}"
-                                        ScrollViewer.CanContentScroll="False"
                                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                        ScrollViewer.VerticalScrollBarVisibility="Auto"
                                         SelectedItem="{Binding SelectedSubItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                        <ListView.Style>
+                                            <StaticResource ResourceKey="DefaultSecondaryComboBoxListViewStyle" />
+                                        </ListView.Style>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Margin="8,4" Text="{Binding Display, Mode=OneWay}" />
+                                                <TextBlock
+                                                    Text="{Binding Display, Mode=OneWay}"
+                                                    TextTrimming="CharacterEllipsis"
+                                                    TextWrapping="NoWrap" />
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                     </ListView>
@@ -194,6 +248,29 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger SourceName="PART_Popup" Property="Popup.AllowsTransparency" Value="False">
+                            <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled" Value="True" />
+                                <Condition Property="IsKeyboardFocusWithin" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ContentBorder" Property="Background" Value="{DynamicResource ComboBoxBackgroundFocused}" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="IsKeyboardFocusWithin" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ContentBorder" Property="Background" Value="{DynamicResource ComboBoxBackgroundPointerOver}" />
+                        </MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ContentBorder" Property="Background" Value="{DynamicResource ComboBoxBackgroundDisabled}" />
+                            <Setter TargetName="ContentBorder" Property="BorderBrush" Value="{DynamicResource ComboBoxBorderBrushDisabled}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ComboBoxForegroundDisabled}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
