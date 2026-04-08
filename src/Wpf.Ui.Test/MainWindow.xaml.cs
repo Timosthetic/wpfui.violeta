@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -82,23 +81,23 @@ public partial class MainWindow : ShellWindow
     {
         SecondaryComboBoxDemoItems =
         [
-            new DemoSecondaryGroup("Fruits",
+            new SecondaryItem("Fruits",
             [
-                new DemoSecondaryItem("Apple", "apple"),
-                new DemoSecondaryItem("Banana", "banana"),
-                new DemoSecondaryItem("Cherry", "cherry")
+                new SecondarySubItem("Apple", "apple"),
+                new SecondarySubItem("Banana", "banana"),
+                new SecondarySubItem("Cherry", "cherry")
             ]),
-            new DemoSecondaryGroup("Vegetables",
+            new SecondaryItem("Vegetables",
             [
-                new DemoSecondaryItem("Carrot", "carrot"),
-                new DemoSecondaryItem("Broccoli", "broccoli"),
-                new DemoSecondaryItem("Spinach", "spinach")
+                new SecondarySubItem("Carrot", "carrot"),
+                new SecondarySubItem("Broccoli", "broccoli"),
+                new SecondarySubItem("Spinach", "spinach")
             ]),
-            new DemoSecondaryGroup("Drinks",
+            new SecondaryItem("Drinks",
             [
-                new DemoSecondaryItem("Water", "water"),
-                new DemoSecondaryItem("Coffee", "coffee"),
-                new DemoSecondaryItem("Tea", "tea")
+                new SecondarySubItem("Water", "water"),
+                new SecondarySubItem("Coffee", "coffee"),
+                new SecondarySubItem("Tea", "tea")
             ])
         ];
     }

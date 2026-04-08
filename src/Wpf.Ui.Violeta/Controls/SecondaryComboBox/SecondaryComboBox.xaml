@@ -6,6 +6,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
 
     <Thickness x:Key="SecondaryComboBoxPadding">10,8,10,8</Thickness>
+    <Thickness x:Key="SecondaryComboBoxBorderThemeThickness">1,1,1,1</Thickness>
     <system:Double x:Key="SecondaryComboBoxChevronSize">11.0</system:Double>
 
     <Style x:Key="DefaultSecondaryComboBoxStyle" TargetType="{x:Type local:SecondaryComboBox}">
@@ -13,9 +14,17 @@
         <Setter Property="Foreground" Value="{DynamicResource ComboBoxForeground}" />
         <Setter Property="Background" Value="{DynamicResource ComboBoxBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="{StaticResource SecondaryComboBoxBorderThemeThickness}" />
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
         <Setter Property="Padding" Value="{StaticResource SecondaryComboBoxPadding}" />
-        <Setter Property="Border.CornerRadius" Value="4" />
+        <Setter Property="Border.CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+        <Setter Property="Popup.PopupAnimation" Value="Slide" />
+        <Setter Property="Popup.Placement" Value="Bottom" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
@@ -75,13 +84,16 @@
                             </Grid>
                         </Border>
 
+                        <!--  Dropdown Popup  -->
                         <Popup
                             x:Name="PART_Popup"
+                            VerticalAlignment="Center"
                             AllowsTransparency="True"
                             Focusable="False"
                             IsOpen="{TemplateBinding IsDropDownOpen}"
+                            Placement="{TemplateBinding Popup.Placement}"
                             PlacementTarget="{Binding ElementName=ContentBorder}"
-                            PopupAnimation="Slide"
+                            PopupAnimation="{TemplateBinding Popup.PopupAnimation}"
                             StaysOpen="True"
                             VerticalOffset="1">
                             <Border
@@ -93,7 +105,7 @@
                                 Background="{DynamicResource ComboBoxDropDownBackground}"
                                 BorderBrush="{DynamicResource ComboBoxDropDownBorderBrush}"
                                 BorderThickness="1"
-                                CornerRadius="8">
+                                CornerRadius="{DynamicResource PopupCornerRadius}">
                                 <Border.RenderTransform>
                                     <TranslateTransform />
                                 </Border.RenderTransform>

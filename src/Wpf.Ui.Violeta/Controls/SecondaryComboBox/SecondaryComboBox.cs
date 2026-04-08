@@ -6,45 +6,6 @@ using System.Windows.Controls;
 
 namespace Wpf.Ui.Violeta.Controls;
 
-/// <summary>
-/// Universal secondary menu data item interface
-/// </summary>
-public interface ISecondaryItem
-{
-    public string Group { get; set; }
-
-    public object? Tag { get; set; }
-
-    public IEnumerable<ISecondarySubItem> Items { get; set; }
-}
-
-public interface ISecondarySubItem
-{
-    public string Display { get; set; }
-
-    public object? Tag { get; set; }
-
-    public object? Value { get; set; }
-}
-
-public sealed class DemoSecondaryGroup(string group, IEnumerable<ISecondarySubItem> items) : ISecondaryItem
-{
-    public string Group { get; set; } = group;
-
-    public object? Tag { get; set; }
-
-    public IEnumerable<ISecondarySubItem> Items { get; set; } = items;
-}
-
-public sealed class DemoSecondaryItem(string display, object? value) : ISecondarySubItem
-{
-    public string Display { get; set; } = display;
-
-    public object? Tag { get; set; }
-
-    public object? Value { get; set; } = value;
-}
-
 [TemplatePart(Name = PART_GroupsListView, Type = typeof(ListView))]
 [TemplatePart(Name = PART_ItemsListView, Type = typeof(ListView))]
 [TemplatePart(Name = PART_SelectedText, Type = typeof(TextBlock))]
