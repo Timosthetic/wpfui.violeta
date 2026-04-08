@@ -15,6 +15,7 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Foreground" Value="{DynamicResource ComboBoxForeground}" />
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Margin" Value="{StaticResource SecondaryComboBoxItemMargin}" />
         <Setter Property="Padding" Value="{StaticResource SecondaryComboBoxItemPadding}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -26,6 +27,7 @@
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                     <Border
                         x:Name="ItemBorder"
+                        HorizontalAlignment="Stretch"
                         Background="{TemplateBinding Background}"
                         CornerRadius="{DynamicResource ControlCornerRadius}">
                         <ContentPresenter
@@ -52,6 +54,7 @@
     <Style x:Key="DefaultSecondaryComboBoxListViewStyle" TargetType="{x:Type ListView}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
@@ -163,7 +166,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
                                     <ListView
@@ -193,6 +196,7 @@
                                     <ListView
                                         x:Name="PART_ItemsListView"
                                         Grid.Column="2"
+                                        HorizontalAlignment="Stretch"
                                         ItemsSource="{Binding FilteredItems, RelativeSource={RelativeSource TemplatedParent}}"
                                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                         SelectedItem="{Binding SelectedSubItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
