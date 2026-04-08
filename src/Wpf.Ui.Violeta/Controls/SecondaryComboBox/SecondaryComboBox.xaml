@@ -46,7 +46,7 @@
 
                                 <Grid Grid.Column="1" Margin="{StaticResource SecondaryComboBoxChevronMargin}">
                                     <ui:SymbolIcon
-                                        x:Name="ChevronIcon"
+                                        x:Name="PART_ChevronIcon"
                                         VerticalAlignment="Center"
                                         FontSize="{StaticResource SecondaryComboBoxChevronSize}"
                                         Foreground="{DynamicResource ComboBoxDropDownGlyphForeground}"
@@ -59,7 +59,7 @@
                                 </Grid>
 
                                 <ToggleButton
-                                    x:Name="MainToggle"
+                                    x:Name="PART_MainToggle"
                                     Grid.Column="0"
                                     Grid.ColumnSpan="2"
                                     HorizontalAlignment="Stretch"
@@ -72,14 +72,14 @@
                         </Border>
 
                         <Popup
-                            x:Name="MainPopup"
+                            x:Name="PART_MainPopup"
                             AllowsTransparency="True"
                             PlacementTarget="{Binding ElementName=ContentBorder}"
                             PopupAnimation="Slide"
                             StaysOpen="False"
                             VerticalOffset="1">
                             <Border
-                                x:Name="PopupBorder"
+                                x:Name="PART_PopupBorder"
                                 MinWidth="{Binding ActualWidth, ElementName=ContentBorder}"
                                 MinHeight="120"
                                 Margin="0,4,0,0"
@@ -99,7 +99,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <ListView
-                                        x:Name="CountriesListView"
+                                        x:Name="PART_CountriesListView"
                                         Background="Transparent"
                                         BorderThickness="0"
                                         ItemsSource="{Binding Countries, RelativeSource={RelativeSource TemplatedParent}}"
@@ -120,7 +120,7 @@
                                         Fill="{DynamicResource ComboBoxDropDownBorderBrush}" />
 
                                     <ListView
-                                        x:Name="DomainsListView"
+                                        x:Name="PART_DomainsListView"
                                         Grid.Column="2"
                                         Background="Transparent"
                                         BorderThickness="0"
@@ -142,18 +142,18 @@
                         </Popup>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger SourceName="MainPopup" Property="Popup.IsOpen" Value="True">
+                        <Trigger SourceName="PART_MainPopup" Property="Popup.IsOpen" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Storyboard.TargetName="ChevronIcon"
+                                            Storyboard.TargetName="PART_ChevronIcon"
                                             Storyboard.TargetProperty="(ui:SymbolIcon.RenderTransform).(RotateTransform.Angle)"
                                             From="0"
                                             To="180"
                                             Duration="00:00:00.167" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="PopupBorder"
+                                            Storyboard.TargetName="PART_PopupBorder"
                                             Storyboard.TargetProperty="(Border.RenderTransform).(TranslateTransform.Y)"
                                             From="-90"
                                             To="0"
@@ -169,7 +169,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Storyboard.TargetName="ChevronIcon"
+                                            Storyboard.TargetName="PART_ChevronIcon"
                                             Storyboard.TargetProperty="(ui:SymbolIcon.RenderTransform).(RotateTransform.Angle)"
                                             From="180"
                                             To="0"

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,8 +10,22 @@ using System.Windows.Media;
 
 namespace Wpf.Ui.Violeta.Controls;
 
+[TemplatePart(Name = PART_MainToggle, Type = typeof(ToggleButton))]
+[TemplatePart(Name = PART_MainPopup, Type = typeof(Popup))]
+[TemplatePart(Name = PART_PopupBorder, Type = typeof(Border))]
+[TemplatePart(Name = PART_CountriesListView, Type = typeof(ListView))]
+[TemplatePart(Name = PART_DomainsListView, Type = typeof(ListView))]
+[TemplatePart(Name = PART_SelectedText, Type = typeof(TextBlock))]
+[SuppressMessage("Style", "IDE0052:Remove unread private members")]
 public class SecondaryComboBox : Control
 {
+    public const string PART_MainToggle = "PART_MainToggle";
+    public const string PART_MainPopup = "PART_MainPopup";
+    public const string PART_PopupBorder = "PART_PopupBorder";
+    public const string PART_CountriesListView = "PART_CountriesListView";
+    public const string PART_DomainsListView = "PART_DomainsListView";
+    public const string PART_SelectedText = "PART_SelectedText";
+
     private ToggleButton? _mainToggle;
     private Popup? _mainPopup;
     private Border? _popupBorder;
@@ -54,17 +69,17 @@ public class SecondaryComboBox : Control
 
         if (string.IsNullOrEmpty(country))
         {
-            control.FilteredDomains = new List<Tuple<string, Point>>();
+            control.FilteredDomains = [];
             return;
         }
 
-        if (TryCountryToDomains(country, out var domains))
+        if (TryCountryToDomains(country!, out var domains))
         {
-            control.FilteredDomains = domains.Select(i => new Tuple<string, Point>(i, new Point())).Reverse().ToList();
+            control.FilteredDomains = [.. domains.Select(i => new Tuple<string, Point>(i, new Point())).Reverse()];
         }
         else
         {
-            control.FilteredDomains = new List<Tuple<string, Point>>();
+            control.FilteredDomains = [];
         }
     }
 
@@ -92,7 +107,7 @@ public class SecondaryComboBox : Control
         var domain = (string?)e.NewValue;
         if (string.IsNullOrEmpty(domain)) return;
 
-        var country = GetCountryByDomain(domain);
+        var country = GetCountryByDomain(domain!);
         if (!string.IsNullOrEmpty(country) && country != control.SelectedCountry)
         {
             control.SelectedCountry = country;
@@ -103,47 +118,29 @@ public class SecondaryComboBox : Control
     {
         base.OnApplyTemplate();
 
-        if (_mainToggle != null)
-        {
-            _mainToggle.Click -= MainToggle_Click;
-        }
+        _mainToggle?.Click -= MainToggle_Click;
 
-        if (_mainPopup != null)
-        {
-            _mainPopup.Opened -= MainPopup_Opened;
-            _mainPopup.Closed -= MainPopup_Closed;
-        }
+        _mainPopup?.Opened -= MainPopup_Opened;
+        _mainPopup?.Closed -= MainPopup_Closed;
 
-        _mainToggle = GetTemplateChild("MainToggle") as ToggleButton;
-        _mainPopup = GetTemplateChild("MainPopup") as Popup;
-        _popupBorder = GetTemplateChild("PopupBorder") as Border;
-        _countriesListView = GetTemplateChild("CountriesListView") as ListView;
-        _domainsListView = GetTemplateChild("DomainsListView") as ListView;
+        _mainToggle = GetTemplateChild(PART_MainToggle) as ToggleButton;
+        _mainPopup = GetTemplateChild(PART_MainPopup) as Popup;
+        _popupBorder = GetTemplateChild(PART_PopupBorder) as Border;
+        _countriesListView = GetTemplateChild(PART_CountriesListView) as ListView;
+        _domainsListView = GetTemplateChild(PART_DomainsListView) as ListView;
 
-        if (_mainToggle != null)
-        {
-            _mainToggle.Click += MainToggle_Click;
-        }
+        _mainToggle?.Click += MainToggle_Click;
 
-        if (_mainPopup != null)
-        {
-            _mainPopup.Opened += MainPopup_Opened;
-            _mainPopup.Closed += MainPopup_Closed;
-        }
+        _mainPopup?.Opened += MainPopup_Opened;
+        _mainPopup?.Closed += MainPopup_Closed;
 
-        if (_domainsListView != null)
-        {
-            _domainsListView.SelectionChanged -= DomainsListView_SelectionChanged;
-            _domainsListView.SelectionChanged += DomainsListView_SelectionChanged;
-        }
+        _domainsListView?.SelectionChanged -= DomainsListView_SelectionChanged;
+        _domainsListView?.SelectionChanged += DomainsListView_SelectionChanged;
     }
 
     private void MainToggle_Click(object? sender, RoutedEventArgs e)
     {
-        if (_mainPopup != null)
-        {
-            _mainPopup.IsOpen = !_mainPopup.IsOpen;
-        }
+        _mainPopup?.IsOpen = !_mainPopup.IsOpen;
     }
 
     private void DomainsListView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -172,8 +169,7 @@ public class SecondaryComboBox : Control
     private void RemoveWindowMouseWheelHandler()
     {
         var window = Window.GetWindow(this);
-        if (window != null)
-            window.PreviewMouseWheel -= Window_PreviewMouseWheel;
+        window?.PreviewMouseWheel -= Window_PreviewMouseWheel;
     }
 
     private void Window_PreviewMouseWheel(object? sender, MouseWheelEventArgs e)
@@ -208,13 +204,13 @@ public class SecondaryComboBox : Control
 
         if (sv1 != null && sv1.IsMouseOver)
         {
-            sv1.ScrollToVerticalOffset(sv1.VerticalOffset - e.Delta / 2.0);
+            sv1.ScrollToVerticalOffset(sv1.VerticalOffset - e.Delta / 2d);
             return;
         }
 
         if (sv2 != null && sv2.IsMouseOver)
         {
-            sv2.ScrollToVerticalOffset(sv2.VerticalOffset - e.Delta / 2.0);
+            sv2.ScrollToVerticalOffset(sv2.VerticalOffset - e.Delta / 2d);
             return;
         }
     }
@@ -244,7 +240,7 @@ public class SecondaryComboBox : Control
 
     private static bool TryCountryToDomains(string country, out List<string> domains)
     {
-        domains = new List<string>();
+        domains = [];
         return false;
     }
 }
