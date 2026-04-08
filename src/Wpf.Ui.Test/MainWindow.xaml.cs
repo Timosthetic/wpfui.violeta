@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -35,6 +36,7 @@ public partial class MainWindow : ShellWindow
 
         InitNode1Value();
         InitMultiComboBoxDemo();
+        InitSecondaryComboBoxDemo();
 
         Dispatcher.BeginInvoke(async () =>
         {
@@ -59,6 +61,47 @@ public partial class MainWindow : ShellWindow
 
     [ObservableProperty]
     public partial string MultiComboBoxSelectedText { get; set; } = "Selected: (none)";
+
+    [ObservableProperty]
+    public partial ObservableCollection<ISecondaryItem> SecondaryComboBoxDemoItems { get; set; } = [];
+
+    [ObservableProperty]
+    public partial ISecondarySubItem? SecondaryComboBoxSelectedSubItem { get; set; }
+
+    [ObservableProperty]
+    public partial string SecondaryComboBoxSelectedText { get; set; } = "Selected: (none)";
+
+    partial void OnSecondaryComboBoxSelectedSubItemChanged(ISecondarySubItem? value)
+    {
+        SecondaryComboBoxSelectedText = value is null
+            ? "Selected: (none)"
+            : $"Selected: {value.Display}";
+    }
+
+    private void InitSecondaryComboBoxDemo()
+    {
+        SecondaryComboBoxDemoItems =
+        [
+            new DemoSecondaryGroup("Fruits",
+            [
+                new DemoSecondaryItem("Apple", "apple"),
+                new DemoSecondaryItem("Banana", "banana"),
+                new DemoSecondaryItem("Cherry", "cherry")
+            ]),
+            new DemoSecondaryGroup("Vegetables",
+            [
+                new DemoSecondaryItem("Carrot", "carrot"),
+                new DemoSecondaryItem("Broccoli", "broccoli"),
+                new DemoSecondaryItem("Spinach", "spinach")
+            ]),
+            new DemoSecondaryGroup("Drinks",
+            [
+                new DemoSecondaryItem("Water", "water"),
+                new DemoSecondaryItem("Coffee", "coffee"),
+                new DemoSecondaryItem("Tea", "tea")
+            ])
+        ];
+    }
 
     partial void OnThemeIndexChanged(int value)
     {

@@ -1,133 +1,195 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Wpf.Ui.Violeta.Controls;
 
-[TemplatePart(Name = PART_CountriesListView, Type = typeof(ListView))]
-[TemplatePart(Name = PART_DomainsListView, Type = typeof(ListView))]
+/// <summary>
+/// Universal secondary menu data item interface
+/// </summary>
+public interface ISecondaryItem
+{
+    public string Group { get; set; }
+
+    public object? Tag { get; set; }
+
+    public IEnumerable<ISecondarySubItem> Items { get; set; }
+}
+
+public interface ISecondarySubItem
+{
+    public string Display { get; set; }
+
+    public object? Tag { get; set; }
+
+    public object? Value { get; set; }
+}
+
+public sealed class DemoSecondaryGroup(string group, IEnumerable<ISecondarySubItem> items) : ISecondaryItem
+{
+    public string Group { get; set; } = group;
+
+    public object? Tag { get; set; }
+
+    public IEnumerable<ISecondarySubItem> Items { get; set; } = items;
+}
+
+public sealed class DemoSecondaryItem(string display, object? value) : ISecondarySubItem
+{
+    public string Display { get; set; } = display;
+
+    public object? Tag { get; set; }
+
+    public object? Value { get; set; } = value;
+}
+
+[TemplatePart(Name = PART_GroupsListView, Type = typeof(ListView))]
+[TemplatePart(Name = PART_ItemsListView, Type = typeof(ListView))]
 [TemplatePart(Name = PART_SelectedText, Type = typeof(TextBlock))]
-[SuppressMessage("Style", "IDE0052:Remove unread private members")]
 public class SecondaryComboBox : ComboBox
 {
-    public const string PART_CountriesListView = "PART_CountriesListView";
-    public const string PART_DomainsListView = "PART_DomainsListView";
+    public const string PART_GroupsListView = "PART_GroupsListView";
+    public const string PART_ItemsListView = "PART_ItemsListView";
     public const string PART_SelectedText = "PART_SelectedText";
 
-    private ListView? _countriesListView;
-    private ListView? _domainsListView;
+    private ListView? _groupsListView;
+    private ListView? _itemsListView;
 
     static SecondaryComboBox()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(SecondaryComboBox), new FrameworkPropertyMetadata(typeof(SecondaryComboBox)));
     }
 
-    public List<string> Countries
+    /// <summary>
+    /// Secondary menu data source
+    /// </summary>
+    public IEnumerable<ISecondaryItem> ItemsSource2
     {
-        get => (List<string>)GetValue(CountriesProperty);
-        set => SetValue(CountriesProperty, value);
+        get => (IEnumerable<ISecondaryItem>)GetValue(ItemsSource2Property);
+        set => SetValue(ItemsSource2Property, value);
     }
 
-    public static readonly DependencyProperty CountriesProperty =
-        DependencyProperty.Register("Countries", typeof(List<string>), typeof(SecondaryComboBox), new PropertyMetadata(new List<string>()));
+    public static readonly DependencyProperty ItemsSource2Property =
+        DependencyProperty.Register(nameof(ItemsSource2), typeof(IEnumerable<ISecondaryItem>), typeof(SecondaryComboBox), new PropertyMetadata(Array.Empty<ISecondaryItem>(), OnItemsSource2Changed));
 
-    public string SelectedCountry
-    {
-        get => (string)GetValue(SelectedCountryProperty);
-        set => SetValue(SelectedCountryProperty, value);
-    }
-
-    public static readonly DependencyProperty SelectedCountryProperty =
-        DependencyProperty.Register("SelectedCountry", typeof(string), typeof(SecondaryComboBox), new PropertyMetadata(string.Empty, OnSelectedCountryChanged));
-
-    private static void OnSelectedCountryChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnItemsSource2Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var control = (SecondaryComboBox)d;
-        var country = (string?)e.NewValue;
-
-        if (string.IsNullOrEmpty(country))
-        {
-            control.FilteredDomains = [];
-            return;
-        }
-
-        if (TryCountryToDomains(country!, out var domains))
-        {
-            control.FilteredDomains = [.. domains.Select(i => new Tuple<string, Point>(i, new Point())).Reverse()];
-        }
-        else
-        {
-            control.FilteredDomains = [];
-        }
+        control.UpdateGroups();
     }
 
-    public List<Tuple<string, Point>> FilteredDomains
+    /// <summary>
+    /// Currently selected main group
+    /// </summary>
+    public ISecondaryItem? SelectedGroup
     {
-        get => (List<Tuple<string, Point>>)GetValue(FilteredDomainsProperty);
-        set => SetValue(FilteredDomainsProperty, value);
+        get => (ISecondaryItem?)GetValue(SelectedGroupProperty);
+        set => SetValue(SelectedGroupProperty, value);
     }
 
-    public static readonly DependencyProperty FilteredDomainsProperty =
-        DependencyProperty.Register("FilteredDomains", typeof(List<Tuple<string, Point>>), typeof(SecondaryComboBox), new PropertyMetadata(new List<Tuple<string, Point>>()));
+    public static readonly DependencyProperty SelectedGroupProperty =
+        DependencyProperty.Register(nameof(SelectedGroup), typeof(ISecondaryItem), typeof(SecondaryComboBox), new PropertyMetadata(null, OnSelectedGroupChanged));
 
-    public string SelectedDomain
-    {
-        get => (string)GetValue(SelectedDomainProperty);
-        set => SetValue(SelectedDomainProperty, value);
-    }
-
-    public static readonly DependencyProperty SelectedDomainProperty =
-        DependencyProperty.Register("SelectedDomain", typeof(string), typeof(SecondaryComboBox), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedDomainChanged));
-
-    private static void OnSelectedDomainChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnSelectedGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var control = (SecondaryComboBox)d;
-        var domain = (string?)e.NewValue;
-        if (string.IsNullOrEmpty(domain)) return;
+        control.UpdateItems();
+    }
 
-        var country = GetCountryByDomain(domain!);
-        if (!string.IsNullOrEmpty(country) && country != control.SelectedCountry)
+    /// <summary>
+    /// 当前选中的子项
+    /// </summary>
+    public ISecondarySubItem? SelectedSubItem
+    {
+        get => (ISecondarySubItem?)GetValue(SelectedSubItemProperty);
+        set => SetValue(SelectedSubItemProperty, value);
+    }
+
+    public static readonly DependencyProperty SelectedSubItemProperty =
+        DependencyProperty.Register(nameof(SelectedSubItem), typeof(ISecondarySubItem), typeof(SecondaryComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedSubItemChanged));
+
+    private static void OnSelectedSubItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var control = (SecondaryComboBox)d;
+        if (e.NewValue is ISecondarySubItem && control.SelectedGroup != null)
         {
-            control.SelectedCountry = country;
+            // 选中子项后关闭下拉
+            control.IsDropDownOpen = false;
         }
     }
+
+    /// <summary>
+    /// 当前分组下的子项集合
+    /// </summary>
+    public IEnumerable<ISecondarySubItem> FilteredItems
+    {
+        get => (IEnumerable<ISecondarySubItem>)GetValue(FilteredItemsProperty);
+        set => SetValue(FilteredItemsProperty, value);
+    }
+
+    public static readonly DependencyProperty FilteredItemsProperty =
+        DependencyProperty.Register(nameof(FilteredItems), typeof(IEnumerable<ISecondarySubItem>), typeof(SecondaryComboBox), new PropertyMetadata(Array.Empty<ISecondarySubItem>()));
 
     public override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
 
-        _countriesListView = GetTemplateChild(PART_CountriesListView) as ListView;
-        _domainsListView = GetTemplateChild(PART_DomainsListView) as ListView;
+        _groupsListView = GetTemplateChild(PART_GroupsListView) as ListView;
+        _itemsListView = GetTemplateChild(PART_ItemsListView) as ListView;
 
-        if (_domainsListView != null)
+        if (_groupsListView != null)
         {
-            _domainsListView.SelectionChanged -= DomainsListView_SelectionChanged;
-            _domainsListView.SelectionChanged += DomainsListView_SelectionChanged;
+            _groupsListView.SelectionChanged -= GroupsListView_SelectionChanged;
+            _groupsListView.SelectionChanged += GroupsListView_SelectionChanged;
+        }
+        if (_itemsListView != null)
+        {
+            _itemsListView.SelectionChanged -= ItemsListView_SelectionChanged;
+            _itemsListView.SelectionChanged += ItemsListView_SelectionChanged;
         }
     }
 
-    private void DomainsListView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    private void GroupsListView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        IsDropDownOpen = false;
+        if (_groupsListView?.SelectedItem is ISecondaryItem group)
+        {
+            SelectedGroup = group;
+        }
     }
 
-    protected override void OnDropDownClosed(EventArgs e)
+    private void ItemsListView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        base.OnDropDownClosed(e);
+        if (_itemsListView?.SelectedItem is ISecondarySubItem subItem)
+        {
+            SelectedSubItem = subItem;
+        }
     }
 
-    // Placeholder implementations — keep simple mappings for now
-    private static string GetCountryByDomain(string domain)
+    private void UpdateGroups()
     {
-        return string.Empty;
+        // The first group is selected by default
+        var groups = ItemsSource2?.ToList() ?? [];
+        if (groups.Count > 0)
+        {
+            SelectedGroup = groups[0];
+        }
+        else
+        {
+            SelectedGroup = null;
+        }
     }
 
-    private static bool TryCountryToDomains(string country, out List<string> domains)
+    private void UpdateItems()
     {
-        domains = [];
-        return false;
+        if (SelectedGroup != null)
+        {
+            FilteredItems = SelectedGroup.Items?.ToList() ?? [];
+        }
+        else
+        {
+            FilteredItems = [];
+        }
     }
 }

@@ -40,7 +40,7 @@
                                         x:Name="PART_SelectedText"
                                         VerticalAlignment="Center"
                                         Foreground="{TemplateBinding Foreground}"
-                                        Text="{Binding SelectedDomain, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue='请选择', FallbackValue='请选择'}"
+                                        Text="{Binding SelectedSubItem.Display, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue='Please select', FallbackValue='Please select'}"
                                         TextTrimming="CharacterEllipsis"
                                         TextWrapping="NoWrap" />
                                 </Grid>
@@ -105,16 +105,16 @@
                                     </Grid.ColumnDefinitions>
 
                                     <ListView
-                                        x:Name="PART_CountriesListView"
+                                        x:Name="PART_GroupsListView"
                                         Background="Transparent"
                                         BorderThickness="0"
-                                        ItemsSource="{Binding Countries, RelativeSource={RelativeSource TemplatedParent}}"
+                                        ItemsSource="{Binding ItemsSource2, RelativeSource={RelativeSource TemplatedParent}}"
                                         ScrollViewer.CanContentScroll="False"
                                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                        SelectedItem="{Binding SelectedCountry, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                        SelectedItem="{Binding SelectedGroup, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Margin="8,4" Text="{Binding}" />
+                                                <TextBlock Margin="8,4" Text="{Binding Group}" />
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                     </ListView>
@@ -126,20 +126,17 @@
                                         Fill="{DynamicResource ComboBoxDropDownBorderBrush}" />
 
                                     <ListView
-                                        x:Name="PART_DomainsListView"
+                                        x:Name="PART_ItemsListView"
                                         Grid.Column="2"
                                         Background="Transparent"
                                         BorderThickness="0"
-                                        ItemsSource="{Binding FilteredDomains, RelativeSource={RelativeSource TemplatedParent}}"
+                                        ItemsSource="{Binding FilteredItems, RelativeSource={RelativeSource TemplatedParent}}"
                                         ScrollViewer.CanContentScroll="False"
                                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                        SelectedValue="{Binding SelectedDomain, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                                        SelectedValuePath="Item1">
+                                        SelectedItem="{Binding SelectedSubItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Margin="8,4">
-                                                    <Run Text="{Binding Item1, Mode=OneWay}" />
-                                                </TextBlock>
+                                                <TextBlock Margin="8,4" Text="{Binding Display, Mode=OneWay}" />
                                             </DataTemplate>
                                         </ListView.ItemTemplate>
                                     </ListView>

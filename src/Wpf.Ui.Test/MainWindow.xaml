@@ -1623,8 +1623,17 @@
                             FontSize="14"
                             FontWeight="Black"
                             Text="SecondaryComboBox" />
-                        <StackPanel>
-                            <vio:SecondaryComboBox Width="240" HorizontalAlignment="Left" />
+                        <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
+                            <vio:SecondaryComboBox
+                                Width="240"
+                                HorizontalAlignment="Left"
+                                ItemsSource2="{Binding SecondaryComboBoxDemoItems}"
+                                SelectedSubItem="{Binding SecondaryComboBoxSelectedSubItem, Mode=TwoWay}" />
+                            <TextBlock
+                                Margin="16,0,0,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{Binding SecondaryComboBoxSelectedText}" />
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>
