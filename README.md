@@ -225,7 +225,66 @@ Similar to WPF UI.
   `SelectAllText` label of the select-all row.
   `IsSelectAllEnabled` whether to show the select-all row.
   `MultiSelectedItems` current selected items collection.
-  
+
+- **CascadingComboBox**
+
+  > `CascadingComboBox` is a two-level cascading dropdown. The left panel lists groups (`ISecondaryItem`) and the right panel shows the sub-items (`ISecondarySubItem`) that belong to the selected group. The chosen sub-item is exposed through `SelectedSubItem`.
+
+  ```xaml
+  <vio:CascadingComboBox
+      Width="240"
+      HorizontalAlignment="Left"
+      ItemsSource2="{Binding CascadingComboBoxDemoItems}"
+      SelectedSubItem="{Binding CascadingComboBoxSelectedSubItem, Mode=TwoWay}" />
+  ```
+
+  ```c#
+  [ObservableProperty]
+  public partial ObservableCollection<ISecondaryItem> CascadingComboBoxDemoItems { get; set; } = [];
+
+  [ObservableProperty]
+  public partial ISecondarySubItem? CascadingComboBoxSelectedSubItem { get; set; }
+
+  partial void OnCascadingComboBoxSelectedSubItemChanged(ISecondarySubItem? value)
+  {
+      string selectedText = value is null
+          ? "Selected: (none)"
+          : $"Selected: {value.Display}";
+  }
+
+  private void InitCascadingComboBoxDemo()
+  {
+      CascadingComboBoxDemoItems =
+      [
+          new SecondaryItem("Fruits",
+          [
+              new SecondarySubItem("Apple", "apple"),
+              new SecondarySubItem("Banana", "banana"),
+              new SecondarySubItem("Cherry", "cherry"),
+          ]),
+          new SecondaryItem("Vegetables",
+          [
+              new SecondarySubItem("Carrot", "carrot"),
+              new SecondarySubItem("Broccoli", "broccoli"),
+              new SecondarySubItem("Spinach", "spinach"),
+          ]),
+          new SecondaryItem("Drinks",
+          [
+              new SecondarySubItem("Water", "water"),
+              new SecondarySubItem("Coffee", "coffee"),
+              new SecondarySubItem("Tea", "tea"),
+          ]),
+      ];
+  }
+  ```
+
+  `CascadingComboBox` common properties:
+  `PlaceholderText` placeholder text when no sub-item is selected.
+  `ItemsSource2` two-level data source (`IEnumerable<ISecondaryItem>`).
+  `SelectedGroup` currently highlighted group (`ISecondaryItem?`).
+  `SelectedSubItem` currently selected sub-item (`ISecondarySubItem?`, two-way bindable).
+  `FilteredItems` sub-items of the currently selected group.
+
 - **Splash**
 
   > Show the Splash Screen in another UI thread.
