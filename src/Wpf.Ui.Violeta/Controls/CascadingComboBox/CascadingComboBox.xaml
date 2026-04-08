@@ -114,7 +114,15 @@
                                         x:Name="PART_SelectedText"
                                         VerticalAlignment="Center"
                                         Foreground="{TemplateBinding Foreground}"
-                                        Text="{Binding SelectedSubItem.Display, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue='Please select', FallbackValue='Please select'}"
+                                        Text="{Binding PlaceholderText, RelativeSource={RelativeSource TemplatedParent}}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="NoWrap"
+                                        Visibility="Collapsed" />
+                                    <TextBlock
+                                        x:Name="PART_SelectedValueText"
+                                        VerticalAlignment="Center"
+                                        Foreground="{TemplateBinding Foreground}"
+                                        Text="{Binding SelectedSubItem.Display, RelativeSource={RelativeSource TemplatedParent}}"
                                         TextTrimming="CharacterEllipsis"
                                         TextWrapping="NoWrap" />
                                 </Grid>
@@ -268,6 +276,10 @@
                         </Trigger>
                         <Trigger SourceName="PART_Popup" Property="Popup.AllowsTransparency" Value="False">
                             <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0" />
+                        </Trigger>
+                        <Trigger Property="SelectedSubItem" Value="{x:Null}">
+                            <Setter TargetName="PART_SelectedText" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="PART_SelectedValueText" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>

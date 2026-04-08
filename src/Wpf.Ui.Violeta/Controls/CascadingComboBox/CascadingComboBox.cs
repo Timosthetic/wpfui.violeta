@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Wpf.Ui.Violeta.Resources.Localization;
 
 namespace Wpf.Ui.Violeta.Controls;
 
@@ -18,9 +19,26 @@ public class CascadingComboBox : ComboBox
     private ListView? _groupsListView;
     private ListView? _itemsListView;
 
+    public static readonly DependencyProperty PlaceholderTextProperty =
+        DependencyProperty.Register(nameof(PlaceholderText), typeof(string), typeof(CascadingComboBox), new PropertyMetadata(string.Empty));
+
     static CascadingComboBox()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(CascadingComboBox), new FrameworkPropertyMetadata(typeof(CascadingComboBox)));
+    }
+
+    public CascadingComboBox()
+    {
+        if (ReadLocalValue(PlaceholderTextProperty) == DependencyProperty.UnsetValue)
+        {
+            SetCurrentValue(PlaceholderTextProperty, SH.PleaseSelect);
+        }
+    }
+
+    public string PlaceholderText
+    {
+        get => (string)GetValue(PlaceholderTextProperty);
+        set => SetValue(PlaceholderTextProperty, value);
     }
 
     /// <summary>

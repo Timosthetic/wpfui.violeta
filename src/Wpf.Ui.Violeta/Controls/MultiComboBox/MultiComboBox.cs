@@ -145,6 +145,10 @@ public class MultiComboBox : ComboBox
         {
             SetCurrentValue(AllSelectedTextProperty, SH.MultiComboBoxAllSelected);
         }
+        if (ReadLocalValue(PlaceholderTextProperty) == DependencyProperty.UnsetValue)
+        {
+            SetCurrentValue(PlaceholderTextProperty, SH.PleaseSelect);
+        }
     }
 
     public override void OnApplyTemplate()

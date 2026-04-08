@@ -101,4 +101,7 @@
   <data name="MultiComboBoxAllSelected" xml:space="preserve">
     <value>Alle</value>
   </data>
+  <data name="PleaseSelect" xml:space="preserve">
+    <value>Bitte auswählen...</value>
+  </data>
 </root>

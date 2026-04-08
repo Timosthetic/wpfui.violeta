@@ -1592,10 +1592,7 @@
                             FontWeight="Black"
                             Text="MultiComboBox" />
                         <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
-                            <vio:MultiComboBox
-                                Width="240"
-                                MaxDropDownHeight="300"
-                                PlaceholderText="Please select...">
+                            <vio:MultiComboBox Width="240" MaxDropDownHeight="300">
                                 <vio:MultiComboBoxItem Content="Option A" />
                                 <vio:MultiComboBoxItem Content="Option B" />
                                 <vio:MultiComboBoxItem Content="Option C" />
@@ -1607,7 +1604,7 @@
                                 Width="240"
                                 Margin="16,0,0,0"
                                 MaxDropDownHeight="300"
-                                PlaceholderText="Binding demo (ItemsSource)" />
+                                PlaceholderText="Binding ItemsSource" />
                             <TextBlock
                                 Margin="16,0,0,0"
                                 VerticalAlignment="Center"

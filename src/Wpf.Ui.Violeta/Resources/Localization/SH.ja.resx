@@ -159,4 +159,7 @@
   <data name="MultiComboBoxAllSelected" xml:space="preserve">
     <value>すべて</value>
   </data>
+  <data name="PleaseSelect" xml:space="preserve">
+    <value>選択してください...</value>
+  </data>
 </root>
