@@ -30,10 +30,22 @@
                         HorizontalAlignment="Stretch"
                         Background="{TemplateBinding Background}"
                         CornerRadius="{DynamicResource ControlCornerRadius}">
-                        <ContentPresenter
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Margin="{TemplateBinding Padding}" />
+                        <Grid>
+                            <Rectangle
+                                x:Name="ActiveRectangle"
+                                Width="3"
+                                Height="18"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Fill="{DynamicResource ListViewItemPillFillBrush}"
+                                RadiusX="2"
+                                RadiusY="2"
+                                Visibility="Collapsed" />
+                            <ContentPresenter
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -41,6 +53,7 @@
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource ComboBoxItemBackgroundSelected}" />
+                            <Setter TargetName="ActiveRectangle" Property="Visibility" Value="Visible" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="{DynamicResource ComboBoxForegroundDisabled}" />
@@ -171,8 +184,8 @@
 
                                     <ListView
                                         x:Name="PART_GroupsListView"
-                                        ItemsSource="{Binding ItemsSource2, RelativeSource={RelativeSource TemplatedParent}}"
                                         MinWidth="120"
+                                        ItemsSource="{Binding ItemsSource2, RelativeSource={RelativeSource TemplatedParent}}"
                                         SelectedItem="{Binding SelectedGroup, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
                                         <ListView.Style>
                                             <StaticResource ResourceKey="DefaultSecondaryComboBoxListViewStyle" />
