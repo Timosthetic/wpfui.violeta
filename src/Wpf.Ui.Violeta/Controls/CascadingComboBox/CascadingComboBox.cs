@@ -14,6 +14,8 @@ public class CascadingComboBox : ComboBox
 {
     public const string PART_SelectedText = "PART_SelectedText";
 
+    private bool _isAutoExpanding;
+
     public static readonly DependencyProperty PlaceholderTextProperty =
         DependencyProperty.Register(nameof(PlaceholderText), typeof(string), typeof(CascadingComboBox), new PropertyMetadata(string.Empty));
 
@@ -98,6 +100,43 @@ public class CascadingComboBox : ComboBox
         }
     }
 
+    /// <summary>
+    /// Automatically selects the first item in each column recursively until a leaf node is reached,
+    /// so all columns are pre-expanded when the dropdown opens.
+    /// </summary>
+    private void AutoExpandFirstPath()
+    {
+        _isAutoExpanding = true;
+        try
+        {
+            int colIdx = 0;
+            while (colIdx < Columns.Count)
+            {
+                var col = Columns[colIdx];
+                if (col.Items.Count == 0 || col.SelectedItem != null)
+                    break;
+                var firstItem = col.Items[0];
+                // Only auto-select non-leaf nodes to expand the next column.
+                // Never select a leaf so it doesn't appear highlighted.
+                var children = firstItem.Children?.ToList();
+                if (children is not { Count: > 0 })
+                    break;
+                col.SelectedItem = firstItem;
+                colIdx++;
+            }
+        }
+        finally
+        {
+            _isAutoExpanding = false;
+        }
+    }
+
+    protected override void OnDropDownOpened(EventArgs e)
+    {
+        base.OnDropDownOpened(e);
+        AutoExpandFirstPath();
+    }
+
     private void AddColumn(IEnumerable<ICascadingItem> items)
     {
         var col = new CascadingColumnData(Columns.Count, items);
@@ -134,9 +173,9 @@ public class CascadingComboBox : ComboBox
             SetCurrentValue(SelectedCascadingItemProperty, null);
             AddColumn(children);
         }
-        else
+        else if (!_isAutoExpanding)
         {
-            // Leaf: commit selection and close
+            // Leaf: commit selection and close (skip during auto-expand)
             SetCurrentValue(SelectedCascadingItemProperty, selected);
         }
     }

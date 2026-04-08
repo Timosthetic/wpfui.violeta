@@ -190,8 +190,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <!--  Dynamic cascading columns  -->
-                                    <ItemsControl
-                                        ItemsSource="{Binding Columns, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <ItemsControl ItemsSource="{Binding Columns, RelativeSource={RelativeSource TemplatedParent}}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <StackPanel Orientation="Horizontal" />
@@ -207,10 +206,10 @@
                                                         Fill="{DynamicResource ComboBoxDropDownBorderBrush}" />
                                                     <ListView
                                                         MinWidth="120"
-                                                        Style="{StaticResource DefaultCascadingComboBoxListViewStyle}"
                                                         ItemsSource="{Binding Items}"
                                                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                                        SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                                                        SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                                                        Style="{StaticResource DefaultCascadingComboBoxListViewStyle}">
                                                         <ListView.ItemTemplate>
                                                             <DataTemplate>
                                                                 <TextBlock
