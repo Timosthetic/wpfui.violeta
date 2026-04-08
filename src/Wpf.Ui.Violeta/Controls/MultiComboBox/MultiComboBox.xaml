@@ -413,15 +413,6 @@
                                 </Popup>
                             </Grid>
                         </Border>
-
-                        <Border
-                            x:Name="AccentBorder"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            BorderBrush="{DynamicResource ComboBoxBorderBrushFocused}"
-                            BorderThickness="{StaticResource MultiComboBoxAccentBorderThemeThickness}"
-                            CornerRadius="{TemplateBinding Border.CornerRadius}"
-                            Visibility="Collapsed" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDropDownOpen" Value="True">
@@ -475,7 +466,6 @@
                                 <Condition Property="IsKeyboardFocusWithin" Value="True" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="ContentBorder" Property="Background" Value="{DynamicResource ComboBoxBackgroundFocused}" />
-                            <Setter TargetName="AccentBorder" Property="Visibility" Value="Visible" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
