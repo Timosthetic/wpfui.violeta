@@ -101,8 +101,8 @@ public class CascadingComboBox : ComboBox
     }
 
     /// <summary>
-    /// Automatically selects the first item in each column recursively until a leaf node is reached,
-    /// so all columns are pre-expanded when the dropdown opens.
+    /// Automatically selects the first item in the first column only,
+    /// expanding to show 2 columns (first + second level) when the dropdown opens.
     /// </summary>
     private void AutoExpandFirstPath()
     {
@@ -110,7 +110,7 @@ public class CascadingComboBox : ComboBox
         try
         {
             int colIdx = 0;
-            while (colIdx < Columns.Count)
+            while (colIdx < Columns.Count && colIdx < 1)
             {
                 var col = Columns[colIdx];
                 if (col.Items.Count == 0 || col.SelectedItem != null)
