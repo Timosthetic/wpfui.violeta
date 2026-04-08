@@ -4,39 +4,25 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 
 namespace Wpf.Ui.Violeta.Controls;
 
-[TemplatePart(Name = PART_MainToggle, Type = typeof(ToggleButton))]
-[TemplatePart(Name = PART_MainPopup, Type = typeof(Popup))]
-[TemplatePart(Name = PART_PopupBorder, Type = typeof(Border))]
 [TemplatePart(Name = PART_CountriesListView, Type = typeof(ListView))]
 [TemplatePart(Name = PART_DomainsListView, Type = typeof(ListView))]
 [TemplatePart(Name = PART_SelectedText, Type = typeof(TextBlock))]
 [SuppressMessage("Style", "IDE0052:Remove unread private members")]
-public class SecondaryComboBox : Control
+public class SecondaryComboBox : ComboBox
 {
-    public const string PART_MainToggle = "PART_MainToggle";
-    public const string PART_MainPopup = "PART_MainPopup";
-    public const string PART_PopupBorder = "PART_PopupBorder";
     public const string PART_CountriesListView = "PART_CountriesListView";
     public const string PART_DomainsListView = "PART_DomainsListView";
     public const string PART_SelectedText = "PART_SelectedText";
 
-    private ToggleButton? _mainToggle;
-    private Popup? _mainPopup;
-    private Border? _popupBorder;
     private ListView? _countriesListView;
     private ListView? _domainsListView;
 
     static SecondaryComboBox()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(SecondaryComboBox), new FrameworkPropertyMetadata(typeof(SecondaryComboBox)));
-    }
-
-    public SecondaryComboBox()
-    {
     }
 
     public List<string> Countries
@@ -113,28 +99,24 @@ public class SecondaryComboBox : Control
     {
         base.OnApplyTemplate();
 
-        _mainToggle?.Click -= MainToggle_Click;
-
-        _mainToggle = GetTemplateChild(PART_MainToggle) as ToggleButton;
-        _mainPopup = GetTemplateChild(PART_MainPopup) as Popup;
-        _popupBorder = GetTemplateChild(PART_PopupBorder) as Border;
         _countriesListView = GetTemplateChild(PART_CountriesListView) as ListView;
         _domainsListView = GetTemplateChild(PART_DomainsListView) as ListView;
 
-        _mainToggle?.Click += MainToggle_Click;
-
-        _domainsListView?.SelectionChanged -= DomainsListView_SelectionChanged;
-        _domainsListView?.SelectionChanged += DomainsListView_SelectionChanged;
-    }
-
-    private void MainToggle_Click(object? sender, RoutedEventArgs e)
-    {
-        _mainPopup?.IsOpen = !_mainPopup.IsOpen;
+        if (_domainsListView != null)
+        {
+            _domainsListView.SelectionChanged -= DomainsListView_SelectionChanged;
+            _domainsListView.SelectionChanged += DomainsListView_SelectionChanged;
+        }
     }
 
     private void DomainsListView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        _mainPopup?.IsOpen = false;
+        IsDropDownOpen = false;
+    }
+
+    protected override void OnDropDownClosed(EventArgs e)
+    {
+        base.OnDropDownClosed(e);
     }
 
     // Placeholder implementations — keep simple mappings for now

@@ -70,19 +70,22 @@
                                     Background="Transparent"
                                     BorderThickness="0"
                                     ClickMode="Press"
-                                    Focusable="False" />
+                                    Focusable="False"
+                                    IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
                             </Grid>
                         </Border>
 
                         <Popup
-                            x:Name="PART_MainPopup"
+                            x:Name="PART_Popup"
                             AllowsTransparency="True"
+                            Focusable="False"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
                             PlacementTarget="{Binding ElementName=ContentBorder}"
                             PopupAnimation="Slide"
                             StaysOpen="True"
                             VerticalOffset="1">
                             <Border
-                                x:Name="PART_PopupBorder"
+                                x:Name="DropDownBorder"
                                 MinWidth="{Binding ActualWidth, ElementName=ContentBorder}"
                                 MinHeight="120"
                                 Margin="0,4,0,0"
@@ -145,7 +148,7 @@
                         </Popup>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger SourceName="PART_MainPopup" Property="Popup.IsOpen" Value="True">
+                        <Trigger Property="IsDropDownOpen" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
@@ -156,7 +159,7 @@
                                             To="180"
                                             Duration="00:00:00.167" />
                                         <DoubleAnimation
-                                            Storyboard.TargetName="PART_PopupBorder"
+                                            Storyboard.TargetName="DropDownBorder"
                                             Storyboard.TargetProperty="(Border.RenderTransform).(TranslateTransform.Y)"
                                             From="-90"
                                             To="0"
