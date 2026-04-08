@@ -1693,6 +1693,30 @@
                                         Text="{Binding CascadingComboBoxSelectedText_Level4}" />
                                 </StackPanel>
                             </StackPanel>
+                            <StackPanel>
+                                <TextBlock
+                                    MinWidth="120"
+                                    Margin="0,8,0,0"
+                                    Text="CascadingComboBox (Mixed Depth)" />
+                                <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
+                                    <vio:CascadingComboBox
+                                        Width="240"
+                                        HorizontalAlignment="Left"
+                                        ItemsSource="{Binding CascadingComboBoxDemoItems_MixedDepth}"
+                                        SelectedCascadingItem="{Binding CascadingComboBoxSelectedValue_MixedDepth, Mode=TwoWay}" />
+                                    <TextBlock
+                                        Margin="16,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding CascadingComboBoxSelectedText_MixedDepth}" />
+                                    <TextBlock
+                                        Margin="16,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                        Text="(Some branches have 2-4 levels)" />
+                                </StackPanel>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>

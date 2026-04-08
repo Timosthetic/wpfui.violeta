@@ -39,6 +39,7 @@ public partial class MainWindow : ShellWindow
         InitCascadingComboBoxDemoLevel3();
         InitCascadingComboBoxDemoLevel2();
         InitCascadingComboBoxDemoLevel4();
+        InitCascadingComboBoxDemoMixedDepth();
 
         Dispatcher.BeginInvoke(async () =>
         {
@@ -100,6 +101,15 @@ public partial class MainWindow : ShellWindow
     [ObservableProperty]
     public partial string CascadingComboBoxSelectedText_Level4 { get; set; } = "Selected: (none)";
 
+    [ObservableProperty]
+    public partial ObservableCollection<ICascadingItem> CascadingComboBoxDemoItems_MixedDepth { get; set; } = [];
+
+    [ObservableProperty]
+    public partial ICascadingItem? CascadingComboBoxSelectedValue_MixedDepth { get; set; }
+
+    [ObservableProperty]
+    public partial string CascadingComboBoxSelectedText_MixedDepth { get; set; } = "Selected: (none)";
+
     partial void OnCascadingComboBoxSelectedValue_Level3Changed(ICascadingItem? value)
     {
         CascadingComboBoxSelectedText_Level3 = value is null
@@ -124,6 +134,13 @@ public partial class MainWindow : ShellWindow
     partial void OnCascadingComboBoxSelectedValue_Level4Changed(ICascadingItem? value)
     {
         CascadingComboBoxSelectedText_Level4 = value is null
+            ? "Selected: (none)"
+            : $"Selected: {value.Label}";
+    }
+
+    partial void OnCascadingComboBoxSelectedValue_MixedDepthChanged(ICascadingItem? value)
+    {
+        CascadingComboBoxSelectedText_MixedDepth = value is null
             ? "Selected: (none)"
             : $"Selected: {value.Label}";
     }
@@ -275,6 +292,49 @@ public partial class MainWindow : ShellWindow
                         new CascadingItem("4-Door"),
                     ]),
                 ]),
+            ]),
+        ];
+    }
+
+    private void InitCascadingComboBoxDemoMixedDepth()
+    {
+        CascadingComboBoxDemoItems_MixedDepth =
+        [
+            new CascadingItem("Quick Pick",
+            [
+                new CascadingItem("Red"),
+                new CascadingItem("Green"),
+                new CascadingItem("Blue"),
+            ]),
+            new CascadingItem("Categories",
+            [
+                new CascadingItem("Electronics",
+                [
+                    new CascadingItem("Smartphones",
+                    [
+                        new CascadingItem("iPhone"),
+                        new CascadingItem("Samsung Galaxy"),
+                        new CascadingItem("Google Pixel"),
+                    ]),
+                    new CascadingItem("Laptops",
+                    [
+                        new CascadingItem("Dell"),
+                        new CascadingItem("HP"),
+                        new CascadingItem("Lenovo"),
+                    ]),
+                ]),
+                new CascadingItem("Clothing",
+                [
+                    new CascadingItem("Shirts"),
+                    new CascadingItem("Pants"),
+                    new CascadingItem("Shoes"),
+                ]),
+            ]),
+            new CascadingItem("Direct Selection",
+            [
+                new CascadingItem("Option A"),
+                new CascadingItem("Option B"),
+                new CascadingItem("Option C"),
             ]),
         ];
     }
