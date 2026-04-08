@@ -5,19 +5,19 @@
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
 
-    <Thickness x:Key="SecondaryComboBoxPadding">10,8,10,8</Thickness>
-    <Thickness x:Key="SecondaryComboBoxBorderThemeThickness">1,1,1,1</Thickness>
-    <Thickness x:Key="SecondaryComboBoxItemMargin">6,4,6,0</Thickness>
-    <Thickness x:Key="SecondaryComboBoxItemPadding">10,8,10,8</Thickness>
-    <system:Double x:Key="SecondaryComboBoxChevronSize">11.0</system:Double>
+    <Thickness x:Key="CascadingComboBoxPadding">10,8,10,8</Thickness>
+    <Thickness x:Key="CascadingComboBoxBorderThemeThickness">1,1,1,1</Thickness>
+    <Thickness x:Key="CascadingComboBoxItemMargin">6,4,6,0</Thickness>
+    <Thickness x:Key="CascadingComboBoxItemPadding">10,8,10,8</Thickness>
+    <system:Double x:Key="CascadingComboBoxChevronSize">11.0</system:Double>
 
-    <Style x:Key="DefaultSecondaryComboBoxListViewItemStyle" TargetType="{x:Type ListViewItem}">
+    <Style x:Key="DefaultCascadingComboBoxListViewItemStyle" TargetType="{x:Type ListViewItem}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Foreground" Value="{DynamicResource ComboBoxForeground}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="Margin" Value="{StaticResource SecondaryComboBoxItemMargin}" />
-        <Setter Property="Padding" Value="{StaticResource SecondaryComboBoxItemPadding}" />
+        <Setter Property="Margin" Value="{StaticResource CascadingComboBoxItemMargin}" />
+        <Setter Property="Padding" Value="{StaticResource CascadingComboBoxItemPadding}" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -64,28 +64,28 @@
         </Setter>
     </Style>
 
-    <Style x:Key="DefaultSecondaryComboBoxListViewStyle" TargetType="{x:Type ListView}">
+    <Style x:Key="DefaultCascadingComboBoxListViewStyle" TargetType="{x:Type ListView}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="ItemContainerStyle" Value="{StaticResource DefaultSecondaryComboBoxListViewItemStyle}" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource DefaultCascadingComboBoxListViewItemStyle}" />
     </Style>
 
-    <Style x:Key="DefaultSecondaryComboBoxStyle" TargetType="{x:Type local:SecondaryComboBox}">
+    <Style x:Key="DefaultCascadingComboBoxStyle" TargetType="{x:Type local:CascadingComboBox}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
         <Setter Property="Foreground" Value="{DynamicResource ComboBoxForeground}" />
         <Setter Property="Background" Value="{DynamicResource ComboBoxBackground}" />
         <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
-        <Setter Property="BorderThickness" Value="{StaticResource SecondaryComboBoxBorderThemeThickness}" />
+        <Setter Property="BorderThickness" Value="{StaticResource CascadingComboBoxBorderThemeThickness}" />
         <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden" />
         <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
-        <Setter Property="Padding" Value="{StaticResource SecondaryComboBoxPadding}" />
+        <Setter Property="Padding" Value="{StaticResource CascadingComboBoxPadding}" />
         <Setter Property="Border.CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
         <Setter Property="Popup.PopupAnimation" Value="Slide" />
         <Setter Property="Popup.Placement" Value="Bottom" />
@@ -93,7 +93,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:SecondaryComboBox}">
+                <ControlTemplate TargetType="{x:Type local:CascadingComboBox}">
                     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
                         <Border
                             x:Name="ContentBorder"
@@ -125,7 +125,7 @@
                                         x:Name="PART_ChevronIcon"
                                         Margin="0"
                                         VerticalAlignment="Center"
-                                        FontSize="{StaticResource SecondaryComboBoxChevronSize}"
+                                        FontSize="{StaticResource CascadingComboBoxChevronSize}"
                                         Foreground="{DynamicResource ComboBoxDropDownGlyphForeground}"
                                         RenderTransformOrigin="0.5, 0.5"
                                         Symbol="ChevronDown24">
@@ -188,7 +188,7 @@
                                         ItemsSource="{Binding ItemsSource2, RelativeSource={RelativeSource TemplatedParent}}"
                                         SelectedItem="{Binding SelectedGroup, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
                                         <ListView.Style>
-                                            <StaticResource ResourceKey="DefaultSecondaryComboBoxListViewStyle" />
+                                            <StaticResource ResourceKey="DefaultCascadingComboBoxListViewStyle" />
                                         </ListView.Style>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
@@ -214,7 +214,7 @@
                                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                         SelectedItem="{Binding SelectedSubItem, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
                                         <ListView.Style>
-                                            <StaticResource ResourceKey="DefaultSecondaryComboBoxListViewStyle" />
+                                            <StaticResource ResourceKey="DefaultCascadingComboBoxListViewStyle" />
                                         </ListView.Style>
                                         <ListView.ItemTemplate>
                                             <DataTemplate>
@@ -295,6 +295,6 @@
         </Setter>
     </Style>
 
-    <Style BasedOn="{StaticResource DefaultSecondaryComboBoxStyle}" TargetType="{x:Type local:SecondaryComboBox}" />
+    <Style BasedOn="{StaticResource DefaultCascadingComboBoxStyle}" TargetType="{x:Type local:CascadingComboBox}" />
 
 </ResourceDictionary>

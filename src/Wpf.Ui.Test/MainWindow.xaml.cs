@@ -35,7 +35,7 @@ public partial class MainWindow : ShellWindow
 
         InitNode1Value();
         InitMultiComboBoxDemo();
-        InitSecondaryComboBoxDemo();
+        InitCascadingComboBoxDemo();
 
         Dispatcher.BeginInvoke(async () =>
         {
@@ -62,24 +62,24 @@ public partial class MainWindow : ShellWindow
     public partial string MultiComboBoxSelectedText { get; set; } = "Selected: (none)";
 
     [ObservableProperty]
-    public partial ObservableCollection<ISecondaryItem> SecondaryComboBoxDemoItems { get; set; } = [];
+    public partial ObservableCollection<ISecondaryItem> CascadingComboBoxDemoItems { get; set; } = [];
 
     [ObservableProperty]
-    public partial ISecondarySubItem? SecondaryComboBoxSelectedSubItem { get; set; }
+    public partial ISecondarySubItem? CascadingComboBoxSelectedSubItem { get; set; }
 
     [ObservableProperty]
-    public partial string SecondaryComboBoxSelectedText { get; set; } = "Selected: (none)";
+    public partial string CascadingComboBoxSelectedText { get; set; } = "Selected: (none)";
 
-    partial void OnSecondaryComboBoxSelectedSubItemChanged(ISecondarySubItem? value)
+    partial void OnCascadingComboBoxSelectedSubItemChanged(ISecondarySubItem? value)
     {
-        SecondaryComboBoxSelectedText = value is null
+        CascadingComboBoxSelectedText = value is null
             ? "Selected: (none)"
             : $"Selected: {value.Display}";
     }
 
-    private void InitSecondaryComboBoxDemo()
+    private void InitCascadingComboBoxDemo()
     {
-        SecondaryComboBoxDemoItems =
+        CascadingComboBoxDemoItems =
         [
             new SecondaryItem("Fruits",
             [

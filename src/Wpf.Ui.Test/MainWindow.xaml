@@ -1551,7 +1551,7 @@
                             FontWeight="Black"
                             Text="AsyncBox" />
                         <StackPanel>
-                            <vio:AsyncBox LoadingDelay="1000" LoadingViewType="{x:Type vio:Loading}">
+                            <vio:AsyncBox LoadingDelay="1" LoadingViewType="{x:Type vio:Loading}">
                                 <TextBlock Foreground="{DynamicResource TextFillColorPrimaryBrush}" Text="This is an AsyncBox demo. You can put any content you want in it, and it will automatically show a loading indicator when the content is being loaded asynchronously." />
                             </vio:AsyncBox>
                             <!--  Not supported  -->
@@ -1622,18 +1622,18 @@
                             Margin="0,8,0,0"
                             FontSize="14"
                             FontWeight="Black"
-                            Text="SecondaryComboBox" />
+                            Text="CascadingComboBox" />
                         <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
-                            <vio:SecondaryComboBox
+                            <vio:CascadingComboBox
                                 Width="240"
                                 HorizontalAlignment="Left"
-                                ItemsSource2="{Binding SecondaryComboBoxDemoItems}"
-                                SelectedSubItem="{Binding SecondaryComboBoxSelectedSubItem, Mode=TwoWay}" />
+                                ItemsSource2="{Binding CascadingComboBoxDemoItems}"
+                                SelectedSubItem="{Binding CascadingComboBoxSelectedSubItem, Mode=TwoWay}" />
                             <TextBlock
                                 Margin="16,0,0,0"
                                 VerticalAlignment="Center"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                                Text="{Binding SecondaryComboBoxSelectedText}" />
+                                Text="{Binding CascadingComboBoxSelectedText}" />
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>

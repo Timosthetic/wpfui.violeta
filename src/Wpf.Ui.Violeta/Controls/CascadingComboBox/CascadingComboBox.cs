@@ -9,7 +9,7 @@ namespace Wpf.Ui.Violeta.Controls;
 [TemplatePart(Name = PART_GroupsListView, Type = typeof(ListView))]
 [TemplatePart(Name = PART_ItemsListView, Type = typeof(ListView))]
 [TemplatePart(Name = PART_SelectedText, Type = typeof(TextBlock))]
-public class SecondaryComboBox : ComboBox
+public class CascadingComboBox : ComboBox
 {
     public const string PART_GroupsListView = "PART_GroupsListView";
     public const string PART_ItemsListView = "PART_ItemsListView";
@@ -18,9 +18,9 @@ public class SecondaryComboBox : ComboBox
     private ListView? _groupsListView;
     private ListView? _itemsListView;
 
-    static SecondaryComboBox()
+    static CascadingComboBox()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(SecondaryComboBox), new FrameworkPropertyMetadata(typeof(SecondaryComboBox)));
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(CascadingComboBox), new FrameworkPropertyMetadata(typeof(CascadingComboBox)));
     }
 
     /// <summary>
@@ -33,11 +33,11 @@ public class SecondaryComboBox : ComboBox
     }
 
     public static readonly DependencyProperty ItemsSource2Property =
-        DependencyProperty.Register(nameof(ItemsSource2), typeof(IEnumerable<ISecondaryItem>), typeof(SecondaryComboBox), new PropertyMetadata(Array.Empty<ISecondaryItem>(), OnItemsSource2Changed));
+        DependencyProperty.Register(nameof(ItemsSource2), typeof(IEnumerable<ISecondaryItem>), typeof(CascadingComboBox), new PropertyMetadata(Array.Empty<ISecondaryItem>(), OnItemsSource2Changed));
 
     private static void OnItemsSource2Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        var control = (SecondaryComboBox)d;
+        var control = (CascadingComboBox)d;
         control.UpdateGroups();
     }
 
@@ -51,11 +51,11 @@ public class SecondaryComboBox : ComboBox
     }
 
     public static readonly DependencyProperty SelectedGroupProperty =
-        DependencyProperty.Register(nameof(SelectedGroup), typeof(ISecondaryItem), typeof(SecondaryComboBox), new PropertyMetadata(null, OnSelectedGroupChanged));
+        DependencyProperty.Register(nameof(SelectedGroup), typeof(ISecondaryItem), typeof(CascadingComboBox), new PropertyMetadata(null, OnSelectedGroupChanged));
 
     private static void OnSelectedGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        var control = (SecondaryComboBox)d;
+        var control = (CascadingComboBox)d;
         control.UpdateItems();
     }
 
@@ -69,11 +69,11 @@ public class SecondaryComboBox : ComboBox
     }
 
     public static readonly DependencyProperty SelectedSubItemProperty =
-        DependencyProperty.Register(nameof(SelectedSubItem), typeof(ISecondarySubItem), typeof(SecondaryComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedSubItemChanged));
+        DependencyProperty.Register(nameof(SelectedSubItem), typeof(ISecondarySubItem), typeof(CascadingComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedSubItemChanged));
 
     private static void OnSelectedSubItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        var control = (SecondaryComboBox)d;
+        var control = (CascadingComboBox)d;
         if (e.NewValue is ISecondarySubItem && control.SelectedGroup != null)
         {
             // 选中子项后关闭下拉
@@ -91,7 +91,7 @@ public class SecondaryComboBox : ComboBox
     }
 
     public static readonly DependencyProperty FilteredItemsProperty =
-        DependencyProperty.Register(nameof(FilteredItems), typeof(IEnumerable<ISecondarySubItem>), typeof(SecondaryComboBox), new PropertyMetadata(Array.Empty<ISecondarySubItem>()));
+        DependencyProperty.Register(nameof(FilteredItems), typeof(IEnumerable<ISecondarySubItem>), typeof(CascadingComboBox), new PropertyMetadata(Array.Empty<ISecondarySubItem>()));
 
     public override void OnApplyTemplate()
     {

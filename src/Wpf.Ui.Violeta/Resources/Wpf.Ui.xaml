@@ -26,6 +26,6 @@
         <ResourceDictionary Source="pack://application:,,,/Wpf.Ui.Violeta;component/Controls/BusyIndicator/BusyIndicator.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Wpf.Ui.Violeta;component/Controls/ToolTip/CalloutToolTip.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Wpf.Ui.Violeta;component/Controls/MultiComboBox/MultiComboBox.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Wpf.Ui.Violeta;component/Controls/SecondaryComboBox/SecondaryComboBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Wpf.Ui.Violeta;component/Controls/CascadingComboBox/CascadingComboBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
