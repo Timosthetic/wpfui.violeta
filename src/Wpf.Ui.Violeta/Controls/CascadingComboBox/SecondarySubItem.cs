@@ -1,4 +1,6 @@
-﻿namespace Wpf.Ui.Violeta.Controls;
+﻿using System.Collections.Generic;
+
+namespace Wpf.Ui.Violeta.Controls;
 
 public sealed class SecondarySubItem(string display, object? value) : ISecondarySubItem
 {
@@ -7,13 +9,18 @@ public sealed class SecondarySubItem(string display, object? value) : ISecondary
     public object? Tag { get; set; }
 
     public object? Value { get; set; } = value;
+
+    // ICascadingItem explicit implementation (leaf node)
+    string ICascadingItem.Label => Display;
+    IEnumerable<ICascadingItem>? ICascadingItem.Children => null;
 }
 
-public interface ISecondarySubItem
+/// <summary>
+/// Secondary menu leaf item interface. Implements <see cref="ICascadingItem"/> as a leaf node.
+/// </summary>
+public interface ISecondarySubItem : ICascadingItem
 {
     public string Display { get; set; }
-
-    public object? Tag { get; set; }
 
     public object? Value { get; set; }
 }

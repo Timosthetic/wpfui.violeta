@@ -1625,7 +1625,7 @@
                                 Width="240"
                                 HorizontalAlignment="Left"
                                 ItemsSource="{Binding CascadingComboBoxDemoItems}"
-                                SelectedSubItem="{Binding CascadingComboBoxSelectedSubItem, Mode=TwoWay}" />
+                                SelectedCascadingItem="{Binding CascadingComboBoxSelectedValue, Mode=TwoWay}" />
                             <TextBlock
                                 Margin="16,0,0,0"
                                 VerticalAlignment="Center"

@@ -228,62 +228,71 @@ Similar to WPF UI.
 
 - **CascadingComboBox**
 
-  > `CascadingComboBox` is a two-level cascading dropdown. The left panel lists groups (`ISecondaryItem`) and the right panel shows the sub-items (`ISecondarySubItem`) that belong to the selected group. The chosen sub-item is exposed through `SelectedSubItem`.
+  > `CascadingComboBox` is a multi-level cascading dropdown. Each column displays the children of the selected item in the previous column. The number of visible columns grows automatically as the user navigates. When a leaf node (no children) is selected, the dropdown closes and the value is committed to `SelectedCascadingItem`.
 
   ```xaml
   <vio:CascadingComboBox
       Width="240"
       HorizontalAlignment="Left"
       ItemsSource="{Binding CascadingComboBoxDemoItems}"
-      SelectedSubItem="{Binding CascadingComboBoxSelectedSubItem, Mode=TwoWay}" />
+      SelectedCascadingItem="{Binding CascadingComboBoxSelectedValue, Mode=TwoWay}" />
   ```
 
   ```c#
   [ObservableProperty]
-  public partial ObservableCollection<ISecondaryItem> CascadingComboBoxDemoItems { get; set; } = [];
+  public partial ObservableCollection<ICascadingItem> CascadingComboBoxDemoItems { get; set; } = [];
 
   [ObservableProperty]
-  public partial ISecondarySubItem? CascadingComboBoxSelectedSubItem { get; set; }
+  public partial ICascadingItem? CascadingComboBoxSelectedValue { get; set; }
 
-  partial void OnCascadingComboBoxSelectedSubItemChanged(ISecondarySubItem? value)
+  partial void OnCascadingComboBoxSelectedValueChanged(ICascadingItem? value)
   {
       string selectedText = value is null
           ? "Selected: (none)"
-          : $"Selected: {value.Display}";
+          : $"Selected: {value.Label}";
   }
 
   private void InitCascadingComboBoxDemo()
   {
       CascadingComboBoxDemoItems =
       [
-          new SecondaryItem("Fruits",
+          new CascadingItem("Food",
           [
-              new SecondarySubItem("Apple", "apple"),
-              new SecondarySubItem("Banana", "banana"),
-              new SecondarySubItem("Cherry", "cherry"),
+              new CascadingItem("Fruits",
+              [
+                  new CascadingItem("Apple"),
+                  new CascadingItem("Banana"),
+                  new CascadingItem("Cherry"),
+              ]),
+              new CascadingItem("Vegetables",
+              [
+                  new CascadingItem("Carrot"),
+                  new CascadingItem("Broccoli"),
+                  new CascadingItem("Spinach"),
+              ]),
           ]),
-          new SecondaryItem("Vegetables",
+          new CascadingItem("Drinks",
           [
-              new SecondarySubItem("Carrot", "carrot"),
-              new SecondarySubItem("Broccoli", "broccoli"),
-              new SecondarySubItem("Spinach", "spinach"),
-          ]),
-          new SecondaryItem("Drinks",
-          [
-              new SecondarySubItem("Water", "water"),
-              new SecondarySubItem("Coffee", "coffee"),
-              new SecondarySubItem("Tea", "tea"),
+              new CascadingItem("Hot",
+              [
+                  new CascadingItem("Coffee"),
+                  new CascadingItem("Tea"),
+              ]),
+              new CascadingItem("Cold",
+              [
+                  new CascadingItem("Water"),
+                  new CascadingItem("Juice"),
+              ]),
           ]),
       ];
   }
   ```
 
   `CascadingComboBox` common properties:
-  `PlaceholderText` placeholder text when no sub-item is selected.
-  `ItemsSource` two-level data source (`IEnumerable<ISecondaryItem>`, setting a non-conforming type throws `ArgumentException`).
-  `SelectedGroup` currently highlighted group (`ISecondaryItem?`).
-  `SelectedSubItem` currently selected sub-item (`ISecondarySubItem?`, two-way bindable).
-  `FilteredItems` sub-items of the currently selected group.
+  `PlaceholderText` placeholder text when no item is selected.
+  `ItemsSource` root-level data source (`IEnumerable<ICascadingItem>`, setting a non-conforming type throws `ArgumentException`).
+  `Levels` (read-only) number of columns currently visible in the dropdown.
+  `SelectedCascadingItem` the leaf node selected by the user (`ICascadingItem?`, two-way bindable).
 
 - **Splash**
 

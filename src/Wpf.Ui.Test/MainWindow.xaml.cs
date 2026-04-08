@@ -62,43 +62,53 @@ public partial class MainWindow : ShellWindow
     public partial string MultiComboBoxSelectedText { get; set; } = "Selected: (none)";
 
     [ObservableProperty]
-    public partial ObservableCollection<ISecondaryItem> CascadingComboBoxDemoItems { get; set; } = [];
+    public partial ObservableCollection<ICascadingItem> CascadingComboBoxDemoItems { get; set; } = [];
 
     [ObservableProperty]
-    public partial ISecondarySubItem? CascadingComboBoxSelectedSubItem { get; set; }
+    public partial ICascadingItem? CascadingComboBoxSelectedValue { get; set; }
 
     [ObservableProperty]
     public partial string CascadingComboBoxSelectedText { get; set; } = "Selected: (none)";
 
-    partial void OnCascadingComboBoxSelectedSubItemChanged(ISecondarySubItem? value)
+    partial void OnCascadingComboBoxSelectedValueChanged(ICascadingItem? value)
     {
         CascadingComboBoxSelectedText = value is null
             ? "Selected: (none)"
-            : $"Selected: {value.Display}";
+            : $"Selected: {value.Label}";
     }
 
     private void InitCascadingComboBoxDemo()
     {
         CascadingComboBoxDemoItems =
         [
-            new SecondaryItem("Fruits",
+            new CascadingItem("Food",
             [
-                new SecondarySubItem("Apple", "apple"),
-                new SecondarySubItem("Banana", "banana"),
-                new SecondarySubItem("Cherry", "cherry")
+                new CascadingItem("Fruits",
+                [
+                    new CascadingItem("Apple"),
+                    new CascadingItem("Banana"),
+                    new CascadingItem("Cherry"),
+                ]),
+                new CascadingItem("Vegetables",
+                [
+                    new CascadingItem("Carrot"),
+                    new CascadingItem("Broccoli"),
+                    new CascadingItem("Spinach"),
+                ]),
             ]),
-            new SecondaryItem("Vegetables",
+            new CascadingItem("Drinks",
             [
-                new SecondarySubItem("Carrot", "carrot"),
-                new SecondarySubItem("Broccoli", "broccoli"),
-                new SecondarySubItem("Spinach", "spinach")
+                new CascadingItem("Hot",
+                [
+                    new CascadingItem("Coffee"),
+                    new CascadingItem("Tea"),
+                ]),
+                new CascadingItem("Cold",
+                [
+                    new CascadingItem("Water"),
+                    new CascadingItem("Juice"),
+                ]),
             ]),
-            new SecondaryItem("Drinks",
-            [
-                new SecondarySubItem("Water", "water"),
-                new SecondarySubItem("Coffee", "coffee"),
-                new SecondarySubItem("Tea", "tea")
-            ])
         ];
     }
 

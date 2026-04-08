@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,20 +9,22 @@ using Wpf.Ui.Violeta.Resources.Localization;
 
 namespace Wpf.Ui.Violeta.Controls;
 
-[TemplatePart(Name = PART_GroupsListView, Type = typeof(ListView))]
-[TemplatePart(Name = PART_ItemsListView, Type = typeof(ListView))]
 [TemplatePart(Name = PART_SelectedText, Type = typeof(TextBlock))]
 public class CascadingComboBox : ComboBox
 {
-    public const string PART_GroupsListView = "PART_GroupsListView";
-    public const string PART_ItemsListView = "PART_ItemsListView";
     public const string PART_SelectedText = "PART_SelectedText";
-
-    private ListView? _groupsListView;
-    private ListView? _itemsListView;
 
     public static readonly DependencyProperty PlaceholderTextProperty =
         DependencyProperty.Register(nameof(PlaceholderText), typeof(string), typeof(CascadingComboBox), new PropertyMetadata(string.Empty));
+
+    private static readonly DependencyPropertyKey LevelsPropertyKey =
+        DependencyProperty.RegisterReadOnly(nameof(Levels), typeof(int), typeof(CascadingComboBox), new PropertyMetadata(0));
+
+    public static readonly DependencyProperty LevelsProperty = LevelsPropertyKey.DependencyProperty;
+
+    public static readonly DependencyProperty SelectedCascadingItemProperty =
+        DependencyProperty.Register(nameof(SelectedCascadingItem), typeof(ICascadingItem), typeof(CascadingComboBox),
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedCascadingItemChanged));
 
     static CascadingComboBox()
     {
@@ -42,126 +46,98 @@ public class CascadingComboBox : ComboBox
         set => SetValue(PlaceholderTextProperty, value);
     }
 
+    /// <summary>
+    /// Number of columns currently visible in the dropdown. Auto-updates as the user makes selections.
+    /// </summary>
+    public int Levels => (int)GetValue(LevelsProperty);
+
+    /// <summary>
+    /// The leaf node currently selected by the user. Two-way bindable.
+    /// </summary>
+    public ICascadingItem? SelectedCascadingItem
+    {
+        get => (ICascadingItem?)GetValue(SelectedCascadingItemProperty);
+        set => SetValue(SelectedCascadingItemProperty, value);
+    }
+
+    /// <summary>
+    /// Internal columns collection that drives the dynamic popup layout.
+    /// </summary>
+    public ObservableCollection<CascadingColumnData> Columns { get; } = [];
+
     private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (e.NewValue is not null and not IEnumerable<ISecondaryItem>)
+        if (e.NewValue is not null and not IEnumerable<ICascadingItem>)
         {
-            throw new ArgumentException($"{nameof(ItemsSource)} must be of type IEnumerable<ISecondaryItem>.", nameof(ItemsSource));
+            throw new ArgumentException($"{nameof(ItemsSource)} must be of type IEnumerable<ICascadingItem>.", nameof(ItemsSource));
         }
-        var control = (CascadingComboBox)d;
-        control.UpdateGroups();
+        ((CascadingComboBox)d).ResetColumns();
     }
 
-    /// <summary>
-    /// Currently selected main group
-    /// </summary>
-    public ISecondaryItem? SelectedGroup
+    private static void OnSelectedCascadingItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        get => (ISecondaryItem?)GetValue(SelectedGroupProperty);
-        set => SetValue(SelectedGroupProperty, value);
-    }
-
-    public static readonly DependencyProperty SelectedGroupProperty =
-        DependencyProperty.Register(nameof(SelectedGroup), typeof(ISecondaryItem), typeof(CascadingComboBox), new PropertyMetadata(null, OnSelectedGroupChanged));
-
-    private static void OnSelectedGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        var control = (CascadingComboBox)d;
-        control.UpdateItems();
-    }
-
-    /// <summary>
-    /// Currently selected sub-item
-    /// </summary>
-    public ISecondarySubItem? SelectedSubItem
-    {
-        get => (ISecondarySubItem?)GetValue(SelectedSubItemProperty);
-        set => SetValue(SelectedSubItemProperty, value);
-    }
-
-    public static readonly DependencyProperty SelectedSubItemProperty =
-        DependencyProperty.Register(nameof(SelectedSubItem), typeof(ISecondarySubItem), typeof(CascadingComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnSelectedSubItemChanged));
-
-    private static void OnSelectedSubItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        var control = (CascadingComboBox)d;
-        if (e.NewValue is ISecondarySubItem && control.SelectedGroup != null)
+        if (e.NewValue is ICascadingItem)
         {
-            // Close the dropdown after a sub-item is selected
-            control.IsDropDownOpen = false;
+            ((CascadingComboBox)d).IsDropDownOpen = false;
         }
     }
 
-    /// <summary>
-    /// Collection of sub-items under the current group
-    /// </summary>
-    public IEnumerable<ISecondarySubItem> FilteredItems
+    private void ResetColumns()
     {
-        get => (IEnumerable<ISecondarySubItem>)GetValue(FilteredItemsProperty);
-        set => SetValue(FilteredItemsProperty, value);
-    }
-
-    public static readonly DependencyProperty FilteredItemsProperty =
-        DependencyProperty.Register(nameof(FilteredItems), typeof(IEnumerable<ISecondarySubItem>), typeof(CascadingComboBox), new PropertyMetadata(Array.Empty<ISecondarySubItem>()));
-
-    public override void OnApplyTemplate()
-    {
-        base.OnApplyTemplate();
-
-        _groupsListView = GetTemplateChild(PART_GroupsListView) as ListView;
-        _itemsListView = GetTemplateChild(PART_ItemsListView) as ListView;
-
-        if (_groupsListView != null)
+        foreach (var col in Columns)
         {
-            _groupsListView.SelectionChanged -= GroupsListView_SelectionChanged;
-            _groupsListView.SelectionChanged += GroupsListView_SelectionChanged;
+            col.PropertyChanged -= OnColumnSelectionChanged;
         }
-        if (_itemsListView != null)
+        Columns.Clear();
+        SetCurrentValue(SelectedCascadingItemProperty, null);
+
+        var root = (ItemsSource as IEnumerable<ICascadingItem>)?.ToList();
+        if (root is { Count: > 0 })
         {
-            _itemsListView.SelectionChanged -= ItemsListView_SelectionChanged;
-            _itemsListView.SelectionChanged += ItemsListView_SelectionChanged;
+            AddColumn(root);
         }
     }
 
-    private void GroupsListView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    private void AddColumn(IEnumerable<ICascadingItem> items)
     {
-        if (_groupsListView?.SelectedItem is ISecondaryItem group)
-        {
-            SelectedGroup = group;
-        }
+        var col = new CascadingColumnData(Columns.Count, items);
+        col.PropertyChanged += OnColumnSelectionChanged;
+        Columns.Add(col);
+        SetValue(LevelsPropertyKey, Columns.Count);
     }
 
-    private void ItemsListView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    private void OnColumnSelectionChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (_itemsListView?.SelectedItem is ISecondarySubItem subItem)
-        {
-            SelectedSubItem = subItem;
-        }
-    }
+        if (sender is not CascadingColumnData column || e.PropertyName != nameof(CascadingColumnData.SelectedItem))
+            return;
 
-    private void UpdateGroups()
-    {
-        // The first group is selected by default
-        var groups = (ItemsSource as IEnumerable<ISecondaryItem>)?.ToList() ?? [];
-        if (groups.Count > 0)
+        // Remove all columns after this one
+        int idx = column.ColumnIndex;
+        while (Columns.Count > idx + 1)
         {
-            SelectedGroup = groups[0];
+            Columns[Columns.Count - 1].PropertyChanged -= OnColumnSelectionChanged;
+            Columns.RemoveAt(Columns.Count - 1);
+        }
+        SetValue(LevelsPropertyKey, Columns.Count);
+
+        var selected = column.SelectedItem;
+        if (selected is null)
+        {
+            SetCurrentValue(SelectedCascadingItemProperty, null);
+            return;
+        }
+
+        var children = selected.Children?.ToList();
+        if (children is { Count: > 0 })
+        {
+            // Non-leaf: expand to next column
+            SetCurrentValue(SelectedCascadingItemProperty, null);
+            AddColumn(children);
         }
         else
         {
-            SelectedGroup = null;
-        }
-    }
-
-    private void UpdateItems()
-    {
-        if (SelectedGroup != null)
-        {
-            FilteredItems = SelectedGroup.Items?.ToList() ?? [];
-        }
-        else
-        {
-            FilteredItems = [];
+            // Leaf: commit selection and close
+            SetCurrentValue(SelectedCascadingItemProperty, selected);
         }
     }
 }
