@@ -78,7 +78,7 @@ public class CascadingComboBox : ComboBox
     }
 
     /// <summary>
-    /// 当前选中的子项
+    /// Currently selected sub-item
     /// </summary>
     public ISecondarySubItem? SelectedSubItem
     {
@@ -94,13 +94,13 @@ public class CascadingComboBox : ComboBox
         var control = (CascadingComboBox)d;
         if (e.NewValue is ISecondarySubItem && control.SelectedGroup != null)
         {
-            // 选中子项后关闭下拉
+            // Close the dropdown after a sub-item is selected
             control.IsDropDownOpen = false;
         }
     }
 
     /// <summary>
-    /// 当前分组下的子项集合
+    /// Collection of sub-items under the current group
     /// </summary>
     public IEnumerable<ISecondarySubItem> FilteredItems
     {
