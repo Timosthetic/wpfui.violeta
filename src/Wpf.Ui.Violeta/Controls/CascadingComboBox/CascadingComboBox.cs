@@ -25,6 +25,7 @@ public class CascadingComboBox : ComboBox
     static CascadingComboBox()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(CascadingComboBox), new FrameworkPropertyMetadata(typeof(CascadingComboBox)));
+        ItemsSourceProperty.OverrideMetadata(typeof(CascadingComboBox), new FrameworkPropertyMetadata(OnItemsSourceChanged));
     }
 
     public CascadingComboBox()
@@ -41,20 +42,12 @@ public class CascadingComboBox : ComboBox
         set => SetValue(PlaceholderTextProperty, value);
     }
 
-    /// <summary>
-    /// Secondary menu data source
-    /// </summary>
-    public IEnumerable<ISecondaryItem> ItemsSource2
+    private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        get => (IEnumerable<ISecondaryItem>)GetValue(ItemsSource2Property);
-        set => SetValue(ItemsSource2Property, value);
-    }
-
-    public static readonly DependencyProperty ItemsSource2Property =
-        DependencyProperty.Register(nameof(ItemsSource2), typeof(IEnumerable<ISecondaryItem>), typeof(CascadingComboBox), new PropertyMetadata(Array.Empty<ISecondaryItem>(), OnItemsSource2Changed));
-
-    private static void OnItemsSource2Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
+        if (e.NewValue is not null and not IEnumerable<ISecondaryItem>)
+        {
+            throw new ArgumentException($"{nameof(ItemsSource)} must be of type IEnumerable<ISecondaryItem>.", nameof(ItemsSource));
+        }
         var control = (CascadingComboBox)d;
         control.UpdateGroups();
     }
@@ -149,7 +142,7 @@ public class CascadingComboBox : ComboBox
     private void UpdateGroups()
     {
         // The first group is selected by default
-        var groups = ItemsSource2?.ToList() ?? [];
+        var groups = (ItemsSource as IEnumerable<ISecondaryItem>)?.ToList() ?? [];
         if (groups.Count > 0)
         {
             SelectedGroup = groups[0];

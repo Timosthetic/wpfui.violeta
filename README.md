@@ -234,7 +234,7 @@ Similar to WPF UI.
   <vio:CascadingComboBox
       Width="240"
       HorizontalAlignment="Left"
-      ItemsSource2="{Binding CascadingComboBoxDemoItems}"
+      ItemsSource="{Binding CascadingComboBoxDemoItems}"
       SelectedSubItem="{Binding CascadingComboBoxSelectedSubItem, Mode=TwoWay}" />
   ```
 
@@ -280,7 +280,7 @@ Similar to WPF UI.
 
   `CascadingComboBox` common properties:
   `PlaceholderText` placeholder text when no sub-item is selected.
-  `ItemsSource2` two-level data source (`IEnumerable<ISecondaryItem>`).
+  `ItemsSource` two-level data source (`IEnumerable<ISecondaryItem>`, setting a non-conforming type throws `ArgumentException`).
   `SelectedGroup` currently highlighted group (`ISecondaryItem?`).
   `SelectedSubItem` currently selected sub-item (`ISecondarySubItem?`, two-way bindable).
   `FilteredItems` sub-items of the currently selected group.

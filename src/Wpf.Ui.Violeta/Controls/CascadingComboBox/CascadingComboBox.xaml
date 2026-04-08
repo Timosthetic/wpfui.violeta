@@ -193,7 +193,7 @@
                                     <ListView
                                         x:Name="PART_GroupsListView"
                                         MinWidth="120"
-                                        ItemsSource="{Binding ItemsSource2, RelativeSource={RelativeSource TemplatedParent}}"
+                                        ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource TemplatedParent}}"
                                         SelectedItem="{Binding SelectedGroup, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
                                         <ListView.Style>
                                             <StaticResource ResourceKey="DefaultCascadingComboBoxListViewStyle" />

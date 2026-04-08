@@ -1624,7 +1624,7 @@
                             <vio:CascadingComboBox
                                 Width="240"
                                 HorizontalAlignment="Left"
-                                ItemsSource2="{Binding CascadingComboBoxDemoItems}"
+                                ItemsSource="{Binding CascadingComboBoxDemoItems}"
                                 SelectedSubItem="{Binding CascadingComboBoxSelectedSubItem, Mode=TwoWay}" />
                             <TextBlock
                                 Margin="16,0,0,0"
