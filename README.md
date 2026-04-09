@@ -826,6 +826,8 @@ Under construction
 
 ### 💞Special Thanks
 
+WPF-UI.Violeta is standing on shoulders of several open-source libraries, named
+
 - [🔗 WPF-UI](https://github.com/lepoco/wpfui)
 - [🔗 Fischless](https://github.com/GenshinMatrix/Fischless)
 - [🔗 ModernWpf](https://github.com/Kinnara/ModernWpf)
@@ -836,3 +838,4 @@ Under construction
 - [🔗 HandyOrg/HandyControl](https://github.com/HandyOrg/HandyControl)
 - [🔗 Moh3nGolshani/BusyIndicator](https://github.com/Moh3nGolshani/BusyIndicator)
 - [🔗 walterlv/sharing-demo](https://github.com/walterlv/sharing-demo)
+- [🔗 SlimeNull/LightDarkModeSwitchAnimation](https://github.com/SlimeNull/LightDarkModeSwitchAnimation)

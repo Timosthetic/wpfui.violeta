@@ -9,11 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Violeta.Appearance;
@@ -348,65 +343,6 @@ public partial class MainWindow : ShellWindow
     {
         ThemeManager.Apply((ApplicationTheme)value);
         ThemeManager.TrackSystemThemeChanges(isTracked: (ApplicationTheme)value == ApplicationTheme.Unknown);
-    }
-
-    private void ThemeSelector_OnSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-    {
-        if (sender is not System.Windows.Controls.ComboBox comboBox
-            || comboBox.SelectedIndex < 0
-            || !IsLoaded)
-        {
-            return;
-        }
-
-        int newIndex = comboBox.SelectedIndex;
-
-        // 1. Capture click centre relative to the root grid (before any theme change)
-        Point center = comboBox.TranslatePoint(
-            new Point(comboBox.ActualWidth / 2.0, comboBox.ActualHeight / 2.0),
-            MainLayoutRoot
-        );
-
-        // 2. Try to get the AdornerLayer and snapshot the current appearance
-        var adornerLayer = AdornerLayer.GetAdornerLayer(MainLayoutRoot);
-        RenderTargetBitmap? snapshot = null;
-
-        if (adornerLayer is not null && this.Content is UIElement rootVisual)
-        {
-            try
-            {
-                DpiScale dpi = VisualTreeHelper.GetDpi(rootVisual);
-                snapshot = new(
-                    Math.Max(1, (int)(rootVisual.RenderSize.Width * dpi.DpiScaleX)),
-                    Math.Max(1, (int)(rootVisual.RenderSize.Height * dpi.DpiScaleY)),
-                    dpi.PixelsPerInchX,
-                    dpi.PixelsPerInchY,
-                    PixelFormats.Pbgra32
-                );
-                snapshot.Render(rootVisual);
-            }
-            catch
-            {
-                snapshot = null;
-            }
-        }
-
-        // 3. Apply the new theme (updates actual window appearance)
-        ThemeIndex = newIndex;
-
-        // 4. Play the ripple adorner over the now-updated window
-        if (adornerLayer is not null && snapshot is not null)
-        {
-            ThemeSwitchRippleAdorner ripple = new(MainLayoutRoot)
-            {
-                Center = center,
-                OuterBrush = new ImageBrush(snapshot),
-            };
-
-            ripple.Completed += (_, _) => adornerLayer.Remove(ripple);
-            adornerLayer.Add(ripple);
-            ripple.Play(speed: 3200, new SineEase { EasingMode = EasingMode.EaseOut });
-        }
     }
 
     [RelayCommand]

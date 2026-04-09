@@ -4,31 +4,25 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace Wpf.Ui.Test;
+namespace Wpf.Ui.Violeta.Appearance;
 
-public class ThemeSwitchRippleAdorner : Adorner
+internal class ThemeSwitchRippleAdorner : Adorner
 {
     private readonly UIElement _adornedElement;
     private RectangleGeometry? _cachedRectangleGeometry;
     private EllipseGeometry? _cachedEllipseGeometry;
     private CombinedGeometry? _cachedOuterGeometry;
 
-    public ThemeSwitchRippleAdorner(UIElement adornedElement)
-        : base(adornedElement)
+    public ThemeSwitchRippleAdorner(UIElement adornedElement) : base(adornedElement)
     {
         _adornedElement = adornedElement;
+        IsHitTestVisible = false;
     }
 
     public Point Center
     {
         get => (Point)GetValue(CenterProperty);
         set => SetValue(CenterProperty, value);
-    }
-
-    public Brush? InnerBrush
-    {
-        get => (Brush?)GetValue(InnerBrushProperty);
-        set => SetValue(InnerBrushProperty, value);
     }
 
     public Brush? OuterBrush
@@ -57,29 +51,28 @@ public class ThemeSwitchRippleAdorner : Adorner
 
         double maxRadiusSquared = Math.Max(
             Math.Max(d1.LengthSquared, d2.LengthSquared),
-            Math.Max(d3.LengthSquared, d4.LengthSquared)
-        );
+            Math.Max(d3.LengthSquared, d4.LengthSquared));
 
         double maxDiameter = Math.Sqrt(maxRadiusSquared) * 2.0;
         double fromDiameter = Diameter > maxDiameter ? 0.0 : Diameter;
-        double timeSeconds = (maxDiameter - fromDiameter) / speed;
+        double durationSeconds = (maxDiameter - fromDiameter) / speed;
 
-        DoubleAnimation diameterAnimation = new()
+        DoubleAnimation animation = new()
         {
             From = fromDiameter,
             To = maxDiameter,
-            Duration = new Duration(TimeSpan.FromSeconds(timeSeconds)),
+            Duration = new Duration(TimeSpan.FromSeconds(durationSeconds)),
             EasingFunction = easingFunction,
         };
 
-        diameterAnimation.Completed += (_, _) =>
+        animation.Completed += (_, _) =>
         {
             BeginAnimation(DiameterProperty, null);
             Diameter = maxDiameter;
             Completed?.Invoke(this, EventArgs.Empty);
         };
 
-        BeginAnimation(DiameterProperty, diameterAnimation);
+        BeginAnimation(DiameterProperty, animation);
     }
 
     protected override void OnRender(DrawingContext drawingContext)
@@ -103,13 +96,6 @@ public class ThemeSwitchRippleAdorner : Adorner
         outerGeometry.Geometry2 = ellipseGeometry;
         outerGeometry.GeometryCombineMode = GeometryCombineMode.Exclude;
 
-        if (InnerBrush is not null)
-        {
-            drawingContext.PushClip(ellipseGeometry);
-            drawingContext.DrawRectangle(InnerBrush, null, wholeRect);
-            drawingContext.Pop();
-        }
-
         if (OuterBrush is not null)
         {
             drawingContext.PushClip(outerGeometry);
@@ -119,30 +105,14 @@ public class ThemeSwitchRippleAdorner : Adorner
     }
 
     public static readonly DependencyProperty CenterProperty = DependencyProperty.Register(
-        nameof(Center),
-        typeof(Point),
-        typeof(ThemeSwitchRippleAdorner),
-        new FrameworkPropertyMetadata(default(Point), FrameworkPropertyMetadataOptions.AffectsRender)
-    );
+        nameof(Center), typeof(Point), typeof(ThemeSwitchRippleAdorner),
+        new FrameworkPropertyMetadata(default(Point), FrameworkPropertyMetadataOptions.AffectsRender));
 
     public static readonly DependencyProperty DiameterProperty = DependencyProperty.Register(
-        nameof(Diameter),
-        typeof(double),
-        typeof(ThemeSwitchRippleAdorner),
-        new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender)
-    );
-
-    public static readonly DependencyProperty InnerBrushProperty = DependencyProperty.Register(
-        nameof(InnerBrush),
-        typeof(Brush),
-        typeof(ThemeSwitchRippleAdorner),
-        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender)
-    );
+        nameof(Diameter), typeof(double), typeof(ThemeSwitchRippleAdorner),
+        new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
     public static readonly DependencyProperty OuterBrushProperty = DependencyProperty.Register(
-        nameof(OuterBrush),
-        typeof(Brush),
-        typeof(ThemeSwitchRippleAdorner),
-        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender)
-    );
+        nameof(OuterBrush), typeof(Brush), typeof(ThemeSwitchRippleAdorner),
+        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
 }
