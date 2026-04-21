@@ -13,12 +13,14 @@ namespace Wpf.Ui.Violeta.Controls;
 [TemplatePart(Name = PART_NextButton, Type = typeof(RepeatButton))]
 [TemplatePart(Name = PART_ButtonPanel, Type = typeof(StackPanel))]
 [TemplatePart(Name = PART_QuickJumpInput, Type = typeof(TextBox))]
+[TemplatePart(Name = PART_PageSizeSelector, Type = typeof(ComboBox))]
 public class Pagination : Control
 {
     public const string PART_PreviousButton = "PART_PreviousButton";
     public const string PART_NextButton = "PART_NextButton";
     public const string PART_ButtonPanel = "PART_ButtonPanel";
     public const string PART_QuickJumpInput = "PART_QuickJumpInput";
+    public const string PART_PageSizeSelector = "PART_PageSizeSelector";
 
     // 7 internal page buttons (matches Ursa design)
     private readonly PaginationButton[] _buttons = new PaginationButton[7];
@@ -27,6 +29,7 @@ public class Pagination : Control
     private RepeatButton? _previousButton;
     private RepeatButton? _nextButton;
     private TextBox? _quickJumpInput;
+    private ComboBox? _pageSizeSelector;
 
     static Pagination()
     {
@@ -91,6 +94,20 @@ public class Pagination : Control
             typeof(Pagination),
             new PropertyMetadata(false));
 
+    public static readonly DependencyProperty ShowPageSizeSelectorProperty =
+        DependencyProperty.Register(
+            nameof(ShowPageSizeSelector),
+            typeof(bool),
+            typeof(Pagination),
+            new PropertyMetadata(false));
+
+    public static readonly DependencyProperty PageSizeOptionsProperty =
+        DependencyProperty.Register(
+            nameof(PageSizeOptions),
+            typeof(int[]),
+            typeof(Pagination),
+            new PropertyMetadata(new int[] { 10, 20, 50, 100 }));
+
     public static readonly DependencyProperty CommandProperty =
         DependencyProperty.Register(
             nameof(Command),
@@ -140,6 +157,20 @@ public class Pagination : Control
     {
         get => (bool)GetValue(ShowQuickJumpProperty);
         set => SetValue(ShowQuickJumpProperty, value);
+    }
+
+    /// <summary>Whether the page-size selector ComboBox is shown.</summary>
+    public bool ShowPageSizeSelector
+    {
+        get => (bool)GetValue(ShowPageSizeSelectorProperty);
+        set => SetValue(ShowPageSizeSelectorProperty, value);
+    }
+
+    /// <summary>Options shown in the page-size selector (default 10/20/50/100).</summary>
+    public int[] PageSizeOptions
+    {
+        get => (int[])GetValue(PageSizeOptionsProperty);
+        set => SetValue(PageSizeOptionsProperty, value);
     }
 
     public ICommand? Command
@@ -200,6 +231,7 @@ public class Pagination : Control
         _nextButton = GetTemplateChild(PART_NextButton) as RepeatButton;
         _buttonPanel = GetTemplateChild(PART_ButtonPanel) as StackPanel;
         _quickJumpInput = GetTemplateChild(PART_QuickJumpInput) as TextBox;
+        _pageSizeSelector = GetTemplateChild(PART_PageSizeSelector) as ComboBox;
 
         _previousButton?.Click += OnPreviousButtonClick;
         _nextButton?.Click += OnNextButtonClick;
@@ -208,6 +240,7 @@ public class Pagination : Control
             _quickJumpInput.KeyDown += OnQuickJumpKeyDown;
             _quickJumpInput.LostFocus += OnQuickJumpLostFocus;
         }
+        _pageSizeSelector?.SelectionChanged += OnPageSizeSelectorChanged;
 
         InitializePanelButtons();
         RecalcPageCount();
@@ -285,6 +318,7 @@ public class Pagination : Control
         _previousButton?.IsEnabled = currentPage > 1;
         _nextButton?.IsEnabled = currentPage < pageCount;
         RefreshQuickJumpText();
+        SyncPageSizeSelector();
     }
 
     // --- Page count recalculation ------------------------------------------------
@@ -326,6 +360,21 @@ public class Pagination : Control
     }
 
     private void OnQuickJumpLostFocus(object sender, RoutedEventArgs e) => SyncQuickJump();
+
+    private void SyncPageSizeSelector()
+    {
+        if (_pageSizeSelector is null) return;
+        if (_pageSizeSelector.SelectedItem is int selected && selected == PageSize) return;
+        _pageSizeSelector.SelectedItem = PageSize;
+    }
+
+    private void OnPageSizeSelectorChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_pageSizeSelector?.SelectedItem is int newSize && newSize > 0)
+        {
+            PageSize = newSize;
+        }
+    }
 
     private void RefreshQuickJumpText()
     {

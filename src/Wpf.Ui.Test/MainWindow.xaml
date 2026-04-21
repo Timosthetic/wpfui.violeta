@@ -1779,6 +1779,19 @@
                                     Style="{DynamicResource DefaultTinyPaginationStyle}"
                                     TotalCount="1000" />
                             </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="120"
+                                    VerticalAlignment="Center"
+                                    FontSize="14"
+                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                    Text="Page Size Selector" />
+                                <vio:Pagination
+                                    Margin="16,0,0,0"
+                                    PageSize="10"
+                                    ShowPageSizeSelector="True"
+                                    TotalCount="1000" />
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>

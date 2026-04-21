@@ -220,10 +220,23 @@
                                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                                 Text="页" />
                         </StackPanel>
+
+                        <!--  Page size selector (hidden by default, shown when ShowPageSizeSelector=True)  -->
+                        <ComboBox
+                            x:Name="PART_PageSizeSelector"
+                            Margin="8,0,0,0"
+                            Padding="10,0,0,0"
+                            VerticalAlignment="Center"
+                            ItemsSource="{TemplateBinding PageSizeOptions}"
+                            TextBlock.TextAlignment="Center"
+                            Visibility="Collapsed" />
                     </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="ShowQuickJump" Value="True">
                             <Setter TargetName="QuickJumpPanel" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="ShowPageSizeSelector" Value="True">
+                            <Setter TargetName="PART_PageSizeSelector" Property="Visibility" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
