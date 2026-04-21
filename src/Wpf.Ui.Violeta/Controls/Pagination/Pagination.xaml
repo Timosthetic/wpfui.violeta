@@ -210,7 +210,6 @@
                                 x:Name="PART_QuickJumpInput"
                                 MinWidth="40"
                                 MaxWidth="200"
-                                Padding="0"
                                 VerticalAlignment="Center"
                                 VerticalContentAlignment="Center"
                                 TextAlignment="Center" />
@@ -225,7 +224,6 @@
                         <ComboBox
                             x:Name="PART_PageSizeSelector"
                             Margin="8,0,0,0"
-                            Padding="10,0,0,0"
                             VerticalAlignment="Center"
                             ItemsSource="{TemplateBinding PageSizeOptions}"
                             TextBlock.TextAlignment="Center"
@@ -281,7 +279,6 @@
                             x:Name="PART_QuickJumpInput"
                             MinWidth="40"
                             MaxWidth="200"
-                            Padding="0"
                             VerticalAlignment="Center"
                             VerticalContentAlignment="Center"
                             FocusVisualStyle="{x:Null}"
