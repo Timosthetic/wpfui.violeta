@@ -27,8 +27,8 @@
                     <ComboBox
                         MaxWidth="120"
                         Margin="4"
-                        SelectedIndex="{Binding ThemeIndex}"
-                        vio:ThemeSwitchEffect.IsEnabled="True">
+                        vio:ThemeSwitchEffect.IsEnabled="True"
+                        SelectedIndex="{Binding ThemeIndex}">
                         <ComboBoxItem Content="System" />
                         <ComboBoxItem Content="Dark" />
                         <ComboBoxItem Content="Light" />
@@ -1717,6 +1717,54 @@
                                         Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                         Text="(Some branches have 2-4 levels)" />
                                 </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel>
+                        <!--  =============================  -->
+                        <TextBlock
+                            MinWidth="120"
+                            Margin="0,8,0,0"
+                            FontSize="14"
+                            FontWeight="Black"
+                            Text="Pagination" />
+                        <StackPanel Margin="0,8,0,0" Orientation="Vertical">
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="120"
+                                    VerticalAlignment="Center"
+                                    FontSize="14"
+                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                    Text="Basic (5 pages)" />
+                                <vio:Pagination
+                                    Margin="16,0,0,0"
+                                    PageSize="10"
+                                    TotalCount="50" />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="120"
+                                    VerticalAlignment="Center"
+                                    FontSize="14"
+                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                    Text="Many pages (100)" />
+                                <vio:Pagination
+                                    Margin="16,0,0,0"
+                                    PageSize="10"
+                                    TotalCount="1000" />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="120"
+                                    VerticalAlignment="Center"
+                                    FontSize="14"
+                                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                    Text="With QuickJump" />
+                                <vio:Pagination
+                                    Margin="16,0,0,0"
+                                    PageSize="10"
+                                    ShowQuickJump="True"
+                                    TotalCount="1000" />
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
