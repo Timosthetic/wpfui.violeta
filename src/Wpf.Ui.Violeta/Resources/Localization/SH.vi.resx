@@ -162,4 +162,10 @@
   <data name="PleaseSelect" xml:space="preserve">
     <value>Vui lòng chọn...</value>
   </data>
+  <data name="PaginationQuickJumpPrefix" xml:space="preserve">
+    <value>Đi đến</value>
+  </data>
+  <data name="PaginationQuickJumpSuffix" xml:space="preserve">
+    <value>trang</value>
+  </data>
 </root>

@@ -163,6 +163,24 @@ namespace Wpf.Ui.Violeta.Resources.Localization {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Go to.
+        /// </summary>
+        internal static string PaginationQuickJumpPrefix {
+            get {
+                return ResourceManager.GetString("PaginationQuickJumpPrefix", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to page.
+        /// </summary>
+        internal static string PaginationQuickJumpSuffix {
+            get {
+                return ResourceManager.GetString("PaginationQuickJumpSuffix", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Select All.
         /// </summary>
         internal static string MultiComboBoxSelectAll {

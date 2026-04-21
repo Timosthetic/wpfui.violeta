@@ -162,4 +162,10 @@
   <data name="PleaseSelect" xml:space="preserve">
     <value>Пожалуйста, выберите...</value>
   </data>
+  <data name="PaginationQuickJumpPrefix" xml:space="preserve">
+    <value>Перейти к</value>
+  </data>
+  <data name="PaginationQuickJumpSuffix" xml:space="preserve">
+    <value>странице</value>
+  </data>
 </root>

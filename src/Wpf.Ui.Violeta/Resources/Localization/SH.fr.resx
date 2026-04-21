@@ -162,4 +162,10 @@
   <data name="PleaseSelect" xml:space="preserve">
     <value>Veuillez sélectionner...</value>
   </data>
+  <data name="PaginationQuickJumpPrefix" xml:space="preserve">
+    <value>Aller à</value>
+  </data>
+  <data name="PaginationQuickJumpSuffix" xml:space="preserve">
+    <value>page</value>
+  </data>
 </root>

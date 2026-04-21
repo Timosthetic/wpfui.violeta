@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using Wpf.Ui.Violeta.Resources.Localization;
 
 namespace Wpf.Ui.Violeta.Controls;
 
@@ -94,6 +95,20 @@ public class Pagination : Control
             typeof(Pagination),
             new PropertyMetadata(false));
 
+    public static readonly DependencyProperty QuickJumpPrefixTextProperty =
+        DependencyProperty.Register(
+            nameof(QuickJumpPrefixText),
+            typeof(string),
+            typeof(Pagination),
+            new PropertyMetadata(SH.PaginationQuickJumpPrefix));
+
+    public static readonly DependencyProperty QuickJumpSuffixTextProperty =
+        DependencyProperty.Register(
+            nameof(QuickJumpSuffixText),
+            typeof(string),
+            typeof(Pagination),
+            new PropertyMetadata(SH.PaginationQuickJumpSuffix));
+
     public static readonly DependencyProperty ShowPageSizeSelectorProperty =
         DependencyProperty.Register(
             nameof(ShowPageSizeSelector),
@@ -159,6 +174,20 @@ public class Pagination : Control
         set => SetValue(ShowQuickJumpProperty, value);
     }
 
+    /// <summary>Localized quick-jump prefix text.</summary>
+    public string QuickJumpPrefixText
+    {
+        get => (string)GetValue(QuickJumpPrefixTextProperty);
+        set => SetValue(QuickJumpPrefixTextProperty, value);
+    }
+
+    /// <summary>Localized quick-jump suffix text.</summary>
+    public string QuickJumpSuffixText
+    {
+        get => (string)GetValue(QuickJumpSuffixTextProperty);
+        set => SetValue(QuickJumpSuffixTextProperty, value);
+    }
+
     /// <summary>Whether the page-size selector ComboBox is shown.</summary>
     public bool ShowPageSizeSelector
     {
@@ -183,6 +212,19 @@ public class Pagination : Control
     {
         get => GetValue(CommandParameterProperty);
         set => SetValue(CommandParameterProperty, value);
+    }
+
+    public Pagination()
+    {
+        if (ReadLocalValue(QuickJumpPrefixTextProperty) == DependencyProperty.UnsetValue)
+        {
+            SetCurrentValue(QuickJumpPrefixTextProperty, SH.PaginationQuickJumpPrefix);
+        }
+
+        if (ReadLocalValue(QuickJumpSuffixTextProperty) == DependencyProperty.UnsetValue)
+        {
+            SetCurrentValue(QuickJumpSuffixTextProperty, SH.PaginationQuickJumpSuffix);
+        }
     }
 
     // --- Coerce / Change callbacks -----------------------------------------------
@@ -219,6 +261,7 @@ public class Pagination : Control
     {
         _previousButton?.Click -= OnPreviousButtonClick;
         _nextButton?.Click -= OnNextButtonClick;
+        _pageSizeSelector?.SelectionChanged -= OnPageSizeSelectorChanged;
         if (_quickJumpInput != null)
         {
             _quickJumpInput.KeyDown -= OnQuickJumpKeyDown;
