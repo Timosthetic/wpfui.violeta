@@ -208,9 +208,12 @@
                                 Text="前往" />
                             <TextBox
                                 x:Name="PART_QuickJumpInput"
-                                Width="48"
+                                MinWidth="40"
+                                MaxWidth="200"
+                                Padding="0"
                                 VerticalAlignment="Center"
-                                VerticalContentAlignment="Center" />
+                                VerticalContentAlignment="Center"
+                                TextAlignment="Center" />
                             <TextBlock
                                 Margin="4,0,0,0"
                                 VerticalAlignment="Center"
@@ -229,5 +232,79 @@
     </Style>
 
     <Style BasedOn="{StaticResource DefaultPaginationStyle}" TargetType="{x:Type local:Pagination}" />
+
+    <!--  TinyPagination — compact variant: < CurrentPage / PageCount >  -->
+    <Style x:Key="DefaultTinyPaginationStyle" TargetType="{x:Type local:Pagination}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:Pagination}">
+                    <StackPanel
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                        Orientation="Horizontal">
+
+                        <!--  Previous button  -->
+                        <RepeatButton
+                            x:Name="PART_PreviousButton"
+                            Margin="0,0,4,0"
+                            VerticalAlignment="Center"
+                            Cursor="Hand"
+                            FocusVisualStyle="{x:Null}"
+                            Focusable="False">
+                            <TextBlock
+                                FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                                FontSize="12"
+                                Text="&#xE76B;" />
+                        </RepeatButton>
+
+                        <!--  Current page editable input  -->
+                        <TextBox
+                            x:Name="PART_QuickJumpInput"
+                            MinWidth="40"
+                            MaxWidth="200"
+                            Padding="0"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            FocusVisualStyle="{x:Null}"
+                            TextAlignment="Center" />
+
+                        <!--  Separator  -->
+                        <TextBlock
+                            Margin="4,0"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                            Text="/" />
+
+                        <!--  Total pages  -->
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                            Text="{Binding PageCount, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                        <!--  Next button  -->
+                        <RepeatButton
+                            x:Name="PART_NextButton"
+                            Margin="4,0,0,0"
+                            VerticalAlignment="Center"
+                            Cursor="Hand"
+                            FocusVisualStyle="{x:Null}"
+                            Focusable="False">
+                            <TextBlock
+                                FontFamily="{DynamicResource SymbolThemeFontFamily}"
+                                FontSize="12"
+                                Text="&#xE76C;" />
+                        </RepeatButton>
+
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

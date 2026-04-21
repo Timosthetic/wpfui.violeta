@@ -236,53 +236,55 @@ public class Pagination : Control
 
     private void UpdateButtons()
     {
-        if (_buttonPanel is null || _buttons[0] is null) return;
-
         int pageCount = PageCount;
         int currentPage = CurrentPage;
 
-        if (pageCount <= 7)
+        if (_buttonPanel != null && _buttons[0] != null)
         {
-            for (int i = 0; i < 7; i++)
+            if (pageCount <= 7)
             {
-                if (i < pageCount)
+                for (int i = 0; i < 7; i++)
                 {
-                    _buttons[i].Visibility = Visibility.Visible;
-                    _buttons[i].SetStatus(i + 1, i + 1 == currentPage, false, false);
-                }
-                else
-                {
-                    _buttons[i].Visibility = Visibility.Collapsed;
+                    if (i < pageCount)
+                    {
+                        _buttons[i].Visibility = Visibility.Visible;
+                        _buttons[i].SetStatus(i + 1, i + 1 == currentPage, false, false);
+                    }
+                    else
+                    {
+                        _buttons[i].Visibility = Visibility.Collapsed;
+                    }
                 }
             }
-        }
-        else
-        {
-            for (int i = 0; i < 7; i++)
-                _buttons[i].Visibility = Visibility.Visible;
-
-            int mid = Clamp(currentPage, 4, pageCount - 3);
-
-            _buttons[0].SetStatus(1, 1 == currentPage, false, false);
-            _buttons[6].SetStatus(pageCount, pageCount == currentPage, false, false);
-
-            _buttons[3].SetStatus(mid, mid == currentPage, false, false);
-            _buttons[2].SetStatus(mid - 1, mid - 1 == currentPage, false, false);
-            _buttons[4].SetStatus(mid + 1, mid + 1 == currentPage, false, false);
-
-            if (mid > 4)
-                _buttons[1].SetStatus(-1, false, true, false); // fast-forward left (…)
             else
-                _buttons[1].SetStatus(mid - 2, mid - 2 == currentPage, false, false);
+            {
+                for (int i = 0; i < 7; i++)
+                    _buttons[i].Visibility = Visibility.Visible;
 
-            if (mid < pageCount - 3)
-                _buttons[5].SetStatus(-1, false, false, true); // fast-backward right (…)
-            else
-                _buttons[5].SetStatus(mid + 2, mid + 2 == currentPage, false, false);
-        }
+                int mid = Clamp(currentPage, 4, pageCount - 3);
+
+                _buttons[0].SetStatus(1, 1 == currentPage, false, false);
+                _buttons[6].SetStatus(pageCount, pageCount == currentPage, false, false);
+
+                _buttons[3].SetStatus(mid, mid == currentPage, false, false);
+                _buttons[2].SetStatus(mid - 1, mid - 1 == currentPage, false, false);
+                _buttons[4].SetStatus(mid + 1, mid + 1 == currentPage, false, false);
+
+                if (mid > 4)
+                    _buttons[1].SetStatus(-1, false, true, false); // fast-forward left (…)
+                else
+                    _buttons[1].SetStatus(mid - 2, mid - 2 == currentPage, false, false);
+
+                if (mid < pageCount - 3)
+                    _buttons[5].SetStatus(-1, false, false, true); // fast-backward right (…)
+                else
+                    _buttons[5].SetStatus(mid + 2, mid + 2 == currentPage, false, false);
+            }
+        } // end if (_buttonPanel != null && _buttons[0] != null)
 
         _previousButton?.IsEnabled = currentPage > 1;
         _nextButton?.IsEnabled = currentPage < pageCount;
+        RefreshQuickJumpText();
     }
 
     // --- Page count recalculation ------------------------------------------------
@@ -325,6 +327,12 @@ public class Pagination : Control
 
     private void OnQuickJumpLostFocus(object sender, RoutedEventArgs e) => SyncQuickJump();
 
+    private void RefreshQuickJumpText()
+    {
+        if (_quickJumpInput is null) return;
+        _quickJumpInput.Text = CurrentPage.ToString();
+    }
+
     private void SyncQuickJump()
     {
         if (_quickJumpInput is null) return;
@@ -332,7 +340,7 @@ public class Pagination : Control
         {
             CurrentPage = Clamp(value, 1, PageCount);
         }
-        _quickJumpInput.Text = string.Empty;
+        RefreshQuickJumpText();
     }
 
     // --- Helpers -----------------------------------------------------------------
