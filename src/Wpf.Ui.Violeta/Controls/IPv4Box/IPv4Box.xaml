@@ -10,51 +10,58 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:IPv4Box">
-                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                        <TextBox
-                            x:Name="PART_Octet0"
-                            Width="44"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            MaxLength="3"
-                            Style="{DynamicResource TransparentTextBoxStyle}" />
-                        <TextBlock
-                            Margin="6,0"
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                            Text="." />
-                        <TextBox
-                            x:Name="PART_Octet1"
-                            Width="44"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            MaxLength="3"
-                            Style="{DynamicResource TransparentTextBoxStyle}" />
-                        <TextBlock
-                            Margin="6,0"
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                            Text="." />
-                        <TextBox
-                            x:Name="PART_Octet2"
-                            Width="44"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            MaxLength="3"
-                            Style="{DynamicResource TransparentTextBoxStyle}" />
-                        <TextBlock
-                            Margin="6,0"
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                            Text="." />
-                        <TextBox
-                            x:Name="PART_Octet3"
-                            Width="44"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            MaxLength="3"
-                            Style="{DynamicResource TransparentTextBoxStyle}" />
-                    </StackPanel>
+                    <Border
+                        Padding="8"
+                        Background="{DynamicResource ControlAltFillColorQuarternaryBrush}"
+                        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                            <TextBox
+                                x:Name="PART_Octet0"
+                                Width="44"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                MaxLength="3"
+                                Style="{DynamicResource TransparentTextBoxStyle}" />
+                            <TextBlock
+                                Margin="6,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="." />
+                            <TextBox
+                                x:Name="PART_Octet1"
+                                Width="44"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                MaxLength="3"
+                                Style="{DynamicResource TransparentTextBoxStyle}" />
+                            <TextBlock
+                                Margin="6,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="." />
+                            <TextBox
+                                x:Name="PART_Octet2"
+                                Width="44"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                MaxLength="3"
+                                Style="{DynamicResource TransparentTextBoxStyle}" />
+                            <TextBlock
+                                Margin="6,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                                Text="." />
+                            <TextBox
+                                x:Name="PART_Octet3"
+                                Width="44"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                MaxLength="3"
+                                Style="{DynamicResource TransparentTextBoxStyle}" />
+                        </StackPanel>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

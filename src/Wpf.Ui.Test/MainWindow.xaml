@@ -682,27 +682,6 @@
                             Margin="0,8,0,0"
                             FontSize="14"
                             FontWeight="Black"
-                            Text="IPv4Box" />
-                        <StackPanel
-                            Margin="0,8,0,0"
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                            <TextBlock
-                                MinWidth="80"
-                                VerticalAlignment="Center"
-                                FontSize="14"
-                                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                                Text="Example" />
-                            <vio:IPv4Box Margin="16,0,0,0" IpAddress="192.168.0.10" />
-                        </StackPanel>
-                    </StackPanel>
-                    <!--  =============================  -->
-                    <StackPanel>
-                        <TextBlock
-                            MinWidth="120"
-                            Margin="0,8,0,0"
-                            FontSize="14"
-                            FontWeight="Black"
                             Text="ToggleButtonGroup / RadioButtonGroup / MenuItemGroup" />
                         <ui:StackPanel
                             Margin="0,8,0,0"
@@ -1813,6 +1792,27 @@
                                     ShowPageSizeSelector="True"
                                     TotalCount="1000" />
                             </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel>
+                        <!--  =============================  -->
+                        <TextBlock
+                            MinWidth="120"
+                            Margin="0,8,0,0"
+                            FontSize="14"
+                            FontWeight="Black"
+                            Text="IPv4Box" />
+                        <StackPanel
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="80"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                Text="Example" />
+                            <vio:IPv4Box Margin="16,0,0,0" IpAddress="192.168.0.10" />
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>
