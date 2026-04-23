@@ -1,0 +1,63 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Wpf.Ui.Violeta.Controls"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <Style TargetType="local:IPv4Box">
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:IPv4Box">
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <TextBox
+                            x:Name="PART_Octet0"
+                            Width="44"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            MaxLength="3"
+                            Style="{DynamicResource TransparentTextBoxStyle}" />
+                        <TextBlock
+                            Margin="6,0"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                            Text="." />
+                        <TextBox
+                            x:Name="PART_Octet1"
+                            Width="44"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            MaxLength="3"
+                            Style="{DynamicResource TransparentTextBoxStyle}" />
+                        <TextBlock
+                            Margin="6,0"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                            Text="." />
+                        <TextBox
+                            x:Name="PART_Octet2"
+                            Width="44"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            MaxLength="3"
+                            Style="{DynamicResource TransparentTextBoxStyle}" />
+                        <TextBlock
+                            Margin="6,0"
+                            VerticalAlignment="Center"
+                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                            Text="." />
+                        <TextBox
+                            x:Name="PART_Octet3"
+                            Width="44"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            MaxLength="3"
+                            Style="{DynamicResource TransparentTextBoxStyle}" />
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
