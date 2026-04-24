@@ -10,6 +10,7 @@
         <FileVersion>4.2.0.11</FileVersion>
         <Version>$(VersionPrefix)4.2.0.11</Version>
         <ApplicationIcon>Resources\Images\ProfilePicture.ico</ApplicationIcon>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
     </PropertyGroup>
 
     <ItemGroup>
