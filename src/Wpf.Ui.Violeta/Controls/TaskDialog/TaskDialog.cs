@@ -8,7 +8,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -512,6 +511,16 @@ public static class TaskDialog
     {
         int dark = _theme == Theme.Dark ? 1 : 0;
         DwmSetWindowAttribute(hwnd, 20 /*DWMWA_USE_IMMERSIVE_DARK_MODE*/, ref dark, sizeof(int));
+        // Attempt to set theme on the dialog window itself first
+        try
+        {
+            TrySetWindowTheme(hwnd, _theme == Theme.Dark);
+        }
+        catch (Exception ex)
+        {
+            Log("TrySetWindowTheme on dialog hwnd={0} failed: {1}", hwnd, ex);
+        }
+
         EnumChildWindows(hwnd, _enumChildProc!, isThemeSwitch ? (IntPtr)1 : IntPtr.Zero);
         try
         {
@@ -539,7 +548,10 @@ public static class TaskDialog
         try
         {
             bool isDark = _theme == Theme.Dark;
-            string cls = GetWindowClass(hwnd);
+            string cls  = GetWindowClass(hwnd);
+
+            // Diagnostic: log each enumerated child to help find which window hosts content
+            Log("EnumChild: hwnd={0}, class={1}, isDark={2}", hwnd, cls, isDark);
 
             // Recursively enumerate grandchildren first (same order as C++ original)
             EnumChildWindows(hwnd, _enumChildProc!, lParam);
@@ -553,7 +565,7 @@ public static class TaskDialog
                 {
                     IntPtr parent = GetParent(hwnd);
                     GetWindowPlacement(parent, out NATIVE_WINDOWPLACEMENT placement);
-                    SetWindowTheme(hwnd, "DarkMode_Explorer", null);
+                    TrySetWindowTheme(hwnd, true);
                     SetWindowPlacement(parent, ref placement);
                     try
                     {
@@ -624,8 +636,8 @@ public static class TaskDialog
 
             if (cls is "Button" or "ScrollBar")
             {
-                try { SetWindowTheme(hwnd, isDark ? "DarkMode_Explorer" : null, null); }
-                catch (Exception ex) { Log("SetWindowTheme failed for {0} ({1}): {2}", cls, hwnd, ex); }
+                try { TrySetWindowTheme(hwnd, isDark); }
+                catch (Exception ex) { Log("TrySetWindowTheme failed for {0} ({1}): {2}", cls, hwnd, ex); }
             }
 
             return true;
@@ -942,6 +954,35 @@ public static class TaskDialog
 
     [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
     private static extern int SetWindowTheme(IntPtr hwnd, string? pszSubAppName, string? pszSubIdList);
+
+    private static void TrySetWindowTheme(IntPtr hwnd, bool isDark)
+    {
+        if (!_hasSetWindowThemeApi) return;
+        try
+        {
+            if (isDark)
+            {
+                int r = SetWindowTheme(hwnd, "DarkMode_Explorer", null);
+                if (r != 0)
+                {
+                    // Fallback to Explorer if DarkMode_Explorer isn't supported
+                    SetWindowTheme(hwnd, "Explorer", null);
+                }
+            }
+            else
+            {
+                SetWindowTheme(hwnd, null, null);
+            }
+        }
+        catch (EntryPointNotFoundException)
+        {
+            _hasSetWindowThemeApi = false;
+        }
+        catch (Exception ex)
+        {
+            Log("TrySetWindowTheme failed for hwnd={0}: {1}", hwnd, ex);
+        }
+    }
 
     // ─────────────────────────────────────────────────────────────────────────
     // P/Invoke – user32
