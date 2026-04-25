@@ -615,7 +615,7 @@
                             Margin="0,8,0,0"
                             FontSize="14"
                             FontWeight="Black"
-                            Text="TaskDialog (Dark)" />
+                            Text="TaskDialog Win32 (Experimental)" />
                         <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
                             <TextBlock
                                 MinWidth="80"

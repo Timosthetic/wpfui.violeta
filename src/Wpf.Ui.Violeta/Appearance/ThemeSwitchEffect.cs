@@ -21,7 +21,7 @@ namespace Wpf.Ui.Violeta.Appearance;
 /// </remarks>
 public static class ThemeSwitchEffect
 {
-    // ── Public attached property ────────────────────────────────────────────
+    // -- Public attached property --------------------------------------------
 
     public static readonly DependencyProperty IsEnabledProperty =
         DependencyProperty.RegisterAttached(
@@ -36,7 +36,7 @@ public static class ThemeSwitchEffect
     public static void SetIsEnabled(DependencyObject obj, bool value) =>
         obj.SetValue(IsEnabledProperty, value);
 
-    // ── Private per-instance storage ────────────────────────────────────────
+    // -- Private per-instance storage ----------------------------------------
 
     private static readonly DependencyProperty SnapshotProperty =
         DependencyProperty.RegisterAttached(
@@ -52,7 +52,7 @@ public static class ThemeSwitchEffect
             typeof(ThemeSwitchEffect),
             new PropertyMetadata(-1));
 
-    // ── Callback ─────────────────────────────────────────────────────────────
+    // -- Callback -------------------------------------------------------------
 
     private static void OnIsEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
