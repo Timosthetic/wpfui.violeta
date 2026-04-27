@@ -6,6 +6,11 @@
 
     <Style TargetType="local:IPv4Box">
         <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="Border.CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource TextControlElevationBorderBrush}" />
+        <Setter Property="BorderThickness" Value="{StaticResource TextBoxBorderThemeThickness}" />
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+        <Setter Property="Padding" Value="{DynamicResource TextControlThemePadding}" />
         <Setter Property="Focusable" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
@@ -13,12 +18,15 @@
                     <Grid>
                         <Border
                             x:Name="ContentBorder"
-                            Padding="8"
+                            Padding="0"
                             Background="{DynamicResource ControlAltFillColorQuarternaryBrush}"
-                            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
-                            BorderThickness="1"
-                            CornerRadius="6">
-                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                            BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}"
+                            BorderThickness="{StaticResource TextBoxAccentBorderThemeThickness}"
+                            CornerRadius="{TemplateBinding Border.CornerRadius}">
+                            <StackPanel
+                                Margin="{TemplateBinding Padding}"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
                                 <TextBox
                                     x:Name="PART_Octet0"
                                     Width="44"
@@ -71,8 +79,8 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}"
-                            BorderThickness="0,0,0,1"
-                            CornerRadius="6"
+                            BorderThickness="{DynamicResource TextBoxAccentBorderThemeThickness}"
+                            CornerRadius="{TemplateBinding Border.CornerRadius}"
                             IsHitTestVisible="False" />
                     </Grid>
 
