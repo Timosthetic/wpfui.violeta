@@ -1873,6 +1873,12 @@
                                 Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                 Text="Example" />
                             <vio:IPv4Box Margin="16,0,0,0" IpAddress="192.168.0.10" />
+                            <vio:IPv4Box
+                                Margin="16,0,0,0"
+                                IpAddress="192.168.0.10"
+                                IsEnabled="False" />
+                            <TextBox Margin="16,0,0,0" Text="192.168.0.10" />
+                            <ComboBox IsEditable="True" />
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>
