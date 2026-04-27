@@ -1877,8 +1877,11 @@
                                 Margin="16,0,0,0"
                                 IpAddress="192.168.0.10"
                                 IsEnabled="False" />
-                            <TextBox Margin="16,0,0,0" Text="192.168.0.10" />
-                            <ComboBox IsEditable="True" />
+                            <TextBlock
+                                Margin="4,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="(Disabled)" />
+                            <TextBox Margin="16,0,0,0" Text="10.0.2.10" />
                         </StackPanel>
                     </StackPanel>
                     <StackPanel>

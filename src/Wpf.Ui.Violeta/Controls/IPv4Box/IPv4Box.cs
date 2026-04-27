@@ -1,8 +1,11 @@
 using System;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
+#pragma warning disable SYSLIB1045
 
 namespace Wpf.Ui.Violeta.Controls;
 
@@ -94,8 +97,7 @@ public class IPv4Box : Control
             return;
         }
 
-        var tb = sender as TextBox;
-        if (tb != null)
+        if (sender is TextBox tb)
         {
             string newText;
             if (tb.SelectionLength > 0)
@@ -167,6 +169,21 @@ public class IPv4Box : Control
                 e.Handled = true;
             }
         }
+        else if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.C)
+        {
+            if (Keyboard.FocusedElement is TextBox octet
+                && string.IsNullOrEmpty(octet.SelectedText))
+            {
+                try
+                {
+                    Clipboard.SetText(IpAddress);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+            }
+        }
     }
 
     private void Octet_TextChanged(object? sender, TextChangedEventArgs e)
@@ -204,7 +221,7 @@ public class IPv4Box : Control
     {
         if (e.SourceDataObject.GetDataPresent(DataFormats.Text))
         {
-            var text = e.SourceDataObject.GetData(DataFormats.Text) as string;
+            string? text = e.SourceDataObject.GetData(DataFormats.Text) as string;
             if (!string.IsNullOrEmpty(text) && TrySetIpFromClipboard(text))
             {
                 e.CancelCommand();
@@ -212,7 +229,7 @@ public class IPv4Box : Control
         }
     }
 
-    private bool TrySetIpFromClipboard(string text)
+    private bool TrySetIpFromClipboard(string? text)
     {
         if (text is null) return false;
         var parts = text.Trim().Split('.');
@@ -227,10 +244,10 @@ public class IPv4Box : Control
             _isInternalUpdate = true;
             try
             {
-                if (_octet0 != null) _octet0.Text = bytes[0].ToString();
-                if (_octet1 != null) _octet1.Text = bytes[1].ToString();
-                if (_octet2 != null) _octet2.Text = bytes[2].ToString();
-                if (_octet3 != null) _octet3.Text = bytes[3].ToString();
+                _octet0?.Text = bytes[0].ToString();
+                _octet1?.Text = bytes[1].ToString();
+                _octet2?.Text = bytes[2].ToString();
+                _octet3?.Text = bytes[3].ToString();
                 UpdateIpFromTextBoxes();
             }
             finally { _isInternalUpdate = false; }
@@ -266,18 +283,18 @@ public class IPv4Box : Control
         try
         {
             var parts = ParseIp(IpAddress);
-            if (_octet0 != null) _octet0.Text = parts.Length > 0 ? parts[0] : string.Empty;
-            if (_octet1 != null) _octet1.Text = parts.Length > 1 ? parts[1] : string.Empty;
-            if (_octet2 != null) _octet2.Text = parts.Length > 2 ? parts[2] : string.Empty;
-            if (_octet3 != null) _octet3.Text = parts.Length > 3 ? parts[3] : string.Empty;
+            _octet0?.Text = parts.Length > 0 ? parts[0] : string.Empty;
+            _octet1?.Text = parts.Length > 1 ? parts[1] : string.Empty;
+            _octet2?.Text = parts.Length > 2 ? parts[2] : string.Empty;
+            _octet3?.Text = parts.Length > 3 ? parts[3] : string.Empty;
         }
         finally { _isInternalUpdate = false; }
     }
 
-    private string[] ParseIp(string? ip)
+    private static string[] ParseIp(string? ip)
     {
-        if (string.IsNullOrWhiteSpace(ip)) return Array.Empty<string>();
-        var p = ip.Trim().Split('.');
+        if (string.IsNullOrWhiteSpace(ip)) return [];
+        string[] p = ip!.Trim().Split('.');
         return p;
     }
 
@@ -306,7 +323,7 @@ public class IPv4Box : Control
         finally { _isInternalUpdate = false; }
     }
 
-    private string SafeOctet(string s)
+    private static string SafeOctet(string s)
     {
         if (string.IsNullOrEmpty(s)) return "0";
         if (byte.TryParse(s, out var b)) return b.ToString();
