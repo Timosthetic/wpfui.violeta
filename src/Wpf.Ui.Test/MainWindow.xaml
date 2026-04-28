@@ -1891,6 +1891,25 @@
                             Margin="0,8,0,0"
                             FontSize="14"
                             FontWeight="Black"
+                            Text="Hyperlink" />
+                        <StackPanel>
+                            <TextBlock>
+                                <Hyperlink
+                                    NavigateUri="https://example.com"
+                                    RequestNavigate="Hyperlink_RequestNavigate"
+                                    Style="{DynamicResource FluentHyperlinkStyle}">
+                                    Fluent Link
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel>
+                        <!--  =============================  -->
+                        <TextBlock
+                            MinWidth="120"
+                            Margin="0,8,0,0"
+                            FontSize="14"
+                            FontWeight="Black"
                             Text="Next ..." />
                         <StackPanel>
                             <!--  ...  -->

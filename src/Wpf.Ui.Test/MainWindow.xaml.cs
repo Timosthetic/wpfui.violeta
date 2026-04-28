@@ -10,6 +10,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Violeta.Appearance;
@@ -1094,6 +1095,10 @@ public partial class MainWindow : ShellWindow
         };
 
         window.Show();
+    }
+
+    private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+    {
     }
 }
 
