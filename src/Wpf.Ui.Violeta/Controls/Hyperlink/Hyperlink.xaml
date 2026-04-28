@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:Wpf.Ui.Violeta.Controls">
 
-    <Style x:Key="FluentHyperlinkStyle" TargetType="Hyperlink">
+    <Style x:Key="FluentHyperlinkStyle" TargetType="{x:Type Hyperlink}">
         <Setter Property="Foreground" Value="{DynamicResource AccentTextFillColorPrimaryBrush}" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="TextDecorations" Value="Underline" />
@@ -20,7 +20,6 @@
                 <Setter Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
                 <Setter Property="TextDecorations" Value="{x:Null}" />
             </Trigger>
-
         </Style.Triggers>
     </Style>
 
