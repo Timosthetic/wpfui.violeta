@@ -36,7 +36,10 @@
                     </ComboBox>
                 </ui:StackPanel>
             </Grid>
-            <ScrollViewer x:Name="ScrollViewer" Grid.Row="1">
+            <ScrollViewer
+                x:Name="ScrollViewer"
+                Grid.Row="1"
+                VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <TextBlock
                         FontSize="14"
