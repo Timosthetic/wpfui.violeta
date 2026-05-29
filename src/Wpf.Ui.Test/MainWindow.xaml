@@ -15,7 +15,7 @@
     Width="1200"
     Height="760"
     d:Background="#232323"
-    d:Height="2400"
+    d:Height="15000"
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
@@ -41,6 +41,12 @@
                 Grid.Row="1"
                 VerticalScrollBarVisibility="Auto">
                 <StackPanel>
+
+                    <!--
+                        ══════════════════════════════════════════════════════════════
+                        Toast
+                        ══════════════════════════════════════════════════════════════
+                    -->
                     <TextBlock
                         FontSize="14"
                         FontWeight="Black"
@@ -418,6 +424,12 @@
                             Tag="Question" />
                     </StackPanel>
                     <StackPanel Margin="0,16,0,0">
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            Toast Stacking Test
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             FontSize="14"
                             FontWeight="Black"
@@ -473,6 +485,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            Flyout
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             Margin="0,8,0,0"
                             FontSize="14"
@@ -524,6 +542,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            ContentDialog
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -549,6 +573,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            MessageBox
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -614,6 +644,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            TaskDialog Win32 (Experimental)
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -671,6 +707,12 @@
                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
                                 Content="Expanded" />
                         </StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            Notification
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -705,6 +747,12 @@
                                 Content="Error" />
                         </StackPanel>
                         <StackPanel>
+
+                            <!--
+                                ══════════════════════════════════════════════════════════════
+                                PersonPicture / BitmapIcon
+                                ══════════════════════════════════════════════════════════════
+                            -->
                             <TextBlock
                                 MinWidth="120"
                                 Margin="0,8,0,0"
@@ -741,6 +789,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            ToggleButtonGroup / RadioButtonGroup / MenuItemGroup
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -809,6 +863,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            SimpleExpanderStyle
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -830,6 +890,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            TreeModelListView
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -935,6 +1001,12 @@
                                     Command="{Binding ClearTreeTestModelCommand}"
                                     Content="Clear Row" />
                             </StackPanel>
+
+                            <!--
+                                ══════════════════════════════════════════════════════════════
+                                TreeListView
+                                ══════════════════════════════════════════════════════════════
+                            -->
                             <TextBlock
                                 MinWidth="120"
                                 Margin="0,8,0,0"
@@ -1028,6 +1100,12 @@
                                     Command="{Binding ChangeNode2ValueCommand}"
                                     Content="Change Node2" />
                             </StackPanel>
+
+                            <!--
+                                ══════════════════════════════════════════════════════════════
+                                ListView
+                                ══════════════════════════════════════════════════════════════
+                            -->
                             <TextBlock
                                 MinWidth="120"
                                 Margin="0,8,0,0"
@@ -1078,6 +1156,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            ImageView
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1097,6 +1181,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            ExceptionReport
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1123,6 +1213,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            PendingBox
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1142,6 +1238,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            AutoGrid
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1158,6 +1260,12 @@
                             <TextBlock VerticalAlignment="Center" Text="Title                     1" />
                             <Button Content="Button2" />
                         </ui:AutoGrid>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            UniformGrid vs AutoGrid
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1247,9 +1355,92 @@
                                 </ui:AutoGrid>
                             </Border>
                         </StackPanel>
+
+                        <!--  Grid Spacing  -->
+                        <StackPanel Margin="0,8,0,0">
+                            <TextBlock
+                                Margin="0,0,0,4"
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                Text="Grid with HorizontalSpacing / VerticalSpacing" />
+                            <ui:Grid
+                                ColumnDefinitions="Auto,*,Auto"
+                                HorizontalSpacing="12"
+                                RowDefinitions="Auto,Auto"
+                                VerticalSpacing="8">
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Background="Red"
+                                    Text="R0C0" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Background="Green"
+                                    Text="R0C1" />
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Background="Red"
+                                    Text="R0C2" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Background="Green"
+                                    Text="R1C0" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Background="Red"
+                                    Text="R1C1" />
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    Background="Green"
+                                    Text="R1C2" />
+                            </ui:Grid>
+                        </StackPanel>
+
+                        <!--  DropShadowChrome  -->
+                        <StackPanel Margin="0,8,0,0">
+                            <TextBlock
+                                Margin="0,0,0,4"
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                Text="DropShadowChrome" />
+                            <ui:StackPanel Orientation="Horizontal" Spacing="16">
+                                <ui:DropShadowChrome CornerRadius="0">
+                                    <Border
+                                        Width="80"
+                                        Height="50"
+                                        Background="{DynamicResource ApplicationBackgroundBrush}" />
+                                </ui:DropShadowChrome>
+                                <ui:DropShadowChrome CornerRadius="8">
+                                    <Border
+                                        Width="80"
+                                        Height="50"
+                                        Background="{DynamicResource ApplicationBackgroundBrush}"
+                                        CornerRadius="8" />
+                                </ui:DropShadowChrome>
+                                <ui:DropShadowChrome CornerRadius="4" Color="#C0FF0000">
+                                    <Border
+                                        Width="80"
+                                        Height="50"
+                                        Background="{DynamicResource ApplicationBackgroundBrush}"
+                                        CornerRadius="4" />
+                                </ui:DropShadowChrome>
+                            </ui:StackPanel>
+                        </StackPanel>
+
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            Drawer
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1381,6 +1572,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel Margin="0,8,0,0">
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            ShellWindow
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1394,6 +1591,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            TextBox instead of TextBlock
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1415,6 +1618,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            RunningBlock
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1465,6 +1674,12 @@
                     </StackPanel>
                     <!--  =============================  -->
                     <StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            BusyMask
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1609,6 +1824,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            AsyncBox
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1632,6 +1853,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            DarkCalloutToolTipStyle
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1650,6 +1877,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            MultiComboBox
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1679,6 +1912,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            CascadingComboBox
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -1786,6 +2025,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            TreeComboBox
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             Margin="0,8,0,0"
                             FontSize="14"
@@ -1847,6 +2092,12 @@
                         <!--  =============================  -->
                         <!--  PinCode  -->
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            PinCode
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             FontSize="14"
                             FontWeight="Black"
@@ -1877,6 +2128,12 @@
                         <!--  =============================  -->
                         <!--  Banner  -->
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            Banner
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             FontSize="14"
                             FontWeight="Black"
@@ -1924,6 +2181,12 @@
                         <!--  =============================  -->
                         <!--  Skeleton  -->
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            Skeleton
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             FontSize="14"
                             FontWeight="Black"
@@ -1986,6 +2249,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            Pagination
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -2060,6 +2329,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            IPv4Box
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -2090,6 +2365,131 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            TimeBox
+                            ══════════════════════════════════════════════════════════════
+                        -->
+                        <TextBlock
+                            MinWidth="120"
+                            Margin="0,8,0,0"
+                            FontSize="14"
+                            FontWeight="Black"
+                            Text="TimeBox" />
+                        <StackPanel
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="80"
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                Text="Example" />
+                            <vio:TimeBox Margin="16,0,0,0" Time="01:23:45" />
+                            <vio:TimeBox
+                                Margin="16,0,0,0"
+                                ShowMillisecond="True"
+                                Time="01:23:45.678" />
+                            <vio:TimeBox
+                                Margin="16,0,0,0"
+                                IsEnabled="False"
+                                Time="12:00:00" />
+                            <TextBlock
+                                Margin="4,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="(Disabled)" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel>
+                        <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            Form
+                            ══════════════════════════════════════════════════════════════
+                        -->
+                        <TextBlock
+                            MinWidth="120"
+                            Margin="0,8,0,0"
+                            FontSize="14"
+                            FontWeight="Black"
+                            Text="Form" />
+                        <!--  Label on top (default)  -->
+                        <TextBlock
+                            Margin="0,4,0,2"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="LabelPosition = Top" />
+                        <vio:Form LabelPosition="Top">
+                            <vio:FormItem IsRequired="True" Label="Username">
+                                <TextBox Width="220" />
+                            </vio:FormItem>
+                            <vio:FormItem Label="Email">
+                                <TextBox Width="220" />
+                            </vio:FormItem>
+                            <vio:FormItem Label="Notes">
+                                <TextBox
+                                    Width="220"
+                                    Height="60"
+                                    AcceptsReturn="True"
+                                    TextWrapping="Wrap" />
+                            </vio:FormItem>
+                        </vio:Form>
+                        <!--  Label on left, auto-aligned  -->
+                        <TextBlock
+                            Margin="0,12,0,2"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="LabelPosition = Left, LabelWidth = * (auto-align)" />
+                        <vio:Form LabelPosition="Left" LabelWidth="*">
+                            <vio:FormItem IsRequired="True" Label="Username">
+                                <TextBox Width="220" />
+                            </vio:FormItem>
+                            <vio:FormItem Label="Email Address">
+                                <TextBox Width="220" />
+                            </vio:FormItem>
+                            <vio:FormItem Label="Phone Number">
+                                <TextBox Width="220" />
+                            </vio:FormItem>
+                        </vio:Form>
+                        <!--  FormGroup with header  -->
+                        <TextBlock
+                            Margin="0,12,0,2"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="FormGroup (with header)" />
+                        <vio:Form LabelPosition="Left" LabelWidth="*">
+                            <vio:FormGroup Header="Basic Information">
+                                <vio:FormItem IsRequired="True" Label="Full Name">
+                                    <TextBox Width="220" />
+                                </vio:FormItem>
+                                <vio:FormItem Label="School">
+                                    <TextBox Width="220" />
+                                </vio:FormItem>
+                            </vio:FormGroup>
+                            <vio:FormGroup Header="Contact Information">
+                                <vio:FormItem Label="Phone">
+                                    <TextBox Width="220" />
+                                </vio:FormItem>
+                                <vio:FormItem Label="Email">
+                                    <TextBox Width="220" />
+                                </vio:FormItem>
+                            </vio:FormGroup>
+                            <vio:FormItem NoLabel="True">
+                                <ui:Button
+                                    Width="220"
+                                    Appearance="Primary"
+                                    Content="Submit" />
+                            </vio:FormItem>
+                        </vio:Form>
+                    </StackPanel>
+                    <StackPanel>
+                        <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            Hyperlink
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -2109,6 +2509,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            FlipView
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -2239,6 +2645,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            FluentPopup
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -2337,6 +2749,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            FluentScrollViewer
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -2650,6 +3068,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            QrCode
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -2683,6 +3107,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            Timeline
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -2745,6 +3175,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            KeyGestureInput
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -2775,6 +3211,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            Divider
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -2812,6 +3254,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            Badge
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -2893,6 +3341,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            AspectRatioLayout
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -2994,6 +3448,12 @@
                         <!--  =============================  -->
                         <!--  LoadingButton  -->
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            LoadingButton
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -3156,6 +3616,12 @@
                     </StackPanel>
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            TagInput
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -3272,6 +3738,12 @@
 
                     <StackPanel>
                         <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            TagComboBox
+                            ══════════════════════════════════════════════════════════════
+                        -->
                         <TextBlock
                             MinWidth="120"
                             Margin="0,8,0,0"
@@ -3647,9 +4119,815 @@
                                 </DataTemplate>
                             </vio:TransitioningContentControl.ContentTemplate>
                         </vio:TransitioningContentControl>
+
+                        <!--  SelectableTextBlock  -->
+                        <!--  =============================  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            SelectableTextBlock
+                            ══════════════════════════════════════════════════════════════
+                        -->
+                        <TextBlock
+                            FontSize="14"
+                            FontWeight="Black"
+                            Text="SelectableTextBlock" />
+                        <StackPanel Margin="0,8,0,16">
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Default" />
+                                <vio:SelectableTextBlock Text="Default — drag to select, right-click to copy." />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Secondary" />
+                                <vio:SelectableTextBlock Style="{StaticResource SecondarySelectableTextBlock}" Text="Secondary text colour." />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Tertiary" />
+                                <vio:SelectableTextBlock Style="{StaticResource TertiarySelectableTextBlock}" Text="Tertiary text colour." />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Quaternary" />
+                                <vio:SelectableTextBlock Style="{StaticResource QuaternarySelectableTextBlock}" Text="Quaternary (disabled) text colour." />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Success" />
+                                <vio:SelectableTextBlock Style="{StaticResource SuccessSelectableTextBlock}" Text="Success text colour." />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Warning" />
+                                <vio:SelectableTextBlock Style="{StaticResource WarningSelectableTextBlock}" Text="Warning text colour." />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Danger" />
+                                <vio:SelectableTextBlock Style="{StaticResource DangerSelectableTextBlock}" Text="Danger text colour." />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Mark (highlight)" />
+                                <vio:SelectableTextBlock Style="{StaticResource MarkSelectableTextBlock}" Text="Mark highlight background." />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Underline" />
+                                <vio:SelectableTextBlock Style="{StaticResource UnderlineSelectableTextBlock}" Text="Underline decoration." />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Delete (strikethrough)" />
+                                <vio:SelectableTextBlock Style="{StaticResource DeleteSelectableTextBlock}" Text="Strikethrough decoration." />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Underline + Delete" />
+                                <vio:SelectableTextBlock Style="{StaticResource UnderlineDeleteSelectableTextBlock}" Text="Underline and strikethrough combined." />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Disabled" />
+                                <vio:SelectableTextBlock IsEnabled="False" Text="Disabled state." />
+                            </StackPanel>
+                            <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                                <TextBlock
+                                    MinWidth="200"
+                                    VerticalAlignment="Center"
+                                    Text="Multi-line wrap" />
+                                <vio:SelectableTextBlock MaxWidth="300" Text="This is a longer paragraph of text that wraps across multiple lines. You can select any part of it with the mouse and copy it to the clipboard." />
+                            </StackPanel>
+                        </StackPanel>
+
                     </StackPanel>
 
+                    <!--  NumericUpDown  -->
+                    <StackPanel Margin="0,8,0,0">
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="NumericUpDown" />
+
+                        <!--  int  -->
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="200"
+                                VerticalAlignment="Center"
+                                Text="int (−100 … 100, step 5)" />
+                            <vio:NumericIntUpDown
+                                Width="160"
+                                Maximum="100"
+                                Minimum="-100"
+                                PlaceholderText="enter int…"
+                                Step="5" />
+                        </StackPanel>
+
+                        <!--  double  -->
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="200"
+                                VerticalAlignment="Center"
+                                Text="double (0 … 1, step 0.1)" />
+                            <vio:NumericDoubleUpDown
+                                Width="160"
+                                FormatString="N2"
+                                Maximum="1"
+                                Minimum="0"
+                                PlaceholderText="0.00"
+                                Step="0.1" />
+                        </StackPanel>
+
+                        <!--  decimal  -->
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="200"
+                                VerticalAlignment="Center"
+                                Text="decimal (step 0.01)" />
+                            <vio:NumericDecimalUpDown
+                                Width="160"
+                                FormatString="N2"
+                                PlaceholderText="decimal…"
+                                Step="0.01" />
+                        </StackPanel>
+
+                        <!--  Prefix / suffix samples  -->
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="200"
+                                VerticalAlignment="Center"
+                                Text="double — prefix" />
+                            <vio:NumericDoubleUpDown
+                                Width="160"
+                                FormatString="N2"
+                                InnerLeftContent="$"
+                                Maximum="9999"
+                                Minimum="0"
+                                PlaceholderText="0.00" />
+                        </StackPanel>
+
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="200"
+                                VerticalAlignment="Center"
+                                Text="double — suffix" />
+                            <vio:NumericDoubleUpDown
+                                Width="160"
+                                FormatString="N1"
+                                InnerRightContent="kg"
+                                Maximum="9999"
+                                Minimum="0"
+                                PlaceholderText="weight" />
+                        </StackPanel>
+
+                        <!--  No spinner buttons  -->
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="200"
+                                VerticalAlignment="Center"
+                                Text="int — no spinner buttons" />
+                            <vio:NumericIntUpDown
+                                Width="160"
+                                PlaceholderText="no buttons"
+                                ShowButtonSpinner="False" />
+                        </StackPanel>
+
+                        <!--  Read-only  -->
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="200"
+                                VerticalAlignment="Center"
+                                Text="int — read-only" />
+                            <vio:NumericIntUpDown
+                                Width="160"
+                                IsReadOnly="True"
+                                Value="42" />
+                        </StackPanel>
+
+                        <!--  Disabled  -->
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="200"
+                                VerticalAlignment="Center"
+                                Text="Disabled" />
+                            <vio:NumericIntUpDown
+                                Width="160"
+                                IsEnabled="False"
+                                Value="99" />
+                        </StackPanel>
+
+                        <!--  AllowDrag  -->
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="200"
+                                VerticalAlignment="Center"
+                                Text="AllowDrag (double-click to edit)" />
+                            <vio:NumericIntUpDown
+                                Width="160"
+                                AllowDrag="True"
+                                Maximum="1000"
+                                Minimum="-1000"
+                                PlaceholderText="drag or dbl-click"
+                                Step="10"
+                                Value="0" />
+                        </StackPanel>
+
+                        <!--  byte (0-255)  -->
+                        <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="200"
+                                VerticalAlignment="Center"
+                                Text="byte (0 … 255)" />
+                            <vio:NumericByteUpDown Width="160" PlaceholderText="0-255" />
+                        </StackPanel>
+
+                        <!--  NumericUpDown with RestrictInput  -->
+
+                        <!--
+                            ══════════════════════════════════════════════════════════════
+                            NumericUpDown with RestrictInput
+                            ══════════════════════════════════════════════════════════════
+                        -->
+                        <TextBlock
+                            Margin="0,16,0,0"
+                            FontSize="16"
+                            FontWeight="Black"
+                            Text="NumericUpDown with RestrictInput" />
+
+                        <!--  RestrictInput=False (default, unrestricted)  -->
+                        <TextBlock
+                            Margin="0,8,0,2"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="Int — RestrictInput=False (default, no filtering)" />
+                        <vio:NumericIntUpDown
+                            Width="220"
+                            HorizontalAlignment="Left"
+                            Maximum="100"
+                            Minimum="-100"
+                            PlaceholderText="Integer, unrestricted"
+                            RestrictInput="False" />
+
+                        <!--  RestrictInput=True / int, Minimum=0 (no minus sign)  -->
+                        <TextBlock
+                            Margin="0,8,0,2"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="Int — RestrictInput=True, Minimum=0 (digits only, no minus / decimal / IME)" />
+                        <vio:NumericIntUpDown
+                            Width="220"
+                            HorizontalAlignment="Left"
+                            Maximum="9999"
+                            Minimum="0"
+                            PlaceholderText="Digits only, no minus" />
+
+                        <!--  RestrictInput=True / int, negative allowed  -->
+                        <TextBlock
+                            Margin="0,8,0,2"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="Int — RestrictInput=True, Minimum=-999 (minus sign allowed)" />
+                        <vio:NumericIntUpDown
+                            Width="220"
+                            HorizontalAlignment="Left"
+                            Maximum="999"
+                            Minimum="-999"
+                            PlaceholderText="Digits and minus" />
+
+                        <!--  RestrictInput=True / double  -->
+                        <TextBlock
+                            Margin="0,8,0,2"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="Double — RestrictInput=True (one decimal separator allowed)" />
+                        <vio:NumericDoubleUpDown
+                            Width="220"
+                            HorizontalAlignment="Left"
+                            Maximum="999.99"
+                            Minimum="-999.99"
+                            PlaceholderText="e.g. 3.14" />
+
+                        <!--  RestrictInput=True / double, Minimum=0  -->
+                        <TextBlock
+                            Margin="0,8,0,2"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="Double — RestrictInput=True, Minimum=0 (positive decimal, no minus)" />
+                        <vio:NumericDoubleUpDown
+                            Width="220"
+                            HorizontalAlignment="Left"
+                            Maximum="9999.99"
+                            Minimum="0"
+                            PlaceholderText="Positive decimal" />
+
+                        <!--  RestrictInput=True / float  -->
+                        <TextBlock
+                            Margin="0,8,0,2"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="Float — RestrictInput=True" />
+                        <vio:NumericFloatUpDown
+                            Width="220"
+                            HorizontalAlignment="Left"
+                            Maximum="100"
+                            Minimum="-100"
+                            PlaceholderText="float with sign" />
+
+                        <!--  RestrictInput=True / decimal  -->
+                        <TextBlock
+                            Margin="0,8,0,2"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                            Text="Decimal — RestrictInput=True, Minimum=0" />
+                        <vio:NumericDecimalUpDown
+                            Width="220"
+                            HorizontalAlignment="Left"
+                            Maximum="9999999.99"
+                            Minimum="0"
+                            PlaceholderText="Positive decimal" />
+
+                    </StackPanel>
+
+                    <!--
+                        ══════════════════════════════════════════════════════════════
+                        ButtonSpinner Demo
+                        ══════════════════════════════════════════════════════════════
+                    -->
+                    <StackPanel Margin="0,16,0,0" Orientation="Vertical">
+                        <TextBlock
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="ButtonSpinner" />
+
+                        <!--  Default (grouped buttons, right)  -->
+                        <StackPanel
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="220"
+                                VerticalAlignment="Center"
+                                Text="Default — buttons right" />
+                            <vio:ButtonSpinner Width="200" Spin="ButtonSpinnerDemo_OnSpin">
+                                <TextBlock
+                                    x:Name="ButtonSpinnerDefaultValueText"
+                                    VerticalAlignment="Center"
+                                    Text="Apple" />
+                            </vio:ButtonSpinner>
+                        </StackPanel>
+
+                        <!--  Default, buttons on the left  -->
+                        <StackPanel
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="220"
+                                VerticalAlignment="Center"
+                                Text="ButtonSpinnerLocation=Left" />
+                            <vio:ButtonSpinner
+                                Width="200"
+                                ButtonSpinnerLocation="Left"
+                                Spin="ButtonSpinnerDemo_OnSpin">
+                                <TextBlock
+                                    x:Name="ButtonSpinnerLeftValueText"
+                                    VerticalAlignment="Center"
+                                    Text="Apple" />
+                            </vio:ButtonSpinner>
+                        </StackPanel>
+
+                        <!--  ShowButtonSpinner = False  -->
+                        <StackPanel
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="220"
+                                VerticalAlignment="Center"
+                                Text="ShowButtonSpinner=False" />
+                            <vio:ButtonSpinner Width="200" ShowButtonSpinner="False">
+                                <TextBlock VerticalAlignment="Center" Text="No buttons" />
+                            </vio:ButtonSpinner>
+                        </StackPanel>
+
+                        <!--  Split variant, buttons right  -->
+                        <StackPanel
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="220"
+                                VerticalAlignment="Center"
+                                Text="SplitButtonSpinnerStyle" />
+                            <vio:ButtonSpinner
+                                Width="200"
+                                Spin="ButtonSpinnerDemo_OnSpin"
+                                Style="{DynamicResource SplitButtonSpinnerStyle}">
+                                <TextBlock
+                                    x:Name="ButtonSpinnerSplitRightValueText"
+                                    VerticalAlignment="Center"
+                                    Text="Apple" />
+                            </vio:ButtonSpinner>
+                        </StackPanel>
+
+                        <!--  Split variant, buttons left  -->
+                        <StackPanel
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="220"
+                                VerticalAlignment="Center"
+                                Text="SplitButtonSpinner, Location=Left" />
+                            <vio:ButtonSpinner
+                                Width="200"
+                                ButtonSpinnerLocation="Left"
+                                Spin="ButtonSpinnerDemo_OnSpin"
+                                Style="{DynamicResource SplitButtonSpinnerStyle}">
+                                <TextBlock
+                                    x:Name="ButtonSpinnerSplitLeftValueText"
+                                    VerticalAlignment="Center"
+                                    Text="Apple" />
+                            </vio:ButtonSpinner>
+                        </StackPanel>
+
+                        <!--  Disabled  -->
+                        <StackPanel
+                            Margin="0,8,0,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                MinWidth="220"
+                                VerticalAlignment="Center"
+                                Text="Disabled" />
+                            <vio:ButtonSpinner Width="200" IsEnabled="False">
+                                <TextBlock VerticalAlignment="Center" Text="Disabled" />
+                            </vio:ButtonSpinner>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <!--
+                        ══════════════════════════════════════════════════════════════
+                        ButtonSpinner Demo
+                        ══════════════════════════════════════════════════════════════
+                    -->
+                    <!--  BoolStateContentControl  -->
+                    <StackPanel Margin="0,8,0,0">
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="BoolStateContentControl" />
+                        <ui:StackPanel Orientation="Horizontal" Spacing="8">
+                            <CheckBox
+                                VerticalAlignment="Center"
+                                Content="BoolState Value"
+                                IsChecked="{Binding BoolStateDemoValue, Mode=TwoWay}" />
+                            <vio:BoolStateContentControl Value="{Binding BoolStateDemoValue}">
+                                <vio:BoolStateContentControl.TrueContent>
+                                    <ui:SymbolIcon
+                                        Filled="True"
+                                        Foreground="Green"
+                                        Symbol="CheckmarkCircle24" />
+                                </vio:BoolStateContentControl.TrueContent>
+                                <vio:BoolStateContentControl.FalseContent>
+                                    <ui:SymbolIcon
+                                        Filled="True"
+                                        Foreground="Red"
+                                        Symbol="DismissCircle24" />
+                                </vio:BoolStateContentControl.FalseContent>
+                            </vio:BoolStateContentControl>
+                        </ui:StackPanel>
+                    </StackPanel>
+
+                    <!--  BoolStateTextBlock  -->
+                    <StackPanel Margin="0,8,0,0">
+                        <TextBlock
+                            Margin="0,0,0,4"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Text="BoolStateTextBlock" />
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox
+                                Margin="0,0,0,0"
+                                VerticalAlignment="Center"
+                                Content="BoolState Value"
+                                IsChecked="{Binding BoolStateDemoValue, Mode=TwoWay}" />
+                            <vio:BoolStateTextBlock
+                                VerticalAlignment="Center"
+                                FalseText="Offline"
+                                TrueText="Online"
+                                Value="{Binding BoolStateDemoValue}">
+                                <vio:BoolStateTextBlock.TrueFontOptions>
+                                    <vio:BoolStateTextBlockFontOptions
+                                        FontSize="16"
+                                        FontWeight="SemiBold"
+                                        Foreground="Red" />
+                                </vio:BoolStateTextBlock.TrueFontOptions>
+                                <vio:BoolStateTextBlock.FalseFontOptions>
+                                    <vio:BoolStateTextBlockFontOptions
+                                        FontSize="14"
+                                        FontWeight="Normal"
+                                        Foreground="Blue"
+                                        TextDecorations="{x:Static TextDecorations.Underline}" />
+                                </vio:BoolStateTextBlock.FalseFontOptions>
+                            </vio:BoolStateTextBlock>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--
+                        ══════════════════════════════════════════════════════════════
+                        GridSplitter
+                        ══════════════════════════════════════════════════════════════
+                    -->
+                    <TextBlock
+                        FontSize="14"
+                        FontWeight="Black"
+                        Text="GridSplitter" />
+                    <TextBlock
+                        Margin="0,4,0,8"
+                        FontSize="12"
+                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                        Text="ShowsPreview=True (default) — resize commits only on mouse release" />
+
+                    <!--  Row splitter demo  -->
+                    <ui:StackPanel
+                        Margin="0,0,0,0"
+                        Orientation="Horizontal"
+                        Spacing="24">
+                        <!--  Row splitter  -->
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,4"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Row splitter (ShowsPreview=True)" />
+                            <ui:Grid
+                                Width="280"
+                                Height="260"
+                                RowDefinitions="*,Auto,*">
+                                <Border
+                                    Grid.Row="0"
+                                    Background="{DynamicResource SubtleFillColorSecondaryBrush}"
+                                    CornerRadius="6">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="Top Panel" />
+                                </Border>
+                                <GridSplitter Grid.Row="1" />
+                                <Border
+                                    Grid.Row="2"
+                                    Background="{DynamicResource SubtleFillColorSecondaryBrush}"
+                                    CornerRadius="6">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="Bottom Panel" />
+                                </Border>
+                            </ui:Grid>
+                        </StackPanel>
+
+                        <!--  Column splitter  -->
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,4"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Column splitter (ShowsPreview=True)" />
+                            <ui:Grid
+                                Width="280"
+                                Height="260"
+                                ColumnDefinitions="*,Auto,*">
+                                <Border
+                                    Grid.Column="0"
+                                    Background="{DynamicResource SubtleFillColorSecondaryBrush}"
+                                    CornerRadius="6">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="Left Panel" />
+                                </Border>
+                                <GridSplitter Grid.Column="1" />
+                                <Border
+                                    Grid.Column="2"
+                                    Background="{DynamicResource SubtleFillColorSecondaryBrush}"
+                                    CornerRadius="6">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="Right Panel" />
+                                </Border>
+                            </ui:Grid>
+                        </StackPanel>
+
+                        <!--  Immediate resize for comparison  -->
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,4"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Column splitter (ShowsPreview=False)" />
+                            <ui:Grid
+                                Width="280"
+                                Height="260"
+                                ColumnDefinitions="*,Auto,*">
+                                <Border
+                                    Grid.Column="0"
+                                    Background="{DynamicResource SubtleFillColorSecondaryBrush}"
+                                    CornerRadius="6">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="Left Panel" />
+                                </Border>
+                                <GridSplitter Grid.Column="1" ShowsPreview="False" />
+                                <Border
+                                    Grid.Column="2"
+                                    Background="{DynamicResource SubtleFillColorSecondaryBrush}"
+                                    CornerRadius="6">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="Right Panel" />
+                                </Border>
+                            </ui:Grid>
+                        </StackPanel>
+                    </ui:StackPanel>
+
+                    <!--
+                        ═══════════════════════════════════════════════════════════
+                        TabStrip
+                        ═══════════════════════════════════════════════════════════
+                    -->
+                    <TextBlock
+                        Margin="0,24,0,0"
+                        FontSize="14"
+                        FontWeight="Black"
+                        Text="TabStrip" />
+                    <TextBlock
+                        Margin="0,4,0,16"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="Standalone tab header strip (no content pane). Three variants: Line (default), Card, Button." />
+
+                    <!--  Row 1: Line (default) and Card  -->
+                    <ui:StackPanel Orientation="Horizontal" Spacing="32">
+
+                        <!--  LINE (default)  -->
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Line (default)" />
+                            <vio:TabStrip>
+                                <vio:TabStripItem Content="Overview" IsSelected="True" />
+                                <vio:TabStripItem Content="Details" />
+                                <vio:TabStripItem Content="Settings" />
+                                <vio:TabStripItem Content="History" />
+                            </vio:TabStrip>
+                        </StackPanel>
+
+                        <!--  CARD  -->
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Card" />
+                            <vio:TabStrip Style="{DynamicResource CardTabStripStyle}">
+                                <vio:TabStripItem Content="Overview" IsSelected="True" />
+                                <vio:TabStripItem Content="Details" />
+                                <vio:TabStripItem Content="Settings" />
+                                <vio:TabStripItem Content="History" />
+                            </vio:TabStrip>
+                        </StackPanel>
+
+                    </ui:StackPanel>
+
+                    <!--  Row 2: Button and disabled items  -->
+                    <ui:StackPanel
+                        Margin="0,24,0,0"
+                        Orientation="Horizontal"
+                        Spacing="32">
+
+                        <!--  BUTTON  -->
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Button" />
+                            <vio:TabStrip Style="{DynamicResource ButtonTabStripStyle}">
+                                <vio:TabStripItem Content="All" IsSelected="True" />
+                                <vio:TabStripItem Content="Active" />
+                                <vio:TabStripItem Content="Paused" />
+                                <vio:TabStripItem Content="Archived" />
+                            </vio:TabStrip>
+                        </StackPanel>
+
+                        <!--  Disabled items  -->
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="With disabled item" />
+                            <vio:TabStrip>
+                                <vio:TabStripItem Content="Active" IsSelected="True" />
+                                <vio:TabStripItem Content="Preview" />
+                                <vio:TabStripItem Content="Unavailable" IsEnabled="False" />
+                            </vio:TabStrip>
+                        </StackPanel>
+
+                    </ui:StackPanel>
+
+                    <!--  Row 3: ItemsSource binding demo  -->
+                    <StackPanel Margin="0,24,0,0">
+                        <TextBlock
+                            Margin="0,0,0,8"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="ItemsSource binding (Button style)" />
+                        <vio:TabStrip
+                            ItemsSource="{Binding TabItems}"
+                            SelectedItem="{Binding SelectedTab, Mode=TwoWay}"
+                            Style="{DynamicResource ButtonTabStripStyle}" />
+                    </StackPanel>
+
+                    <!--
+                        ══════════════════════════════════════════════════════════════
+                        DatePicker / TimePicker
+                        ══════════════════════════════════════════════════════════════
+                    -->
+                    <TextBlock
+                        Margin="0,24,0,0"
+                        FontSize="22"
+                        FontWeight="Bold"
+                        Text="DatePicker / TimePicker" />
+
+                    <!--  DatePicker  -->
+                    <TextBlock
+                        Margin="0,16,0,0"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Text="DatePicker" />
+                    <ui:StackPanel Margin="0,8,0,0" Orientation="Horizontal" Spacing="16">
+                        <vio:DatePicker />
+                        <vio:DatePicker x:Name="PreselectedDatePicker" />
+                        <vio:DatePicker DayVisible="False" />
+                    </ui:StackPanel>
+
+                    <!--  TimePicker  -->
+                    <TextBlock
+                        Margin="0,16,0,0"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Text="TimePicker" />
+                    <ui:StackPanel Margin="0,8,0,24" Orientation="Horizontal" Spacing="16">
+                        <vio:TimePicker />
+                        <vio:TimePicker UseSeconds="True" />
+                        <vio:TimePicker ClockIdentifier="12HourClock" />
+                        <vio:TimePicker ClockIdentifier="12HourClock" UseSeconds="True" />
+                    </ui:StackPanel>
+
                 </StackPanel>
+
             </ScrollViewer>
         </ui:Grid>
         <ui:TitleBar Title="Wpf.Ui.Test" />
