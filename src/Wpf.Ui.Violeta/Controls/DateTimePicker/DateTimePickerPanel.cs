@@ -221,7 +221,6 @@ public class DateTimePickerPanel : Control
             var tb = new TextBlock
             {
                 Text = text,
-                Height = ItemHeight,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Center,
                 TextAlignment = TextAlignment.Center,
@@ -351,7 +350,7 @@ public class DateTimePickerPanel : Control
         {
             var distance = Math.Abs(i - SelectedIndex);
             if (distance == 0)
-                _itemElements[i].SetResourceReference(TextBlock.ForegroundProperty, "DateTimePickerItemForeground");
+                _itemElements[i].SetResourceReference(TextBlock.ForegroundProperty, "TextOnAccentFillColorPrimaryBrush");
             else
                 _itemElements[i].SetResourceReference(TextBlock.ForegroundProperty, "DateTimePickerItemDimmedForeground");
 
