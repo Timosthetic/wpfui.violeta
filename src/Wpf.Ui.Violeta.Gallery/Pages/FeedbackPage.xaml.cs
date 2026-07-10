@@ -1,8 +1,11 @@
-using Page = Wpf.Ui.Violeta.Controls.Compat.Page;
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using Wpf.Ui.Violeta.Controls;
 
 namespace Wpf.Ui.Violeta.Gallery.Pages;
 
-public partial class FeedbackPage : Page
+public partial class FeedbackPage : Wpf.Ui.Violeta.Controls.Page
 {
     private readonly string[] _slides =
     [
@@ -53,6 +56,6 @@ public partial class FeedbackPage : Page
 
     private void UpdateStatus()
     {
-        TransitionStatusText.Text = $"Slide {_slideIndex + 1}/{_slides.Length} | {TransitionContent.Transition}";
+        //TransitionStatusText.Text = $"Slide {_slideIndex + 1}/{_slides.Length} | {TransitionContent.Transition}";
     }
 }

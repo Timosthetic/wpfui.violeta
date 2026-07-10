@@ -14,11 +14,11 @@
         <DebugSymbols>true</DebugSymbols>
         <IncludeSymbols>true</IncludeSymbols>
         <EnableWindowsTargeting>true</EnableWindowsTargeting>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <AssemblyVersion>4.3.0.1</AssemblyVersion>
-        <FileVersion>4.3.0.1</FileVersion>
-        <Version>$(VersionPrefix)4.3.0.1</Version>
+        <AssemblyVersion>4.3.0.2</AssemblyVersion>
+        <FileVersion>4.3.0.2</FileVersion>
+        <Version>$(VersionPrefix)4.3.0.2</Version>
         <Authors>ema</Authors>
         <Company>ema</Company>
         <Description>WPF UI Violeta is based on WPF UI, and provides the Fluent experience in your known and loved WPF framework. Some new immersive controls like like `Toast`, `Flyout`, `ContentDialog`, `MessageBox` and etc.</Description>
@@ -32,6 +32,14 @@
         <IsRoslynAnalyzer>true</IsRoslynAnalyzer>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
         <PackSatelliteAssemblies>false</PackSatelliteAssemblies>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+        <TargetFrameworks>net10.0-windows</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>

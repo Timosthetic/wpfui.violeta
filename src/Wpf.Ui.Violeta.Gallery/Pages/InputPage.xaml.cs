@@ -1,13 +1,13 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Wpf.Ui.Violeta.Controls;
-using Page = Wpf.Ui.Violeta.Controls.Compat.Page;
 
 namespace Wpf.Ui.Violeta.Gallery.Pages;
 
-public partial class InputPage : Page
+public partial class InputPage : Wpf.Ui.Violeta.Controls.Page
 {
     private static readonly string[] _spinnerWords = ["Apple", "Banana", "Cherry", "Durian", "Elderberry"];
     private int _spinnerIndex;
@@ -32,6 +32,33 @@ public partial class InputPage : Page
             new CascadingItem("广东"),
             new CascadingItem("浙江"),
             new CascadingItem("江苏"),
+        };
+
+        // ValuePicker - 产品规格选择器
+        ValuePickerDemo.Columns =
+        [
+            new ValuePickerColumn
+            {
+                Placeholder = "系列",
+                Items = ["标准版", "专业版", "旗舰版"],
+            },
+            new ValuePickerColumn
+            {
+                Placeholder = "容量",
+                Items = ["128 GB", "256 GB", "512 GB", "1 TB"],
+            },
+            new ValuePickerColumn
+            {
+                Placeholder = "颜色",
+                Items = ["黑色", "白色", "蓝色", "金色"],
+                ShouldLoop = false,
+            },
+        ];
+        ValuePickerDemo.SelectedValuesChanged += (_, _) =>
+        {
+            ValuePickerResultText.Text = ValuePickerDemo.SelectedValues is { Length: > 0 } values
+                ? $"已选择：{string.Join(" / ", values)}"
+                : "已选择：(无)";
         };
     }
 
