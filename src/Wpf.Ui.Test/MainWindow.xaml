@@ -4939,7 +4939,21 @@
                                 Margin="0,0,0,8"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                 Text="Line (default)" />
-                            <vio:TabStrip>
+                            <vio:TabStrip IndicatorAnimation="Fluent">
+                                <vio:TabStripItem Content="Overview" IsSelected="True" />
+                                <vio:TabStripItem Content="Details" />
+                                <vio:TabStripItem Content="Settings" />
+                                <vio:TabStripItem Content="History" />
+                            </vio:TabStrip>
+                        </StackPanel>
+
+                        <!--  LINE (Lengthening)  -->
+                        <StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="Line (Lengthening)" />
+                            <vio:TabStrip IndicatorAnimation="Lengthening">
                                 <vio:TabStripItem Content="Overview" IsSelected="True" />
                                 <vio:TabStripItem Content="Details" />
                                 <vio:TabStripItem Content="Settings" />
@@ -5070,16 +5084,12 @@
                         Margin="0,8,0,0"
                         Orientation="Vertical"
                         Spacing="12">
-                        <vio:ValuePicker
-                            x:Name="RegionValuePicker"
-                            MinWidth="320" />
+                        <vio:ValuePicker x:Name="RegionValuePicker" MinWidth="320" />
                         <TextBlock
                             x:Name="RegionSelectionText"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                             Text="Selected: (none)" />
-                        <vio:ValuePicker
-                            x:Name="ProductValuePicker"
-                            MinWidth="360" />
+                        <vio:ValuePicker x:Name="ProductValuePicker" MinWidth="360" />
                         <TextBlock
                             x:Name="ProductSelectionText"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
