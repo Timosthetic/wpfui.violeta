@@ -206,6 +206,12 @@
   <data name="PleaseSelect" xml:space="preserve">
     <value>Veuillez sélectionner...</value>
   </data>
+  <data name="CascadingComboBoxClearSelection" xml:space="preserve">
+    <value>Effacer la sélection</value>
+  </data>
+  <data name="TreeComboBoxClearSelection" xml:space="preserve">
+    <value>Effacer la sélection</value>
+  </data>
   <data name="PaginationQuickJumpPrefix" xml:space="preserve">
     <value>Aller à</value>
   </data>
@@ -230,4 +236,11 @@
   <data name="PaginationQuickJumpSuffix" xml:space="preserve">
     <value>page</value>
   </data>
+  <data name="ToggleSwitchOff" xml:space="preserve">
+    <value>Arrêt</value>
+  </data>
+  <data name="ToggleSwitchOn" xml:space="preserve">
+    <value>Marche</value>
+  </data>
 </root>
+

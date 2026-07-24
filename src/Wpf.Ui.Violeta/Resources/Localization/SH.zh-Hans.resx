@@ -206,6 +206,12 @@
   <data name="PleaseSelect" xml:space="preserve">
     <value>请选择...</value>
   </data>
+  <data name="CascadingComboBoxClearSelection" xml:space="preserve">
+    <value>清空选择</value>
+  </data>
+  <data name="TreeComboBoxClearSelection" xml:space="preserve">
+    <value>清空选择</value>
+  </data>
   <data name="PaginationQuickJumpPrefix" xml:space="preserve">
     <value>前往</value>
   </data>
@@ -230,4 +236,11 @@
   <data name="PaginationQuickJumpSuffix" xml:space="preserve">
     <value>页</value>
   </data>
+  <data name="ToggleSwitchOff" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="ToggleSwitchOn" xml:space="preserve">
+    <value>开</value>
+  </data>
 </root>
+

@@ -206,6 +206,12 @@
   <data name="PleaseSelect" xml:space="preserve">
     <value>Please select...</value>
   </data>
+  <data name="CascadingComboBoxClearSelection" xml:space="preserve">
+    <value>Clear selection</value>
+  </data>
+  <data name="TreeComboBoxClearSelection" xml:space="preserve">
+    <value>Clear selection</value>
+  </data>
   <data name="PaginationQuickJumpPrefix" xml:space="preserve">
     <value>Go to</value>
   </data>
@@ -229,5 +235,11 @@
   </data>
   <data name="TimePickerSecondText" xml:space="preserve">
     <value>second</value>
+  </data>
+  <data name="ToggleSwitchOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="ToggleSwitchOn" xml:space="preserve">
+    <value>On</value>
   </data>
 </root>

@@ -4,75 +4,41 @@ using System.Windows.Media;
 
 namespace Wpf.Ui.Violeta.Win32;
 
-/// <summary>Win32 corner rounding preference (requires Windows 11+).</summary>
-public enum WindowCornerPreference
-{
-    Default = 0,
-    DoNotRound = 1,
-    Round = 2,
-    RoundSmall = 3,
-}
-
 /// <summary>
 /// DWM / User32 helpers for applying acrylic blur, rounded corners and composition effects
 /// to arbitrary native windows (e.g. popup HWNDs).
 /// </summary>
 internal static class DwmApi
 {
-    // ------------------------------------------------------------------
-    // Enumerations
-    // ------------------------------------------------------------------
+    public const int DWMWA_COLOR_DEFAULT = -1; // =4294967295U, =0xFFFFFFFF
+    public const int DWMWA_COLOR_NONE = -2; // =4294967294U, =0xFFFFFFFE
 
-    private enum DWMWINDOWATTRIBUTE
+    /// <summary>Flags used by the [DwmGetWindowAttribute](/windows/desktop/api/dwmapi/nf-dwmapi-dwmgetwindowattribute) and [DwmSetWindowAttribute](/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute) functions.</summary>
+    /// <remarks>
+    /// <para><see href="https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwmwindowattribute">Learn more about this API from learn.microsoft.com</see>.</para>
+    /// </remarks>
+    internal enum DWMWINDOWATTRIBUTE : int
     {
+        DWMWA_TRANSITIONS_FORCEDISABLED = 3,
+        DWMWA_USE_IMMERSIVE_DARK_MODE_OLD = 19,
         DWMWA_USE_IMMERSIVE_DARK_MODE = 20,
-        WINDOW_CORNER_PREFERENCE = 33,
+        DWMWA_WINDOW_CORNER_PREFERENCE = 33,
+        DWMWA_CAPTION_COLOR = 35,
         DWMWA_SYSTEMBACKDROP_TYPE = 38,
-    }
-
-    private enum AccentState
-    {
-        ACCENT_DISABLED = 0,
-        ACCENT_ENABLE_GRADIENT = 1,
-        ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-        ACCENT_ENABLE_BLURBEHIND = 3,
-        ACCENT_ENABLE_ACRYLICBLURBEHIND = 4,
-        ACCENT_INVALID_STATE = 5,
-    }
-
-    private enum WindowCompositionAttribute
-    {
-        WCA_ACCENT_POLICY = 19,
-    }
-
-    // ------------------------------------------------------------------
-    // Structures
-    // ------------------------------------------------------------------
-
-    [StructLayout(LayoutKind.Sequential)]
-    private struct AccentPolicy
-    {
-        public AccentState AccentState;
-        public int AccentFlags;
-        public int GradientColor;
-        public int AnimationId;
+        DWMWA_MICA_EFFECT = 1029,
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct WindowCompositionAttributeData
+    internal struct Margins(int leftWidth, int rightWidth, int topHeight, int bottomHeight)
     {
-        public WindowCompositionAttribute Attribute;
-        public nint Data;
-        public int SizeOfData;
-    }
+        public int LeftWidth = leftWidth;
+        public int RightWidth = rightWidth;
+        public int TopHeight = topHeight;
+        public int BottomHeight = bottomHeight;
 
-    [StructLayout(LayoutKind.Sequential)]
-    private struct Margins
-    {
-        public int LeftWidth;
-        public int RightWidth;
-        public int TopHeight;
-        public int BottomHeight;
+        public Margins() : this(0, 0, 0, 0)
+        {
+        }
     }
 
     // ------------------------------------------------------------------
@@ -80,13 +46,13 @@ internal static class DwmApi
     // ------------------------------------------------------------------
 
     [DllImport("dwmapi.dll")]
-    private static extern nint DwmExtendFrameIntoClientArea(nint hwnd, ref Margins margins);
+    internal static extern nint DwmExtendFrameIntoClientArea(nint hwnd, ref Margins margins);
 
     [DllImport("dwmapi.dll")]
-    private static extern int DwmSetWindowAttribute(nint hwnd, DWMWINDOWATTRIBUTE attr, ref int pvAttr, int cbAttr);
+    internal static extern int DwmSetWindowAttribute(nint hwnd, DWMWINDOWATTRIBUTE attr, ref int pvAttr, int cbAttr);
 
     [DllImport("user32.dll", SetLastError = true)]
-    private static extern int SetWindowCompositionAttribute(nint hwnd, ref WindowCompositionAttributeData data);
+    internal static extern int SetWindowCompositionAttribute(nint hwnd, ref WindowCompositionAttributeData data);
 
     // ------------------------------------------------------------------
     // Internal helpers
@@ -95,6 +61,13 @@ internal static class DwmApi
     /// <summary>Converts a WPF <see cref="Color"/> to Win32 COLORREF (ABGR layout used by GradientColor).</summary>
     internal static int ToWin32Color(Color c) =>
         c.R | (c.G << 8) | (c.B << 16) | (c.A << 24);
+
+    /// <summary>Enables or disables DWM window transition animations.</summary>
+    internal static void SetTransitionsForceDisabled(nint hwnd, bool disabled)
+    {
+        int value = disabled ? 1 : 0;
+        _ = DwmSetWindowAttribute(hwnd, DWMWINDOWATTRIBUTE.DWMWA_TRANSITIONS_FORCEDISABLED, ref value, Marshal.SizeOf<int>());
+    }
 
     /// <summary>Extends the DWM frame into the client area so WPF can paint over it transparently.</summary>
     internal static void ExtendFrameIntoClientArea(nint hwnd, int margin = 1)
@@ -107,7 +80,7 @@ internal static class DwmApi
     internal static void SetWindowCorner(nint hwnd, WindowCornerPreference corner)
     {
         int val = (int)corner;
-        _ = DwmSetWindowAttribute(hwnd, DWMWINDOWATTRIBUTE.WINDOW_CORNER_PREFERENCE, ref val, Marshal.SizeOf<int>());
+        _ = DwmSetWindowAttribute(hwnd, DWMWINDOWATTRIBUTE.DWMWA_WINDOW_CORNER_PREFERENCE, ref val, Marshal.SizeOf<int>());
     }
 
     /// <summary>Enables or disables the immersive dark mode frame rendering on the given HWND.</summary>
@@ -125,7 +98,7 @@ internal static class DwmApi
         {
             accent.AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND;
             // Use supplied tint, or a near-transparent default so the effect is visible
-            accent.GradientColor = tintColor.HasValue ? ToWin32Color(tintColor.Value) : 0x01000000;
+            accent.GradientColor = tintColor.HasValue ? (uint)ToWin32Color(tintColor.Value) : 0x01000000;
         }
         else
         {

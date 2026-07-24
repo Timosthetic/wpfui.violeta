@@ -67,7 +67,6 @@ public partial class MainWindow : ShellWindow
         });
     }
 
-
     // ── ButtonSpinner ─────────────────────────────────────────────
 
     private void ButtonSpinnerDemo_OnSpin(object? sender, SpinEventArgs e)
@@ -112,7 +111,6 @@ public partial class MainWindow : ShellWindow
         return (value % length + length) % length;
     }
 
-
     // ── MultiComboBox ─────────────────────────────────────────────
 
     private void InitMultiComboBoxDemo()
@@ -134,7 +132,6 @@ public partial class MainWindow : ShellWindow
 
     [ObservableProperty]
     public partial string MultiComboBoxSelectedText { get; set; } = "Selected: (none)";
-
 
     // ── TransitioningContentControl ───────────────────────────────
 
@@ -190,7 +187,6 @@ public partial class MainWindow : ShellWindow
             TransitioningDemoTransition = transition;
         }
     }
-
 
     // ── CascadingComboBox ─────────────────────────────────────────
 
@@ -685,7 +681,6 @@ public partial class MainWindow : ShellWindow
         IsSkeletonActive = IsSkeletonLoading;
     }
 
-
     // ── QrCode ────────────────────────────────────────────────────
 
     [ObservableProperty]
@@ -697,7 +692,6 @@ public partial class MainWindow : ShellWindow
     [ObservableProperty]
     private double _qrCodeSymbolCornerRatio = 0.5;
 
-
     // ── Timeline ──────────────────────────────────────────────────
 
     public TimelineItemViewModel[] TimelineItems { get; } =
@@ -708,7 +702,6 @@ public partial class MainWindow : ShellWindow
         new() { Time = new DateTime(2025, 6, 1), Header = "Failed", Description = "Step 4 encountered an error.", ItemType = TimelineItemType.Error },
         new() { Time = new DateTime(2026, 1, 1), Header = "Pending", Description = "Step 5 has not started yet.", ItemType = TimelineItemType.Default },
     ];
-
 
     // ── KeyGestureInput ───────────────────────────────────────────
 
@@ -731,10 +724,9 @@ public partial class MainWindow : ShellWindow
 
     partial void OnThemeIndexChanged(int value)
     {
-        ThemeManager.Apply((ApplicationTheme)value);
+        ThemeManager.Apply((ApplicationTheme)value, this.WindowBackdropType);
         ThemeManager.TrackSystemThemeChanges(isTracked: (ApplicationTheme)value == ApplicationTheme.Unknown);
     }
-
 
     // ── Toast ─────────────────────────────────────────────────────
 
@@ -780,7 +772,6 @@ public partial class MainWindow : ShellWindow
         Task.Delay(100).ContinueWith(_ => Toast.IsStacked = originalIsStacked);
     }
 
-
     // ── Flyout ────────────────────────────────────────────────────
 
     [RelayCommand]
@@ -788,7 +779,6 @@ public partial class MainWindow : ShellWindow
     {
         Toast.Success("The cake is a lie!");
     }
-
 
     // ── Toast Stacking ────────────────────────────────────────────
 
@@ -853,7 +843,6 @@ public partial class MainWindow : ShellWindow
         Task.Delay(100).ContinueWith(_ => Toast.IsStacked = originalIsStacked);
     }
 
-
     // ── ContentDialog ─────────────────────────────────────────────
 
     [RelayCommand]
@@ -893,7 +882,6 @@ public partial class MainWindow : ShellWindow
         // Showing the dialog
         _ = await dialog.ShowAsync(CancellationToken.None);
     }
-
 
     // ── MessageBox ────────────────────────────────────────────────
 
@@ -946,123 +934,204 @@ public partial class MainWindow : ShellWindow
         }
     }
 
-
-    // ── TaskDialog ────────────────────────────────────────────────
+    // ── NativeDialog (TaskDialog / NativeMessageBox) ──────────────
 
     [RelayCommand]
     private void ShowTaskDialog(Button self)
     {
         var tag = self.Content.ToString();
 
-        // Theme toggle buttons
+        if (tag == "System")
+        {
+            TaskDialog.SetTheme(TaskDialogTheme.System);
+            return;
+        }
         if (tag == "Dark")
         {
-            TaskDialog.SetTheme(TaskDialog.Theme.Dark);
+            TaskDialog.SetTheme(TaskDialogTheme.Dark);
             return;
         }
         if (tag == "Light")
         {
-            TaskDialog.SetTheme(TaskDialog.Theme.Light);
+            TaskDialog.SetTheme(TaskDialogTheme.Light);
             return;
         }
 
-        IntPtr owner = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+        nint owner = new System.Windows.Interop.WindowInteropHelper(this).Handle;
 
         if (tag == "Information")
         {
-            TaskDialog.Show(
-                owner,
-                title: "TaskDialog — Information",
-                mainInstruction: "This is an information TaskDialog",
-                content: "Dark-mode support is applied via DWM + SetWindowTheme + window subclassing.\n\nNo external Detours DLL is required.",
-                commonButtons: TaskDialogCommonButton.OK,
-                mainIcon: TaskDialog.IconInformation);
+            using TaskDialog dialog = new()
+            {
+                WindowTitle = "TaskDialog — Information",
+                MainInstruction = "This is an information TaskDialog",
+                Content = "Dark-mode support is applied via DWM + SetWindowTheme + window subclassing.\n\nNo external Detours DLL is required.",
+                MainIcon = TaskDialogIcon.Information,
+            };
+            dialog.Buttons.Add(new TaskDialogButton(ButtonType.Ok));
+            dialog.ShowDialog(owner);
         }
         else if (tag == "Warning")
         {
-            TaskDialog.Show(
-                owner,
-                title: "TaskDialog — Warning",
-                mainInstruction: "Something may need your attention",
-                content: "This is a warning TaskDialog with a Shield icon in the footer.",
-                commonButtons: TaskDialogCommonButton.OK | TaskDialogCommonButton.Cancel,
-                mainIcon: TaskDialog.IconWarning,
-                flags: TaskDialogFlags.EnableHyperlinks,
-                callback: (hwnd, notif, _, lParam, _) =>
-                {
-                    if (notif == TaskDialogNotification.HyperlinkClicked)
-                    {
-                        var url = Marshal.PtrToStringUni(lParam) ?? string.Empty;
-                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(url) { UseShellExecute = true });
-                    }
-                    return 0;
-                });
+            using TaskDialog dialog = new()
+            {
+                WindowTitle = "TaskDialog — Warning",
+                MainInstruction = "Something may need your attention",
+                Content = "This is a warning TaskDialog with a Shield icon in the footer.\n\nVisit <A HREF=\"https://github.com/emako/wpfui.violeta\">WPF UI Violeta</A> for more.",
+                MainIcon = TaskDialogIcon.Warning,
+                FooterIcon = TaskDialogIcon.Shield,
+                EnableHyperlinks = true,
+            };
+            dialog.Buttons.Add(new TaskDialogButton(ButtonType.Ok));
+            dialog.Buttons.Add(new TaskDialogButton(ButtonType.Cancel));
+            dialog.HyperlinkClicked += (_, e) =>
+            {
+                if (!string.IsNullOrEmpty(e.Href))
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(e.Href) { UseShellExecute = true });
+            };
+            dialog.ShowDialog(owner);
         }
         else if (tag == "Error")
         {
-            TaskDialog.ShowIndirect(new TaskDialogConfig
+            using TaskDialog dialog = new()
             {
-                ParentWindow = owner,
-                Title = "TaskDialog — Error",
+                WindowTitle = "TaskDialog — Error",
                 MainInstruction = "A critical error has occurred",
                 Content = "This TaskDialog demonstrates the error icon and a Retry / Cancel choice.",
-                CommonButtons = TaskDialogCommonButton.Retry | TaskDialogCommonButton.Cancel,
-                MainIcon = TaskDialog.IconError,
+                MainIcon = TaskDialogIcon.Error,
                 Footer = "Error code: 0x80004005",
-                FooterIcon = TaskDialog.IconShield,
-            });
+                FooterIcon = TaskDialogIcon.Shield,
+            };
+            dialog.Buttons.Add(new TaskDialogButton(ButtonType.Retry));
+            dialog.Buttons.Add(new TaskDialogButton(ButtonType.Cancel));
+            dialog.ShowDialog(owner);
         }
         else if (tag == "CommandLinks")
         {
-            TaskDialog.ShowIndirect(new TaskDialogConfig
+            using TaskDialog dialog = new()
             {
-                ParentWindow = owner,
-                Title = "TaskDialog — Command Links",
+                WindowTitle = "TaskDialog — Command Links",
                 MainInstruction = "Choose an action",
                 Content = "This TaskDialog uses command-link buttons.",
-                Flags = TaskDialogFlags.UseCommandLinks | TaskDialogFlags.AllowDialogCancellation,
-                Buttons =
-                [
-                    new(10, "Continue\nProceed with the current operation"),
-                    new(11, "Retry\nStart the operation over from the beginning"),
-                    new(12, "Cancel\nAbort and return to the previous screen"),
-                ],
-                DefaultButton = 10,
-                MainIcon = TaskDialog.IconInformation,
+                MainIcon = TaskDialogIcon.Information,
+                ButtonStyle = TaskDialogButtonStyle.CommandLinks,
+                AllowDialogCancellation = true,
+            };
+            dialog.Buttons.Add(new TaskDialogButton(ButtonType.Custom)
+            {
+                Text = "Continue",
+                CommandLinkNote = "Proceed with the current operation",
+                Default = true,
             });
+            dialog.Buttons.Add(new TaskDialogButton(ButtonType.Custom)
+            {
+                Text = "Retry",
+                CommandLinkNote = "Start the operation over from the beginning",
+            });
+            dialog.Buttons.Add(new TaskDialogButton(ButtonType.Custom)
+            {
+                Text = "Cancel",
+                CommandLinkNote = "Abort and return to the previous screen",
+            });
+            dialog.ShowDialog(owner);
         }
         else if (tag == "Expanded")
         {
-            TaskDialog.ShowIndirect(new TaskDialogConfig
+            using TaskDialog dialog = new()
             {
-                ParentWindow = owner,
-                Title = "TaskDialog — Expanded Info",
+                WindowTitle = "TaskDialog — Expanded Info",
                 MainInstruction = "Expandable task dialog",
                 Content = "Click the expander to reveal additional details.",
-                CommonButtons = TaskDialogCommonButton.OK,
-                MainIcon = TaskDialog.IconInformation,
-                //Flags = TaskDialogFlags.ExpandFooterArea,
+                MainIcon = TaskDialogIcon.Information,
                 VerificationText = "Don't show this again",
                 ExpandedInformation = "This area can contain detailed technical information,\nstack traces, log snippets, or links.",
                 ExpandedControlText = "Hide details",
                 CollapsedControlText = "Show details",
                 Footer = "Switch theme: <A HREF=\"dark\">Dark</A>  |  <A HREF=\"light\">Light</A>",
-                FooterIcon = TaskDialog.IconShield,
-                Flags = TaskDialogFlags.EnableHyperlinks | TaskDialogFlags.ExpandFooterArea,
-                Callback = (_, notif, _, lParam, _) =>
-                {
-                    if (notif == TaskDialogNotification.HyperlinkClicked)
-                    {
-                        var link = Marshal.PtrToStringUni(lParam);
-                        if (link == "dark") TaskDialog.SetTheme(TaskDialog.Theme.Dark);
-                        if (link == "light") TaskDialog.SetTheme(TaskDialog.Theme.Light);
-                    }
-                    return 0;
-                },
-            });
+                FooterIcon = TaskDialogIcon.Shield,
+                EnableHyperlinks = true,
+                ExpandFooterArea = true,
+            };
+            dialog.Buttons.Add(new TaskDialogButton(ButtonType.Ok));
+            dialog.HyperlinkClicked += (_, e) =>
+            {
+                if (e.Href == "dark") TaskDialog.SetTheme(TaskDialogTheme.Dark);
+                if (e.Href == "light") TaskDialog.SetTheme(TaskDialogTheme.Light);
+            };
+            dialog.ShowDialog(owner);
+        }
+        else if (tag == "Radio")
+        {
+            using TaskDialog dialog = new()
+            {
+                WindowTitle = "TaskDialog — Radio Buttons",
+                MainInstruction = "Select an installation option",
+                Content = "Choose how you want to install the application.",
+                MainIcon = TaskDialogIcon.Information,
+            };
+            dialog.RadioButtons.Add(new TaskDialogRadioButton { Text = "Typical installation", Checked = true });
+            dialog.RadioButtons.Add(new TaskDialogRadioButton { Text = "Custom installation" });
+            dialog.RadioButtons.Add(new TaskDialogRadioButton { Text = "Complete installation" });
+            dialog.Buttons.Add(new TaskDialogButton(ButtonType.Ok));
+            dialog.Buttons.Add(new TaskDialogButton(ButtonType.Cancel));
+            dialog.ShowDialog(owner);
+        }
+        else if (tag == "Progress")
+        {
+            using TaskDialog dialog = new()
+            {
+                WindowTitle = "TaskDialog — Progress",
+                MainInstruction = "Working…",
+                Content = "This TaskDialog shows a marquee progress bar.",
+                MainIcon = TaskDialogIcon.Information,
+                ProgressBarStyle = ProgressBarStyle.MarqueeProgressBar,
+                ProgressBarMarqueeAnimationSpeed = 60,
+            };
+            dialog.Buttons.Add(new TaskDialogButton(ButtonType.Cancel));
+            dialog.ShowDialog(owner);
         }
     }
 
+    [RelayCommand]
+    private void ShowNativeMessageBox(Button self)
+    {
+        nint owner = new System.Windows.Interop.WindowInteropHelper(this).Handle;
+        var tag = self.Content.ToString();
+
+        NativeMessageBoxResult result = tag switch
+        {
+            "OK" => NativeMessageBox.Show(
+                owner,
+                "This is a native Win32 MessageBox.",
+                "NativeMessageBox — OK",
+                NativeMessageBoxButton.OK,
+                NativeMessageBoxImage.Information),
+            "YesNo" => NativeMessageBox.Show(
+                owner,
+                "Do you want to continue?",
+                "NativeMessageBox — Yes/No",
+                NativeMessageBoxButton.YesNo,
+                NativeMessageBoxImage.Question,
+                NativeMessageBoxResult.Yes),
+            "OKCancel" => NativeMessageBox.Show(
+                owner,
+                "Something may need your attention.\nClick OK to proceed.",
+                "NativeMessageBox — OK/Cancel",
+                NativeMessageBoxButton.OKCancel,
+                NativeMessageBoxImage.Warning,
+                NativeMessageBoxResult.OK),
+            "YesNoCancel" => NativeMessageBox.Show(
+                owner,
+                "Save changes before closing?",
+                "NativeMessageBox — Yes/No/Cancel",
+                NativeMessageBoxButton.YesNoCancel,
+                NativeMessageBoxImage.Question,
+                NativeMessageBoxResult.Cancel),
+            _ => NativeMessageBoxResult.None,
+        };
+
+        Toast.Information($"NativeMessageBox result: {result}");
+    }
 
     // ── Notification ──────────────────────────────────────────────
 
@@ -1093,7 +1162,6 @@ public partial class MainWindow : ShellWindow
             );
         }
     }
-
 
     // ── TreeModelListView ─────────────────────────────────────────
 
@@ -1234,7 +1302,6 @@ public partial class MainWindow : ShellWindow
         }
         return model;
     }
-
 
     // ── ListView ──────────────────────────────────────────────────
 
@@ -1422,7 +1489,6 @@ public partial class MainWindow : ShellWindow
         _ = SelectedStaffItem;
     }
 
-
     // ── ExceptionReport ───────────────────────────────────────────
 
     [RelayCommand]
@@ -1447,7 +1513,6 @@ public partial class MainWindow : ShellWindow
         throw new InvalidOperationException("The operation could not be completed because the system encountered an unexpected state. This might be due to incorrect usage of the API or an internal error. Please ensure that all prerequisites are met and the operation is performed under the correct conditions. If the problem persists, consult the documentation or contact support for further assistance.");
     }
 
-
     // ── PendingBox ────────────────────────────────────────────────
 
     [RelayCommand]
@@ -1471,7 +1536,6 @@ public partial class MainWindow : ShellWindow
         using STAThread<IPendingHandler> pending = PendingBox.ShowAsync();
         await Task.Delay(3000);
     }
-
 
     // ── Drawer ────────────────────────────────────────────────────
 
@@ -1500,7 +1564,6 @@ public partial class MainWindow : ShellWindow
             IsOpenOfBottomDrawer = !IsOpenOfBottomDrawer;
     }
 
-
     // ── ShellWindow ───────────────────────────────────────────────
 
     [RelayCommand]
@@ -1514,7 +1577,6 @@ public partial class MainWindow : ShellWindow
 
         window.Show();
     }
-
 
     // ── Hyperlink ─────────────────────────────────────────────────
 
